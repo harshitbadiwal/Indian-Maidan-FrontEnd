@@ -1,0 +1,113 @@
+.navigationMenu {
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.menuList {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.menuItem {
+  position: relative;
+}
+
+.bellButton {
+  position: relative;
+  padding: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.notificationDot {
+  position: absolute;
+  top: 0px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  background: red;
+  border-radius: 50%;
+}
+
+.dropdownMenu {
+  position: fixed;
+  right: 15px;
+  width: 400px;
+  height: 30vw;
+  background: white;
+  border-radius: 8px;
+  color: black;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  background: #1b1b1b;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius:5px ;
+}
+
+.notificationList {
+  padding: 10px;
+  overflow-y: scroll;
+  height: 22vw;
+}
+
+.notificationItem {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background 0.3s;
+  align-items: center;
+
+  &.unread {
+    background: #e3f2fd;
+  }
+
+  &.read {
+    background: white;
+  }
+
+  &:hover {
+    background: #dbeffd;
+  }
+}
+.notificationIcon {
+  font-size: 20px;
+}
+.time {
+  font-size: 12px;
+  color: gray;
+}
+.markAllRead{
+  padding: 10px;
+  color: rgb(58, 58, 58);
+  border-radius: 10px;
+}

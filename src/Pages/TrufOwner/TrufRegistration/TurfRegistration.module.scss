@@ -1,0 +1,514 @@
+// SportsTurfRegistration.module.scss
+
+// Variables for a modern design
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$error-color: #dc3545;
+$background-color: #f9f9f9;
+$text-color: white;
+$text-light: #8a8a8a;
+$border-color: #ddd;
+$border-radius: 12px;
+$spacing-unit: 16px;
+$font-family: 'Poppins', sans-serif;
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$gradient-primary: linear-gradient(135deg, #007bff, #00bfff);
+
+// Mixins for reusable styles
+.main{
+    background: black;
+    color: white;
+
+}
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin input-style {
+  width: 100%;
+  padding: $spacing-unit * 0.75;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  font-size: 14px;
+  color: $text-color;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+}
+
+@mixin button-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  padding: $spacing-unit * 0.75 $spacing-unit;
+  border-radius: $border-radius;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: darken($bg-color, 10%);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Base styles
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: $spacing-unit * 2;
+  font-family: $font-family;
+  background-color: #fff;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  background: linear-gradient(135deg, #343439 0%, #08060b 100%);
+
+  h1 {
+    text-align: center;
+    color: $text-color;
+    margin-bottom: $spacing-unit * 2;
+    font-size: 28px;
+    font-weight: 600;
+  }
+}
+
+// Progress bar
+.progressContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-unit * 2;
+
+  .stepWrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+
+    .stepIndicator {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: $border-color;
+      @include flex-center;
+      font-size: 14px;
+      color: $text-light;
+      transition: background-color 0.3s ease, color 0.3s ease;
+
+      &.active {
+        background: $gradient-primary;
+        color: #fff;
+      }
+
+      &.completed {
+        background: $gradient-primary;
+        color: #fff;
+      }
+    }
+
+    .stepLabel {
+      margin-left: $spacing-unit * 0.5;
+      font-size: 14px;
+      color: $text-light;
+    }
+
+    .stepLine {
+      flex: 1;
+      height: 2px;
+      background-color: $border-color;
+      margin: 0 $spacing-unit * 0.5;
+
+      &.completed {
+        background: $gradient-primary;
+      }
+    }
+  }
+}
+
+// Form container
+.formContainer {
+  background-color: $background-color;
+  padding: $spacing-unit * 2;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  background: linear-gradient(135deg, #49494f 0%, #08060b 100%);
+
+}
+
+// Form steps
+.formStep {
+  .inputGroup {
+    margin-bottom: $spacing-unit * 1.5;
+
+    .label {
+      display: block;
+      font-size: 14px;
+      color: $text-color;
+      margin-bottom: $spacing-unit * 0.5;
+      font-weight: 500;
+    }
+
+    .input {
+      @include input-style;
+      color: #6a696b
+    }
+
+    .select {
+      @include input-style;
+      background-color: #fff;
+    }
+
+    .textarea {
+      @include input-style;
+      resize: vertical;
+    }
+
+    .fieldDescription {
+      font-size: 12px;
+      color: $text-light;
+      margin-top: $spacing-unit * 0.5;
+    }
+  }
+
+  .checkboxGroup, .checkboxGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-unit;
+
+    .checkboxItem {
+      display: flex;
+      align-items: center;
+
+      .checkbox {
+        margin-right: $spacing-unit * 0.5;
+      }
+
+      .checkboxLabel {
+        font-size: 14px;
+        color: $text-color;
+      }
+    }
+  }
+
+  .toggleContainer {
+    .toggleSwitch {
+      display: flex;
+      align-items: center;
+      gap: $spacing-unit;
+
+      .toggle {
+        width: 50px;
+        height: 25px;
+        background-color: $border-color;
+        border-radius: 25px;
+        position: relative;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &.active {
+          background: $gradient-primary;
+        }
+
+        .toggleButton {
+          width: 21px;
+          height: 21px;
+          background-color: #fff;
+          border-radius: 50%;
+          position: absolute;
+          top: 2px;
+          left: 2px;
+          transition: transform 0.3s ease;
+        }
+
+        &.active .toggleButton {
+          transform: translateX(25px);
+        }
+      }
+    }
+  }
+
+  .hoursContainer {
+    display: flex;
+    gap: $spacing-unit * 2;
+    margin-bottom: $spacing-unit * 1.5;
+
+    .hoursColumn {
+      flex: 1;
+
+      .subheading {
+        font-size: 16px;
+        color: $text-color;
+        margin-bottom: $spacing-unit;
+        font-weight: 500;
+      }
+
+      .timeInputs {
+        display: flex;
+        gap: $spacing-unit;
+
+        .timeInput {
+          flex: 1;
+
+          .timeLabel {
+            font-size: 14px;
+            color: $text-color;
+            margin-bottom: $spacing-unit * 0.5;
+          }
+
+          .timeField {
+            @include input-style;
+          }
+        }
+      }
+    }
+  }
+
+  .specialOffersSection {
+    .sectionHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: $spacing-unit * 1.5;
+
+      .addButton {
+        @include button-style($primary-color, #fff);
+      }
+    }
+
+    .offerContainer {
+      background-color: #fff;
+      padding: $spacing-unit;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      margin-bottom: $spacing-unit;
+
+      .offerHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-unit;
+
+        .removeButton {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+          color: $error-color;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: darken($error-color, 10%);
+          }
+        }
+      }
+
+      .offerFields {
+        display: flex;
+        gap: $spacing-unit;
+
+        .offerField {
+          flex: 1;
+
+          .input {
+            @include input-style;
+          }
+        }
+      }
+    }
+  }
+
+  .imagesSection {
+    .imageGallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-unit;
+      margin-bottom: $spacing-unit * 2;
+
+      .imageContainer {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: $border-radius;
+        overflow: hidden;
+        box-shadow: $box-shadow;
+
+        .uploadedImage {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .imageRemoveButton {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background: rgba($error-color, 0.8);
+          border: none;
+          color: #fff;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          @include flex-center;
+          cursor: pointer;
+          font-size: 12px;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background: rgba(darken($error-color, 10%), 0.8);
+          }
+        }
+      }
+
+      .imageUploadBox {
+        width: 100px;
+        height: 100px;
+        border: 2px dashed $border-color;
+        border-radius: $border-radius;
+        @include flex-center;
+        flex-direction: column;
+        cursor: pointer;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+
+        &:hover {
+          border-color: $primary-color;
+          background-color: rgba($primary-color, 0.05);
+        }
+
+        .uploadIcon {
+          text-align: center;
+
+          .iconPlus {
+            font-size: 24px;
+            color: $primary-color;
+          }
+
+          .uploadText {
+            font-size: 12px;
+            color: $text-light;
+            margin-top: $spacing-unit * 0.5;
+          }
+        }
+
+        .fileInput {
+          display: none;
+        }
+      }
+    }
+
+    .imagesTips {
+      .tipsTitle {
+        font-size: 16px;
+        color: $text-color;
+        margin-bottom: $spacing-unit;
+        font-weight: 500;
+      }
+
+      .tipsList {
+        list-style-type: disc;
+        padding-left: $spacing-unit * 1.5;
+        font-size: 14px;
+        color: $text-light;
+
+        li {
+          margin-bottom: $spacing-unit * 0.5;
+        }
+      }
+    }
+  }
+
+  .mobileSlider {
+    display: none; // Hide on desktop
+  }
+}
+
+// Navigation buttons
+.navigationButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: $spacing-unit * 2;
+
+  button {
+    &.prevButton {
+      @include button-style($secondary-color, #fff);
+    }
+
+    &.nextButton, &.submitButton {
+      @include button-style($primary-color, #fff);
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .progressContainer {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .stepWrapper {
+      width: 100%;
+      margin-bottom: $spacing-unit;
+
+      .stepLine {
+        display: none;
+      }
+    }
+  }
+
+  .formStep {
+    .hoursContainer {
+      flex-direction: column;
+    }
+
+    .imageGallery {
+      display: none; // Hide on mobile
+    }
+
+    .mobileSlider {
+      display: block; // Show on mobile
+      margin-bottom: $spacing-unit * 2;
+
+      .sliderImageContainer {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        border-radius: $border-radius;
+        overflow: hidden;
+
+        .sliderImage {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .sliderImageRemoveButton {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: rgba($error-color, 0.8);
+          border: none;
+          color: #fff;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          @include flex-center;
+          cursor: pointer;
+          font-size: 16px;
+
+          &:hover {
+            background: rgba(darken($error-color, 10%), 0.8);
+          }
+        }
+      }
+    }
+  }
+}

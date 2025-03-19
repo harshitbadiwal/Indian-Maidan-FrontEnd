@@ -1,0 +1,152 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #ffffff;
+    color: #333333;
+  }
+  
+  .heroSection {
+    position: relative;
+    height: 70vh;
+    min-height: 600px;
+    background: linear-gradient(180deg, #87CEEB 0%, #4682B4 100%);
+    overflow: hidden;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('../../assests/AboutUs.jpg');
+      background-size: cover;
+      opacity: 0.1;
+    }
+  }
+  
+  .heroContent {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    color: white;
+  }
+  
+  .logoPlaceholder {
+    width: 120px;
+    height: 120px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+  }
+  
+  .mainTitle {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: white;
+  }
+  
+  .subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  
+  .content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .missionSection,
+  .offeringsSection,
+  .whyChooseSection,
+  .futureSection {
+    margin-bottom: 3rem;
+  
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+    }
+  
+    p {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+  }
+  
+  .offeringsList,
+  .benefitsList {
+    list-style: none;
+    padding: 0;
+  
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+  
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: #4682B4;
+      }
+    }
+  }
+  
+  .cta {
+    text-align: center;
+    margin: 4rem 0;
+  
+    .ctaButton {
+      background: #4682B4;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background: #357abd;
+      }
+    }
+  
+    p {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: #666;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .heroSection {
+      min-height: 400px;
+    }
+  
+    .mainTitle {
+      font-size: 2.5rem;
+    }
+  
+    .content {
+      padding: 1rem;
+    }
+  
+    .missionSection,
+    .offeringsSection,
+    .whyChooseSection,
+    .futureSection {
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  }

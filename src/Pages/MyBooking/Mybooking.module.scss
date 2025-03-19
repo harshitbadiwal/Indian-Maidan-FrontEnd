@@ -1,0 +1,180 @@
+.mainContainer{
+    background: linear-gradient(to bottom right, #1b1b1c, #121212);
+    color:white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+  
+  .searchBox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+  
+    input {
+      border: none;
+      outline: none;
+      width: 200px;
+      &::placeholder {
+        color: #94a3b8;
+      }
+    }
+  }
+  
+  .filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filterBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    
+    &:hover {
+      background: #f8fafc;
+    }
+  }
+  
+  .bookingsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .bookingCard {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  
+  .venueName {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: black;
+  }
+  
+  .status {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    
+    &.upcoming {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+  }
+  
+  .bookingId {
+    font-size: 0.875rem;
+    color: #64748b;
+    text-align: right;
+  }
+  
+  .bookingDetails {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .infoGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #64748b;
+  }
+  
+  .cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  .price {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .viewBtn {
+    padding: 0.5rem 1rem;
+    color: #2563eb;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  .rescheduleBtn {
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: 500;
+    background: #1e293b;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    
+    &:hover {
+      background: #0f172a;
+    }
+  }
+  
+  .cancelBtn {
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: 500;
+    background: #ef4444;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    
+    &:hover {
+      background: #dc2626;
+    }
+  }

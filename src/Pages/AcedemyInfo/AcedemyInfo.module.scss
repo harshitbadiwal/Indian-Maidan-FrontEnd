@@ -1,0 +1,122 @@
+/* Container Styles */
+.container {
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    background-color: #2c2c2c;
+    min-height: 100vh;
+  }
+  
+  /* Header Section */
+  .header {
+    position: relative;
+    height: 350px;
+    background-image: url("../../../public/images/mob.jpg"); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .overlay {
+    // background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    // padding: 15px;
+    // text-align: center;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .title {
+    font-size: 2.1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .location,
+  .contact {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  /* Navbar Section */
+  .navbar {
+    background-color: #222;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .navList {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navItem {
+    font-size: 1rem;
+    color: #ddd;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .navItem:hover {
+    color: #fff;
+  }
+  
+  .sportsTabs {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .tabButton {
+    background-color: #444;
+    color: #ddd;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .tabButton:hover {
+    background-color: #555;
+  }
+  
+  /* About Section */
+  .aboutSection {
+    margin: 20px auto;
+    padding: 20px;
+    // max-width: 800px;
+    width: 80%;
+    background-color: #333;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .sectionTitle {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .textContent {
+    text-align: left;
+    line-height: 1.6;
+  }
+  
+  .subTitle {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  .text {
+    font-size: 1rem;
+    color: #ccc;
+  }
+  

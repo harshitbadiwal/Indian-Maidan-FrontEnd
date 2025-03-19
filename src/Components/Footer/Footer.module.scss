@@ -1,0 +1,76 @@
+.footer {
+  background: linear-gradient(to bottom right, #1b1b1c, #121212);
+    color: #fff;
+    padding: 20px 100px;
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid #fff;
+    // margin-top: 2vw;
+  }
+  
+  .container {
+    // display: flex;
+    align-items: center;
+    // max-width: 1000px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logoShape {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    clip-path: polygon(0% 0%, 50% 50%, 0% 100%, 100% 100%, 50% 50%, 100% 0%);
+  }
+  
+  .content {
+    text-align: left;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .contact {
+    margin-bottom: 15px;
+  }
+  
+  .label {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .info {
+    font-size: 1rem;
+    color: #ccc;
+  }
+  
+  .social {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .icon {
+    font-size: 24px;
+    color: #fff;
+    transition: 0.3s;
+  
+    &:hover {
+      color: #ff6600;
+    }
+  }
+  

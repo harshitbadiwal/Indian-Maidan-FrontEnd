@@ -1,0 +1,619 @@
+.drawerList {
+    width: 800px;
+    height: 100%;
+    color: white;
+    background: black;
+    // background-image: url('../../../public/images/sidebarImage.png'); // Replace with your image path
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+  
+    .contentWrapper {
+      margin-top: 1vw;
+      padding: 2vw;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+  
+      .imageContainer {
+        width: 35vw;
+        height: 20vw;
+        border-radius: 50px;
+  
+        img {
+          height: 100%;
+          width: 100%;
+          border-radius: 50px;
+          opacity: .75;
+        }
+      }
+  
+      .navigationButtons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+  
+        p {
+          padding: 10px 20px;
+          margin: 0 25px;
+          border-radius: 5px;
+          background-color: #444;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+  
+          &:hover {
+            background-color: #0077cc;
+          }
+  
+          &.active {
+            background-color: #0077cc;
+          }
+        }
+      }
+  
+      .details {
+        display: flex;
+        width: 75%;
+        margin-top: 1vw;
+        flex-direction: column;
+  
+        p {
+          font-size: 1.2rem;
+          margin-bottom: -2px;
+  
+          &:nth-child(2) {
+            font-size: 1rem;
+          }
+  
+          &:nth-child(3) {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .sportsArena {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #26262b 0%, #08060b 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    
+    .modal {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 600px;
+      color: white;
+      
+      .modalHeader {
+        text-align: center;
+        margin-bottom: 2rem;
+        
+        h2 {
+          font-size: 1.8rem;
+          margin-bottom: 0.5rem;
+        }
+        
+        .location {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 0.9rem;
+          margin-bottom: 1rem;
+        }
+        
+        .statusBar {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          
+          span {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            
+            &.openNow {
+              background: rgba(46, 213, 115, 0.2);
+            }
+            
+            &.rating {
+              background: rgba(255, 255, 255, 0.1);
+            }
+          }
+        }
+      }
+      
+    
+      
+      .navigationTabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        
+       
+      }
+      
+      .bookingSection {
+        .datePicker {
+          margin-bottom: 2rem;
+          
+          input {
+            width: 90%;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            
+            &::placeholder {
+              color: rgba(255, 255, 255, 0.6);
+            }
+          }
+        }
+        
+        .timeSlots {
+          margin-bottom: 2rem;
+          
+          h4 {
+            margin-bottom: 1rem;
+          }
+          
+          .slotsGrid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            
+            .timeSlot {
+              padding: 0.75rem;
+              border-radius: 10px;
+              border: none;
+              background: rgba(255, 255, 255, 0.1);
+              color: white;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              
+              &:hover {
+                background: rgba(74, 77, 255, 0.8);
+              }
+            }
+          }
+        }
+        
+        .facilityPreview {
+          margin-bottom: 2rem;
+          
+          h4 {
+            margin-bottom: 1rem;
+          }
+          
+          .previewImages {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            
+            .previewImage {
+              aspect-ratio: 16/9;
+              background: rgba(255, 255, 255, 0.1);
+              border-radius: 10px;
+            }
+          }
+        }
+        
+        .bookNowBtn {
+          width: 100%;
+          padding: 1rem;
+          border-radius: 10px;
+          border: none;
+          background: #4a4dff;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            background: rgba(74, 77, 255, 0.8);
+          }
+        }
+      }
+    }
+  }
+  .sportButtons {
+    display: flex;
+    gap: 1rem;
+    
+   
+  }
+  .sportBtn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &.active {
+      background: #4a4dff;
+    }
+    
+    &:hover {
+      background: rgba(74, 77, 255, 0.8);
+    }
+  }
+  .tab {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    
+   
+  }
+  .tab:hover{
+    
+      color: white;
+      border-bottom: 2px solid #4a4dff;
+    
+  }
+  .sportSelection {
+    margin-bottom: 2rem;
+    
+    h3 {
+      margin-bottom: 1rem;
+    }
+    
+   
+  }
+
+  .bookingConfirmation {
+    min-height: 100vh;
+    // background-color: #1e1b4b;
+    background: linear-gradient(135deg, #26262b 0%, #08060b 100%);
+
+    padding: 1.5rem;
+    color: white;
+    
+    .container {
+      max-width: 32rem;
+      margin: 0 auto;
+      
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+        
+        h1 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+        
+        p {
+          color: rgba(199, 210, 254, 0.8);
+        }
+      }
+      
+      .card {
+        // background-color: rgba(55, 48, 163, 0.5);
+    background: linear-gradient(135deg, #26262b 0%, #08060b 100%);
+
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        
+        h2 {
+          font-size: 1.125rem;
+          font-weight: 500;
+          margin-bottom: 1rem;
+        }
+        
+        .detailRow{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+          
+          .label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            
+            .icon {
+              color: #a5b4fc;
+            }
+          }
+        }
+        
+        .serviceOption {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.75rem;
+          border-radius: 0.375rem;
+          cursor: pointer;
+          
+          &:hover {
+            background-color: rgba(67, 56, 202, 0.3);
+          }
+          
+          .checkboxGroup {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+          }
+        }
+        
+      
+        
+        .cancellationPolicy {
+          background-color: rgba(67, 56, 202, 0.3);
+          border-radius: 0.375rem;
+          padding: 0.75rem;
+          margin-top: 1rem;
+          
+          .policyHeader {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #a5b4fc;
+            font-size: 0.875rem;
+          }
+          
+          p {
+            color: #a5b4fc;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+          }
+        }
+      }
+      
+      .confirmButton {
+        width: 100%;
+        background-color: #10b981;
+        color: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: background-color 0.2s;
+        
+        &:hover {
+          background-color: #059669;
+        }
+      }
+    }
+  }
+
+  .paymentMethods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1vw;
+    
+    .paymentOption {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      background-color: rgba(67, 56, 202, 0.3);
+      cursor: pointer;
+      transition: background-color 0.2s;
+      
+      &:hover {
+        background-color: rgba(67, 56, 202, 0.5);
+      }
+      
+      &.selected {
+        background-color: #4f46e5;
+      }
+      
+      .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: white;
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    // background-color: #f5f5f5;
+    background: linear-gradient(135deg, #26262b 0%, #08060b 100%);
+
+  }
+  
+  .card {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .avatar {
+    flex-shrink: 0;
+    margin-right: 16px;
+  }
+  
+  .placeholder {
+    width: 100px;
+    height: 100px;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #666666;
+  }
+  
+  .info {
+    flex-grow: 1;
+  }
+  
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 4px;
+  }
+  
+  .preference,
+  .status {
+    font-size: 14px;
+    color: #555555;
+    margin: 0;
+  }
+  
+  .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  
+  .splitCost {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555555;
+  
+    input {
+      margin-right: 8px;
+    }
+  }
+  
+  .button {
+    background-color: #2d3748;
+    color: #ffffff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: #1a202c;
+    }
+  }
+  .sportsBackground2{  min-height: 100vh;
+  background: linear-gradient(135deg, #26262b 0%, #08060b 100%);
+ 
+  padding: 2rem;}
+
+
+  .sidebar {
+    background: rgba(255, 255, 255, 0.2); /* Light transparency */
+    backdrop-filter: blur(10px); /* Blurred glass effect */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    height: 93%;
+    border-radius: 10px; /* Optional: Adds smooth edges */
+  }
+  
+  .logoSection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .logo {
+    font-size: 40px;
+    color: #000;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .navList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navItem {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #333;
+    border-radius: 5px;
+    transition: 0.3s;
+  
+    &:hover {
+      background: #ddd;
+    }
+  }
+  
+  .icon {
+    font-size: 20px;
+  }
+  
+  .arrow {
+    margin-left: auto;
+    font-size: 18px;
+  }
+  
+  .profileSection {
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .profileSection:hover{
+    cursor: pointer;
+  }
+  .profileInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .profilePic {
+    font-size: 35px;
+    color: black;
+
+  }
+  
+  .profileText {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .name {
+    font-weight: bold;
+    color: black;
+
+  }
+  
+  .viewProfile {
+    font-size: 0.8rem;
+    color: #000000;
+  }
+  
+  .settingsIcon {
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+  }
+  

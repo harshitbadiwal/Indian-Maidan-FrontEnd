@@ -1,0 +1,354 @@
+.mainConatiner{
+    background: linear-gradient(-135deg, #26262b 20%, #08060b 80%);
+}
+.container {
+    display: flex;
+    height: 82vh;
+    // background: #f0f2f5;
+  }
+  
+  .sidebar {
+    width: 30%;
+    // background: #fff;
+    color: white;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-weight: bold;
+  }
+  
+  .searchContainer {
+    padding: 10px;
+  }
+  
+  .searchInput {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .chatList {
+    overflow-y: auto;
+    // height: calc(100vh - 120px);
+  }
+  
+  .chatItem {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    cursor: pointer;
+  
+    &:hover {
+      background: #f1f1f1;
+      color: #1b1b1b;
+    }
+  }
+  
+  .chatContent {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chatName {
+    font-weight: bold;
+  }
+  
+  .chatMessage {
+    font-size: 14px;
+    color: gray;
+  }
+  
+  .mainContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chatWindow {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .chatHeader {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #1b1b1b;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .chatTitle {
+    margin-left: 10px;
+  }
+  
+  .messagesContainer {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+  }
+  
+  .message {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .sent {
+    background: #dcf8c6;
+    align-self: flex-end;
+  }
+  
+  .received {
+    background: #fff;
+    border: 1px solid #ddd;
+    align-self: flex-start;
+  }
+  
+  .messageText {
+    margin: 0;
+  }
+  
+  .messageTime {
+    font-size: 12px;
+    color: gray;
+    margin-top: 5px;
+  }
+  
+  .messageInput {
+    display: flex;
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #ddd;
+  }
+  
+  .messageInput input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+  }
+  
+  .messageInput button {
+    margin-left: 10px;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    color: white;
+  }
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes bounceMessage {
+    0% { transform: scale(0.95); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+  
+  .mainContainer {
+    background: linear-gradient(-135deg, #26262b 20%, #08060b 80%);
+  }
+  
+  .container {
+    display: flex;
+    height: 82vh;
+  }
+  
+  /* Left Sidebar Animation */
+  .sidebar {
+    width: 30%;
+    color: white;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+    animation: slideInLeft 1s ease-in-out;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-weight: bold;
+  }
+  
+  .searchContainer {
+    padding: 10px;
+  }
+  
+  .searchInput {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .chatList {
+    overflow-y: auto;
+  }
+  
+  .chatItem {
+    display: flex;
+    align-items: center;
+    // padding: 10px;
+    border-radius: 5px;
+    transition: transform 0.8s ease, background 0.8s;
+  
+    &:hover {
+      background: #f1f1f1;
+      color: #1b1b1b;
+    //   transform: scale(1.05);
+    }
+  }
+  
+  /* Right Chat Section Animation */
+  .mainContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chatWindow {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .chatHeader {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #1b1b1b;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .chatTitle {
+    margin-left: 10px;
+  }
+  
+  .messagesContainer {
+    // flex-grow: 1;
+    // padding: 15px;
+    // overflow-y: auto;
+  }
+  
+  /* Message Animation */
+  .message {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    animation: bounceMessage 0.3s ease-in-out;
+  }
+  
+  .sent {
+    background: #dcf8c6;
+    align-self: flex-end;
+  }
+  
+  .received {
+    background: #fff;
+    border: 1px solid #ddd;
+    align-self: flex-start;
+  }
+  
+  .messageText {
+    margin: 0;
+  }
+  
+  .messageTime {
+    font-size: 12px;
+    color: gray;
+    margin-top: 5px;
+  }
+  
+  /* Animated Message Input */
+  .messageInput {
+    display: flex;
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #ddd;
+  }
+  
+  .messageInput input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+  
+    &:focus {
+      border: 1px solid #007bff;
+      box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+      transform: scale(1.02);
+    }
+  }
+  
+  .messageInput button {
+    margin-left: 10px;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  
+    &:hover {
+      background: #0056b3;
+    }
+  }
+  
+  /* Empty Chat State */
+  .emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    color: white;
+  }
+  
