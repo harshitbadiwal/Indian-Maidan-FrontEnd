@@ -3,6 +3,7 @@ import styles from "./Profile.module.scss";
 import {Award , Bell, Settings, BarChart2, Clock, Users, Mail, Phone, MapPin, Calendar, Activity  } from 'lucide-react';
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
+import { getTokenData } from "../../services/tokenUtiles";
 
 const StatCard = ({ icon: Icon, title, value }) => (
     <div className={styles.statCard}>
@@ -75,6 +76,9 @@ const StatCard = ({ icon: Icon, title, value }) => (
     </div>
   );
 const Profile = () => {
+  const user = getTokenData()
+  console.log(user)
+  const initial = user?.name?.charAt(0).toUpperCase() || "?";
     const [nav,setNav] = useState("overview")
 
     const activities = [
@@ -113,9 +117,9 @@ const Profile = () => {
     <div className={styles.container}>
     <header className={styles.header}>
       <div className={styles.profile}>
-        <div className={styles.avatar}></div>
+        <div className={styles.avatar}><p className={styles.firstName}>{initial}</p></div>
         <div className={styles.info}>
-          <h1>Alex Johnson</h1>
+          <h1>{user?.name}</h1>
           <span>Premium Member</span>
         </div>
       </div>
@@ -147,9 +151,9 @@ const Profile = () => {
       <section className={styles.profileInfo}>
         <h3 className={styles.sectionTitle}>Profile Information</h3>
         <div className={styles.infoContent}>
-          <InfoItem icon={Mail} text="alex.johnson@example.com" />
-          <InfoItem icon={Phone} text="+91 98765 43210" />
-          <InfoItem icon={MapPin} text="Mumbai, India" />
+          <InfoItem icon={Mail} text={user?.email} />
+          <InfoItem icon={Phone} text={`+91 ` +user?.phoneNumber}  />
+          <InfoItem icon={MapPin} text={user?.location?.city +` , ` +user?.location?.state}/>
           <InfoItem icon={Calendar} text="Member since January 2024" />
         </div>
       </section>

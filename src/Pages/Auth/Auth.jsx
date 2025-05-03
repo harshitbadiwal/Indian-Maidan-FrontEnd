@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Eye, EyeOff, ChevronDown, Info } from "lucide-react";
 import styles from "./Authpage.module.scss"; // Import SCSS module
-
+import { useDispatch, useSelector } from "react-redux";
+import {loginRequest} from "../../redux/actions/loginAction"
 const sportsOptions = [
   "Cricket",
   "Badminton",
@@ -23,15 +24,16 @@ const AuthPage = () => {
 //   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-
+  const dispatch = useDispatch();
+  const { user, loading, error, isAuthenticated } = useSelector((state) => state.auth);
+const [loginCreads,setLoginCreads] = useState({})
 
   const toggleSportSelection = (sport) => {
     setSelectedSports((prev) =>
       prev.includes(sport) ? prev.filter((s) => s !== sport) : [...prev, sport]
     );
   };
-
+console.log(loginCreads)
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -45,12 +47,26 @@ const AuthPage = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  const handleChange = (e) => {
+    setLoginCreads({ ...loginCreads, [e.target.name]: e.target.value });
+  };
+
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      // Redirect if already authenticated
+      window.location.href = "/";
+    }
+  }, [isAuthenticated]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    if (activeTab === 'login') {
+      dispatch(loginRequest(loginCreads));
+    } else {
+      // Handle signup logic
+    }
   };
 
   return (
@@ -82,13 +98,15 @@ const AuthPage = () => {
           <form onSubmit={handleSubmit} className={styles.authForm}>
             <div className={styles.formGroup}>
               <label>Email</label>
-              <input type="email" placeholder="Enter your email" required />
+              <input type="email" name="email" onChange={(e)=>handleChange(e)} placeholder="Enter your email" required />
             </div>
 
             <div className={styles.formGroup}>
               <label>Password</label>
               <div className={styles.passwordContainer}>
                 <input
+                  name="password"
+                  onChange={(e)=>handleChange(e)}
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   required

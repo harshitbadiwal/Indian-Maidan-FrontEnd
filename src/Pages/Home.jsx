@@ -18,6 +18,7 @@ import joinAcedemy from "../assests/joinAcedemy.png"
 import AboutUs from '../Components/About/AboutUs';
 import BottomImage from "../assests/curlyhairBoy.jpg"
 import NavigationMenu from '../Components/Notification/Notification';
+import { getTokenData } from '../services/tokenUtiles';
 // import slider2 from "../assests/slider2.png"
 
 const Home = () => {

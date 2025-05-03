@@ -26,6 +26,9 @@
       height: 64px;
       border-radius: 50%;
       background-color: #f0f0f0;
+      display:flex ;
+      align-items: center;
+      justify-content: center;
     }
   
     .info {
@@ -401,4 +404,10 @@
     margin: 0;
     font-size: 0.9rem;
     color: #666;
+  }
+  .firstName{
+    font-size: 35px;
+    font-weight: 800;
+    color: #121212;
+    text-align: center;
   }
