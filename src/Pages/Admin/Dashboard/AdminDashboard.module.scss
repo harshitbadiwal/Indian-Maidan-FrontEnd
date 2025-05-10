@@ -1,0 +1,382 @@
+// App.module.scss
+
+// Variables
+$sidebar-width: 280px ;
+$primary-color: #1a2233 ;
+$secondary-color: #4f7bf7 ;
+$light-bg: #f8f9fb ;
+$drawer-text-color: #a0aec0 ;
+$active-menu-color: rgba(79, 123, 247, 0.15) ;
+$confirmed-color: #22c55e ;
+$pending-color: #f59e0b ;
+$cancelled-color: #ef4444  ;
+
+.root {
+  display: flex !important;
+  height: 100vh !important;
+}
+
+// Sidebar styles
+.drawer {
+  width: $sidebar-width !important;
+  flex-shrink: 0 !important;
+}
+
+.drawerPaper {
+  width: $sidebar-width !important;
+  background-color: $primary-color !important;
+  color: white !important;
+  border-right: none !important;
+  overflow: hidden;
+}
+
+.drawerHeader {
+  display: flex !important;
+  align-items: center !important;
+  padding: 16px !important;
+  height: 64px !important;
+}
+
+.logoText {
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+.menuList {
+  padding-top: 16px !important;
+}
+
+.menuItem {
+  padding: 12px 16px !important;
+  margin: 4px 8px !important;
+  border-radius: 8px !important;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+.activeMenuItem {
+  background-color: $active-menu-color !important;
+  color: $secondary-color !important;
+  
+  .menuIcon {
+    color: $secondary-color !important;
+  }
+}
+
+.menuIcon {
+  color: $drawer-text-color !important;
+  min-width: 40px !important;
+}
+
+.userSection {
+  margin-top: auto !important;
+  padding: 16px !important;
+}
+
+.userInfo {
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px 8px !important;
+  margin-bottom: 8px !important;
+}
+
+.avatar {
+  background-color: $secondary-color !important;
+  margin-right: 12px !important;
+}
+
+.userText {
+  color: white !important;
+}
+
+.userRole {
+  color: $drawer-text-color !important;
+  font-size: 12px !important;
+}
+
+.logoutButton {
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+// Main content styles
+.content {
+  flex-grow: 1 !important;
+  background-color: $light-bg !important;
+  overflow-y: auto !important;
+}
+
+.appBar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 64px !important;
+  padding: 0 24px !important;
+  background-color: white !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.searchBar {
+  display: flex !important;
+  align-items: center !important;
+  background-color: $light-bg !important;
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  width: 300px !important;
+}
+
+.searchIcon {
+  color: #6b7280 !important;
+  margin-right: 8px !important;
+}
+
+.searchInput {
+  flex-grow: 1 !important;
+}
+
+.appBarRight {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.notificationButton {
+  margin-right: 16px !important;
+}
+
+.headerAvatar {
+  background-color: $secondary-color !important;
+}
+
+.container {
+  padding: 24px !important;
+  max-width: 100% !important !important;
+}
+
+.pageTitle {
+  margin-bottom: 24px !important;
+  font-weight: 600 !important;
+}
+
+// Stats cards
+.statsContainer {
+  margin-bottom: 24px !important;
+}
+
+.statsCard {
+  border-radius: 12px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+.statsContent {
+  display: flex !important;
+  padding: 20px !important;
+  flex-grow: 1 !important;
+}
+
+.iconContainer {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+  margin-right: 16px !important;
+}
+
+.statsIcon {
+  display: flex !important;
+}
+
+.statsInfo {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.statsTitle {
+  color: #6b7280 !important;
+  margin-bottom: 8px !important;
+}
+
+.statsValue {
+  font-weight: 600 !important;
+}
+
+.statsFooter {
+  padding: 12px 20px !important;
+  border-top: 1px solid #f3f4f6 !important;
+}
+
+.viewLink {
+  color: $secondary-color !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
+
+// Main sections layout
+.mainSections {
+  display: grid !important;
+  grid-template-columns: 3fr 2fr !important;
+  gap: 24px !important;
+}
+
+// Bookings card
+.bookingsCard {
+  border-radius: 12px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  overflow: hidden !important;
+}
+
+.cardHeader {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 16px 20px !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+}
+
+.filterSelect {
+  min-width: 100px !important;
+}
+
+.select {
+  font-size: 14px !important;
+}
+
+.bookingsList {
+  padding: 8px 0 !important;
+}
+
+.bookingItem {
+  display: flex !important;
+  align-items: center !important;
+  padding: 12px 20px !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+  
+  &:last-child {
+    border-bottom: none !important;
+  }
+}
+
+.bookingNumberContainer {
+  margin-right: 16px !important;
+}
+
+.bookingNumber {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background-color: #e0e7ff !important;
+  color: $secondary-color !important;
+  font-weight: 600 !important;
+}
+
+.bookingInfo {
+  flex-grow: 1 !important;
+}
+
+.bookingTitle {
+  margin-bottom: 4px !important;
+}
+
+.bookingTime {
+  color: #6b7280 !important;
+}
+
+.bookingActions {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.statusChip {
+  margin-right: 8px !important;
+}
+
+.statusConfirmed {
+  background-color: #dcfce7 !important;
+  color: $confirmed-color !important;
+}
+
+.statusPending {
+  background-color: #fef3c7 !important;
+  color: $pending-color !important;
+}
+
+.statusCancelled {
+  background-color: #fee2e2 !important;
+  color: $cancelled-color !important;
+}
+
+.moreButton {
+  color: #6b7280 !important;
+}
+
+// Activity card
+.activityCard {
+  border-radius: 12px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  padding: 20px !important;
+}
+
+.cardTitle {
+  margin-bottom: 16px !important;
+}
+
+.activityList {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.activityItem {
+  display: flex !important;
+  padding: 12px 0 !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+  
+  &:last-child {
+    border-bottom: none !important;
+  }
+}
+
+.activityIconContainer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  background-color: #fef3c7 !important;
+  border-radius: 50% !important;
+  margin-right: 16px !important;
+}
+
+.activityIcon {
+  color: $pending-color !important;
+  font-size: 20px !important;
+}
+
+.activityInfo {
+  flex-grow: 1 !important;
+}
+
+.activityTitle {
+  margin-bottom: 4px !important;
+}
+
+.activityDesc {
+  color: #6b7280 !important;
+  margin-bottom: 4px !important;
+}
+
+.activityTime {
+  color: #9ca3af !important;
+}

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './TurfRegistration.module.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { RegisterTruf } from '../../../services/Owner/TrufRegister';
 
 const SportsTurfRegistration = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -33,9 +34,53 @@ const SportsTurfRegistration = () => {
     images: []
   });
 
+  const [errors, setErrors] = useState({});
+
+  const validateCurrentStep = () => {
+    const newErrors = {};
+
+    if (currentStep === 1) {
+      if (!formData.turfName.trim()) newErrors.turfName = 'Turf name is required';
+      if (!formData.fullAddress.trim()) newErrors.fullAddress = 'Address is required';
+      if (!formData.contactNumber.trim()) newErrors.contactNumber = 'Contact number is required';
+      if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(formData.contactNumber)) {
+        newErrors.contactNumber = 'Enter a valid phone number';
+      }
+    }
+
+    if (currentStep === 2) {
+      if (!formData.turfSize.trim()) newErrors.turfSize = 'Turf size is required';
+      if (!formData.surfaceType) newErrors.surfaceType = 'Surface type is required';
+      if (formData.availableSports.length === 0) newErrors.availableSports = 'Select at least one sport';
+    }
+
+    if (currentStep === 3) {
+      if (!formData.hourlyRate) newErrors.hourlyRate = 'Hourly rate is required';
+      if (isNaN(formData.hourlyRate)) newErrors.hourlyRate = 'Enter a valid number';
+      if (!formData.cancellationPolicy.trim()) newErrors.cancellationPolicy = 'Cancellation policy is required';
+      
+      if (new Date(`2000-01-01 ${formData.weekdayClosingTime}`) <= new Date(`2000-01-01 ${formData.weekdayOpeningTime}`)) {
+        newErrors.weekdayClosingTime = 'Closing time must be after opening time';
+      }
+      if (new Date(`2000-01-01 ${formData.weekendClosingTime}`) <= new Date(`2000-01-01 ${formData.weekendOpeningTime}`)) {
+        newErrors.weekendClosingTime = 'Closing time must be after opening time';
+      }
+    }
+
+    if (currentStep === 4) {
+      if (formData.images.length === 0) newErrors.images = 'At least one image is required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Validate whenever formData or currentStep changes
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+   
   };
 
   const handleCheckboxChange = (category, item) => {
@@ -44,7 +89,10 @@ const SportsTurfRegistration = () => {
       : [...formData[category], item];
     
     setFormData({ ...formData, [category]: updatedArray });
-  };
+    if (category === 'availableSports' && errors.availableSports && updatedArray.length > 0) {
+      setErrors({ ...errors, availableSports: '' });
+    }
+  }
 
   const handleToggleChange = (name) => {
     setFormData({ ...formData, [name]: !formData[name] });
@@ -81,15 +129,27 @@ const SportsTurfRegistration = () => {
   };
 
   const nextStep = () => {
-    setCurrentStep(currentStep + 1);
+    if (validateCurrentStep()) {
+      setCurrentStep(currentStep + 1);
+    }
   };
 
   const prevStep = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleSubmit = () => {
-    console.log('Form Data Submitted:', formData);
+  const handleSubmit = async() => {
+   try{
+    if (validateCurrentStep()) {
+      const payload={
+        ...formData
+      }
+      const response = await RegisterTruf(payload)
+    }
+   }
+   catch(error){
+    console.log(error)
+   }
     // Here you would typically send the form data to your backend or API
   };
 
@@ -137,8 +197,10 @@ const SportsTurfRegistration = () => {
             onChange={handleInputChange}
             placeholder="e.g., Green Valley Sports Arena"
             className={styles.input}
+            required
           />
           <p className={styles.fieldDescription}>The name displayed to customers when booking your facility.</p>
+          {errors.turfName && <p className={styles.errorMessage}>{errors.turfName}</p>}
         </div>
 
         <div className={styles.inputGroup}>
@@ -152,6 +214,7 @@ const SportsTurfRegistration = () => {
             className={styles.input}
           />
           <p className={styles.fieldDescription}>The complete physical address of your sports facility.</p>
+          {errors.fullAddress && <p className={styles.errorMessage}>{errors.fullAddress}</p>}
         </div>
 
         <div className={styles.inputGroup}>
@@ -165,12 +228,13 @@ const SportsTurfRegistration = () => {
             className={styles.input}
           />
           <p className={styles.fieldDescription}>A link or coordinates that help customers find your location easily.</p>
+          {errors.locationPin && <p className={styles.errorMessage}>{errors.locationPin}</p>}
         </div>
 
         <div className={styles.inputGroup}>
           <label className={styles.label}>Contact Number</label>
           <input
-            type="text"
+            type="number"
             name="contactNumber"
             value={formData.contactNumber}
             onChange={handleInputChange}
@@ -178,6 +242,7 @@ const SportsTurfRegistration = () => {
             className={styles.input}
           />
           <p className={styles.fieldDescription}>The primary phone number for booking inquiries.</p>
+          {errors.contactNumber && <p className={styles.errorMessage}>{errors.contactNumber}</p>}
         </div>
       </div>
     );
@@ -200,6 +265,7 @@ const SportsTurfRegistration = () => {
             className={styles.input}
           />
           <p className={styles.fieldDescription}>The dimensions of your playing area (length x width).</p>
+          {errors.turfSize && <p className={styles.errorMessage}>{errors.turfSize}</p>}
         </div>
 
         <div className={styles.inputGroup}>
@@ -219,6 +285,7 @@ const SportsTurfRegistration = () => {
             <option value="Synthetic">Synthetic</option>
           </select>
           <p className={styles.fieldDescription}>The type of surface on your playing field.</p>
+          {errors.surfaceType && <p className={styles.errorMessage}>{errors.surfaceType}</p>}
         </div>
 
         <div className={styles.inputGroup}>
@@ -235,9 +302,11 @@ const SportsTurfRegistration = () => {
                   className={styles.checkbox}
                 />
                 <label htmlFor={sport} className={styles.checkboxLabel}>{sport}</label>
+                
               </div>
             ))}
           </div>
+          {errors.availableSports && <p className={styles.errorMessage}>{errors.availableSports}</p>}
         </div>
 
         <div className={styles.inputGroup}>
@@ -252,6 +321,7 @@ const SportsTurfRegistration = () => {
                 <div className={styles.toggleButton}></div>
               </div>
             </div>
+            
           </div>
         </div>
 
@@ -293,6 +363,7 @@ const SportsTurfRegistration = () => {
                   onChange={handleInputChange}
                   className={styles.timeField}
                 />
+                
               </div>
               <div className={styles.timeInput}>
                 <label className={styles.timeLabel}>Closing Time</label>
@@ -345,6 +416,7 @@ const SportsTurfRegistration = () => {
             className={styles.input}
           />
           <p className={styles.fieldDescription}>The standard hourly rate for booking your facility.</p>
+          {errors.hourlyRate && <p className={styles.errorMessage}>{errors.hourlyRate}</p>}
         </div>
 
         <div className={styles.specialOffersSection}>
@@ -407,6 +479,7 @@ const SportsTurfRegistration = () => {
             className={styles.textarea}
           />
           <p className={styles.fieldDescription}>Clearly describe your cancellation policy for bookings.</p>
+          {errors.cancellationPolicy && <p className={styles.errorMessage}>{errors.cancellationPolicy}</p>}
         </div>
       </div>
     );
@@ -420,6 +493,7 @@ const SportsTurfRegistration = () => {
           <p className={styles.fieldDescription}>
             Upload high-quality images of your facility to attract more customers. You can add up to 10 images.
           </p>
+          {errors.images && <p className={styles.errorMessage}>{errors.images}</p>}
   
           <div className={styles.imageGallery}>
             {formData.images.map((imageUrl, index) => (

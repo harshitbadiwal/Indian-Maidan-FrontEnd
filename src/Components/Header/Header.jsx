@@ -1,50 +1,62 @@
-
-
 import React from 'react'
 import styles from "./Header.module.scss"
 import { Link, useNavigate } from 'react-router-dom'
-// import Head from "next/head";
-
-// import Link from 'next/link';
 import SideBar from '../Sidebar/Sidebar';
-import { Button } from '@mui/material';
+import { Button, Avatar } from '@mui/material';
 import { BellRing } from 'lucide-react';
 import ChatIcon from '@mui/icons-material/Chat';
 import NavigationMenu from '../Notification/Notification';
+import { useSelector } from 'react-redux';
+import { getTokenData } from '../../services/tokenUtiles';
+
 const Header = () => {
+  const userName = getTokenData()
   const navigate = useNavigate()
+  const { user, loading, error, isAuthenticated } = useSelector((state) => state.auth);  console.log(useSelector((state) => state.auth))
+  const initial = userName?.name?.charAt(0).toUpperCase() || "?";
   return <>
-                {/* <p>
-              <title>GameZone - Book Sports Venues Online</title>
-              <meta name="description" content="Find and book sports venues online with PlaySpots." />
-              <Link rel="icon" href="/" />
-            </p> */}
-
-      {/* Header Section */}
-      <header className={styles.header}>
-  <div className={styles.container}>
-  <div>
-    <h3 onClick={()=>navigate("/")} className={styles.logo}>INDIAN MAIDAN</h3>
-    <p className={styles.tagline}>Play Bold - Achieve Goal - Get Gold</p>
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <div>
+          <h3 onClick={()=>navigate("/")} className={styles.logo}>INDIAN MAIDAN</h3>
+          <p className={styles.tagline}>Play Bold - Achieve Goal - Get Gold</p>
+        </div>
+        <nav className={styles.nav}>
+          <ul className={styles.navList}>
+          </ul>
+        </nav>
+        <div style={{display:"flex", alignItems:"center"}}>
+          {!isAuthenticated ? (
+            <button onClick={()=>navigate("/auth")} className={styles.button}>Sign Up / Login</button>
+          ) : (
+            <div className={styles.profileMenu}>
+            <div 
+            onClick={() => navigate('/profile')}
+            style={{
+      width: 40,
+      height: 40,
+      borderRadius: "50%",
+      backgroundColor: "#007bff",
+      color: "white",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontWeight: "bold",
+      fontSize: 20
+    }}>
+      {initial}
     </div>
-    <nav className={styles.nav}>
-      <ul className={styles.navList}>
-        
-        
-      </ul>
-    </nav>
-    <div style={{display:"flex", alignItems:"center"}}>
-
-    <button onClick={()=>navigate("/auth")} className={styles.button} >Sign Up / Login</button>
-    <div style={{marginRight:"1vw",display:"flex",alignItems:"baseline"}}>
-    <NavigationMenu/>
-    {/* <BellRing size={32} style={{marginRight:"18px",marginLeft:"10px"}} /> */}
-    <ChatIcon onClick={()=>navigate("/message")} sx={{fontSize:32}}/>
-    </div>
-    <SideBar/>
-    </div>
-  </div>
-</header>
+            </div>
+          )}
+          
+          <div style={{marginRight:"1vw",display:"flex",alignItems:"baseline"}}>
+            <NavigationMenu/>
+            <ChatIcon onClick={()=>navigate("/message")} sx={{fontSize:32}}/>
+          </div>
+          <SideBar/>
+        </div>
+      </div>
+    </header>
   </>
 }
 

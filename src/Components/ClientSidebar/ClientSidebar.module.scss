@@ -1,0 +1,103 @@
+// components/Sidebar.module.scss
+.sidebar {
+    width: 250px;
+    background-color: white;
+    border-right: 1px solid #eaeaea;
+    height: 100%;
+    transition: width 0.3s ease;
+    overflow-x: hidden;
+  }
+  
+  .collapsed {
+    width: 60px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .logoIcon {
+    font-size: 1.5rem;
+    color: #0e78e4;
+    margin-right: 10px;
+  }
+  
+  .logoText {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .navigation {
+    padding: 16px 0;
+  }
+  
+  .navList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+  
+  .active {
+    border-left: 3px solid #0e78e4;
+    background-color: #e6f2fd;
+  }
+  
+  .navIcon {
+    width: 20px;
+    margin-right: 12px;
+    display: inline-block;
+  }
+  
+  .navText {
+    color: #333;
+  }
+  
+  .active .navText {
+    color: #0e78e4;
+    font-weight: 500;
+  }
+  
+  .collapsed {
+    .logoText, .navText {
+      display: none;
+    }
+    
+    .navItem {
+      justify-content: center;
+    }
+    
+    .navIcon {
+      margin-right: 0;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 100;
+      transform: translateX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .collapsed {
+      transform: translateX(-100%);
+    }
+  }

@@ -14,6 +14,8 @@ import AboutUs from "../Pages/AboutUs/AboutUs";
 import Messages from "../Pages/Messages/Messages";
 import OwnerAuthPage from "../Pages/TrufOwner/Auth/OwnerAuth";
 import SportsTurfRegistration from "../Pages/TrufOwner/TrufRegistration/TrufRegistration";
+import ClientDashboard from "../Pages/TrufOwner/DashBoard/DashBoard";
+import AdminDashboard from "../Pages/Admin/Dashboard/AdminDashboard";
 
 const Routers = () => {
   return (
@@ -34,7 +36,11 @@ const Routers = () => {
 
 
         <Route path="/owner/auth" element={<OwnerAuthPage/>}/>
+        <Route path="/owner/dashboard" element={<ClientDashboard/>}/>
         <Route path="/owner/register" element={<SportsTurfRegistration/>}/>
+
+
+        <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
       </Routes>
      
      

@@ -1,0 +1,139 @@
+.container {
+    padding: 24px 32px;
+    max-width: none;
+    background-color: #fafafa;
+    min-height: 100vh;
+  }
+  
+  .title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 24px;
+  }
+  
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .tabsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    padding: 0 16px;
+  }
+  
+  .tabs {
+    min-height: 48px;
+  
+    .tab {
+      text-transform: none;
+      font-weight: 500;
+      font-size: 14px;
+      min-height: 48px;
+      padding: 12px 24px;
+      color: #718096;
+      opacity: 1;
+      
+      &.activeTab {
+        color: #5e66f9;
+        font-weight: 600;
+      }
+    }
+  }
+  
+  .tabIndicator {
+    background-color: #5e66f9;
+    height: 3px;
+  }
+  
+  .timeRangeSelect {
+    min-width: 120px;
+    
+    .select {
+      font-size: 14px;
+      color: #4a5568;
+      background-color: #fff;
+      border-radius: 6px;
+      padding: 8px 12px;
+      
+      &:focus {
+        background-color: #fff;
+      }
+    }
+  }
+  
+  .reportsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .reportCard {
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    height: 100%;
+    
+    &:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+  
+  .cardTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 24px;
+  }
+  
+  .chartContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  
+  .legendItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .legendColor {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+  
+  .legendText {
+    font-size: 14px;
+    color: #4a5568;
+  }
+  
+  .comingSoon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    border: 1px dashed #e2e8f0;
+    border-radius: 6px;
+    color: #a0aec0;
+  }

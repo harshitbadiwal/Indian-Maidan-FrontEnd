@@ -1,0 +1,136 @@
+// UserManagement.module.scss
+
+// Variables
+$primary-color: #4f46e5;
+$light-bg: #f8f9fb;
+$border-color: #e5e7eb;
+$text-primary: #111827;
+$text-secondary: #6b7280;
+
+.container {
+  padding: 32px 24px;
+  max-width: 100% !important;
+  background-color: $light-bg;
+  min-height: calc(100vh - 64px); // Assuming a 64px header
+}
+
+.pageTitle {
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.userCard {
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  overflow: hidden;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid $border-color;
+}
+
+.cardTitle {
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.searchField {
+  width: 300px;
+
+  input {
+    padding: 8px 12px;
+  }
+}
+
+.searchIcon {
+  color: $text-secondary;
+}
+
+.addButton {
+  background-color: $primary-color;
+  text-transform: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  box-shadow: none;
+  font-weight: 500;
+
+  &:hover {
+    background-color: darken($primary-color, 5%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.tableContainer {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.table {
+  min-width: 750px;
+}
+
+.tableHead {
+  background-color: $light-bg;
+
+  th {
+    font-weight: 600;
+    color: $text-secondary;
+  }
+}
+
+.tableCell {
+  padding: 16px 24px;
+  border-bottom: 1px solid $border-color;
+  color: $text-primary;
+  font-size: 14px;
+}
+
+.tableRow {
+  &:hover {
+    background-color: $light-bg;
+  }
+
+  &:last-child {
+    td {
+      border-bottom: none;
+    }
+  }
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.editButton {
+  color: $text-secondary;
+  padding: 6px;
+
+  &:hover {
+    background-color: rgba($primary-color, 0.1);
+    color: $primary-color;
+  }
+}
+
+.deleteButton {
+  color: $text-secondary;
+  padding: 6px;
+
+  &:hover {
+    background-color: rgba(#ef4444, 0.1);
+    color: #ef4444;
+  }
+}

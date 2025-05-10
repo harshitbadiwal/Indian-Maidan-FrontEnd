@@ -1,0 +1,132 @@
+.container {
+    padding: 24px;
+    max-width: 100%;
+  }
+  
+  .title {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .bookingsContainer {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .bookingsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .actionControls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .searchField {
+    width: 240px;
+  
+    .searchInput {
+      background-color: #fff;
+      font-size: 14px;
+    }
+  }
+  
+  .statusFilter {
+    min-width: 150px;
+  
+    .statusSelect {
+      background-color: #fff;
+      font-size: 14px;
+    }
+  }
+  
+  .newBookingButton {
+    background-color: #4e54f9;
+    text-transform: none;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 8px;
+    
+    &:hover {
+      background-color: darken(#4e54f9, 10%);
+    }
+  }
+  
+  .tableContainer {
+    width: 100%;
+  }
+  
+  .tableHeader {
+    background-color: #fbfbfb;
+  }
+  
+  .headerCell {
+    color: #666;
+    font-weight: 500;
+    font-size: 14px;
+    border-bottom: 1px solid #eaeaea;
+    padding: 12px 16px;
+  }
+  
+  .tableRow {
+    &:hover {
+      background-color: #f9f9f9;
+    }
+  }
+  
+  .tableCell {
+    border-bottom: 1px solid #eaeaea;
+    padding: 16px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .statusBadge {
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+  }
+  
+  .statusConfirmed {
+    background-color: rgba(60, 193, 137, 0.1);
+    color: #3cc189;
+  }
+  
+  .statusPending {
+    background-color: rgba(246, 195, 67, 0.1);
+    color: #f6c343;
+  }
+  
+  .statusCancelled {
+    background-color: rgba(240, 106, 106, 0.1);
+    color: #f06a6a;
+  }
+  
+  .viewButton {
+    display: flex;
+    align-items: center;
+    color: #666;
+    
+    &:hover {
+      background-color: transparent;
+      color: #4e54f9;
+    }
+  }
+  
+  .viewIcon {
+    font-size: 18px;
+    margin-right: 4px;
+  }
+  
+  .viewText {
+    font-size: 14px;
+  }
