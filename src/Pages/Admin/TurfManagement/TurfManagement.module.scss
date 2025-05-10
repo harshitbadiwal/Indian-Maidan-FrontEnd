@@ -1,0 +1,189 @@
+.container {
+    padding: 24px 32px;
+    max-width: none;
+    background-color: #fafafa;
+    min-height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+  
+  .title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  .subtitle {
+    color: #6b7280;
+    font-size: 16px;
+  }
+  
+  .searchField {
+    width: 250px;
+    background-color: #fff;
+    
+    .searchInput {
+      font-size: 14px;
+    }
+  }
+  
+  .tabsContainer {
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .tabs {
+    background-color: #fff;
+    min-height: 48px;
+    
+    .tab {
+      text-transform: none;
+      font-weight: 500;
+      font-size: 14px;
+      min-height: 48px;
+      padding: 12px 24px;
+      position: relative;
+    }
+  }
+  
+  .badge {
+    background-color: #f59e0b;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+  }
+  
+  .sectionHeader {
+    margin-bottom: 16px;
+  }
+  
+  .sectionTitle {
+    font-size: 22px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+  }
+  
+  .sectionSubtitle {
+    color: #6b7280;
+    font-size: 14px;
+  }
+  
+  .tableContainer {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 32px;
+  }
+  
+  .tableHeader {
+    background-color: #fff;
+  }
+  
+  .headerCell {
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 16px;
+  }
+  
+  .tableRow {
+    &:not(:last-child) {
+      border-bottom: 1px solid #f3f4f6;
+    }
+    
+    &:hover {
+      background-color: #f9fafb;
+    }
+  }
+  
+  .tableCell {
+    padding: 16px;
+    font-size: 14px;
+    color: #111827;
+    border-bottom: none;
+  }
+  
+  .statusBadge {
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+  }
+  
+  .active {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+  }
+  
+  .pending {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .actionButton {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 6px;
+    text-transform: none;
+    min-width: auto;
+  }
+  
+  .editButton {
+    background-color: #e6f0ff;
+    color: #3b82f6;
+    
+    &:hover {
+      background-color: darken(#e6f0ff, 5%);
+    }
+  }
+  
+  .deleteButton {
+    background-color: #fee2e2;
+    color: #ef4444;
+    
+    &:hover {
+      background-color: darken(#fee2e2, 5%);
+    }
+  }
+  
+  .approveButton {
+    background-color: #d1fae5;
+    color: #10b981;
+    
+    &:hover {
+      background-color: darken(#d1fae5, 5%);
+    }
+  }
+  
+  .rejectButton {
+    background-color: #fef2f2;
+    color: #ef4444;
+    
+    &:hover {
+      background-color: darken(#fef2f2, 5%);
+    }
+  }
