@@ -152,7 +152,7 @@ const StartPage = () => {
         </div>
         
 
-      <div className={styles.rightSection}>
+      {/* <div className={styles.rightSection}>
         <div className={styles.logo}>
           <h1 className={styles.logo}>READY-SET-GO</h1>
         </div>
@@ -175,7 +175,7 @@ const StartPage = () => {
             Join nearby sports events
           </li>
         </ul>
-      </div>
+      </div> */}
     </div>
     <Footer/>
     </div>
