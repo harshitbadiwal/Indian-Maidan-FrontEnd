@@ -22,7 +22,7 @@ const Loaction = () => {
 
   return (
     <>
-      <div style={{ color: "black", marginBottom: "1vw" }}>
+      <div style={{ color: "black", marginBottom: "1vw",borderBottom:"1px solid white" }}>
         <Header />
       </div>
       {/* <div className={styles.filterBar}>
@@ -47,7 +47,7 @@ const Loaction = () => {
         }}
       >
         <div className={styles.background}>
-          <img src="/images/sports2.png" />
+          {/* <img src="/images/sports2.png" /> */}
         </div>
         <div className={styles.cards}>
         {/* <div className={styles.sportsCard}>

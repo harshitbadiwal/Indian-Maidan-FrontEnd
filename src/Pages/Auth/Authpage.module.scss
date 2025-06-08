@@ -1,312 +1,530 @@
+// AuthPage.module.scss
+
 .authContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(to bottom right, #1b1b1c, #121212);
-    font-family: "Inter", sans-serif;
-    padding: 20px;
-  }
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
   
-  .authCard {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 450px;
-    animation: fadeIn 0.5s ease-in-out;
-  
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  }
-  
-  .authHeader {
-    text-align: center;
-    margin-bottom: 2rem;
-  
-    h2 {
-      font-size: 2rem;
-      color: black;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-  
-    p {
-      font-size: 0.95rem;
-      color: #666;
-    }
-  }
-  
-  .tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-  
-    button {
-      flex: 1;
-      padding: 12px;
-      background: #f5f5f5;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      color: #555;
-      transition: all 0.3s ease;
-  
-      &:hover {
-        background: #e0e0e0;
-      }
-  
-      &.active {
-        background: black;
-        color: white;
-        font-weight: 600;
-        box-shadow: 0px 4px 10px rgba(26, 115, 232, 0.3);
-      }
-    }
-  }
-  
-  .authForm {
-    display: flex;
+  @media (max-width: 768px) {
     flex-direction: column;
-    gap: 1.2rem;
+  }
+}
+
+// Left side - Feature section
+.featureSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  background: linear-gradient(to bottom right, #1c221e, #061e06);
+  color: white;
+  // align-items: center
+  justify-content: center;
   
-    .formGroup {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.logoCircle {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.globeIcon {
+  width: 40px;
+  height: 40px;
+  border: 2px solid white;
+  border-radius: 50%;
+  position: relative;
   
-      label {
-        font-weight: 500;
-        color: #333;
-        font-size: 0.95rem;
-      }
-  
-      input {
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        // width: 100%;
-        font-size: 0.95rem;
-        transition: border-color 0.3s ease;
-  
-        &:focus {
-          border-color: black;
-          outline: none;
-          box-shadow: 0px 0px 5px rgba(26, 115, 232, 0.2);
-        }
-      }
-    }
-  
-    .passwordContainer {
-      display: flex;
-      align-items: center;
-      position: relative;
-  
-      input {
-        flex: 1;
-        padding-right: 40px;
-      }
-  
-      .togglePassword {
-        position: absolute;
-        right: 10px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: #666;
-        transition: color 0.3s ease;
-  
-        &:hover {
-          color: black;
-        }
-      }
-    }
-  
-    .inputGroup {
-      display: flex;
-      gap: 1rem;
-  
-      .formGroup {
-        flex: 1;
-      }
-    }
-  
-    .submitBtn {
-      padding: 12px;
-      background: black;
-      color: white;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s ease;
-  
-      &:hover {
-        background: #363636;
-      }
-  
-      &:disabled {
-        background: #ccc;
-        cursor: not-allowed;
-      }
-    }
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
   }
   
-  .dropdown {
-    position: relative;
-  
-    .dropdownBtn {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: white;
-      cursor: pointer;
-      font-size: 0.95rem;
-      color: #333;
-      transition: border-color 0.3s ease;
-  
-      &:hover {
-        border-color: #1a73e8;
-      }
-    }
-  
-    .dropdownMenu {
-      position: absolute;
-      width: 100%;
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      max-height: 200px;
-      overflow-y: auto;
-      margin-top: 5px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      z-index: 10;
-  
-      .dropdownItem {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        cursor: pointer;
-        transition: background 0.3s ease;
-  
-        &:hover {
-          background: #f5f5f5;
-        }
-  
-        input {
-          margin-right: 10px;
-          cursor: pointer;
-        }
-  
-        span {
-          font-size: 0.95rem;
-          color: #333;
-        }
-      }
-    }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 2px;
+    background-color: white;
+  }
+}
+
+.brandText {
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
   }
   
-  .infoSection {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 10px;
+  p {
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.9;
+  }
+}
+
+.featureList {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+}
+
+.featureIcon {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
   
-    .infoIcon {
-      cursor: pointer;
-      color: black;
-      transition: color 0.3s ease;
-  
-      &:hover {
-        color: #353535;
-      }
-    }
+  svg {
+    width: 22px;
+    height: 22px;
+    stroke: white;
+    fill: none;
+  }
+}
+
+.featureContent {
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
   }
   
-  .infoBox {
+  p {
+    font-size: 0.95rem;
+    margin: 0;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+}
+
+// Right side - Form section
+.formSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f0f2f5;
+  
+  @media (max-width: 768px) {
+    min-height: 100vh;
+  }
+}
+
+.authCard {
+  width: 100%;
+  max-width: 450px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
+  
+  @media (max-width: 480px) {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.cardHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  .logoIcon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background-color: #f0f8f0;
     padding: 12px;
-    background: #f8f9fa;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+  }
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 2rem;
+}
+
+.tabButton {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 1rem 0;
+  font-size: 1rem;
+  color: #777;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  &:hover {
+    color: #333;
+  }
+  
+  &.activeTab {
+    color: #006633;
+    font-weight: 600;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #006633;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  input {
+    padding: 0.75rem 1rem 0.75rem .5rem;
     border: 1px solid #ddd;
     border-radius: 8px;
-    margin-top: 10px;
-    font-size: 0.9rem;
-    color: #555;
-    animation: slideDown 0.3s ease-in-out;
-  
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  
-    .closeInfo {
-      margin-top: 10px;
-      padding: 6px 12px;
-      background: black;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.3s ease;
-  
-      &:hover {
-        background: black;
-      }
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+    width: 85%;
+    
+    &:focus {
+      border-color: #006633;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0, 102, 51, 0.1);
     }
   }
+}
+.formGroup2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  input {
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+    width: 85%;
+    
+    &:focus {
+      border-color: #006633;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0, 102, 51, 0.1);
+    }
+  }
+}
 
-  .dropdown {
-    position: relative;
+.passwordLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  .forgotLink {
+    font-size: 0.85rem;
+    color: #006633;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.inputWrapper {
+  position: relative;
+  
+  .inputIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    
+    svg {
+      width: 18px;
+      height: 18px;
+      stroke: #777;
+      fill: none;
+    }
+  }
+}
+
+.togglePassword {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #777;
+  
+  &:hover {
+    color: #333;
+  }
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  
+  input {
+    width: 16px;
+    height: 16px;
+    accent-color: #006633;
+  }
+  
+  label {
+    font-size: 0.9rem;
+    color: #555;
+    cursor: pointer;
+  }
+}
+
+.submitButton {
+  background-color: #006633;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
+  
+  &:hover {
+    background-color: #005528;
+  }
+  
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.signUpPrompt {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  
+  span {
+    color: #006633;
+    font-weight: 500;
+    cursor: pointer;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.inputGroup {
+  display: flex;
+  gap: 1rem;
+  
+  .formGroup {
+    flex: 1;
+  }
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+}
+
+// Dropdown
+.dropdown {
+  position: relative;
+  
+  .dropdownBtn {
     width: 100%;
-    .dropdownBtn {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: white;
-      cursor: pointer;
-      font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #333;
+    text-align: left;
+    transition: border-color 0.3s ease;
+    
+    &:hover {
+      border-color: #006633;
     }
-    .dropdownMenu {
-      position: absolute;
-      width: 100%;
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      max-height: 200px;
-      overflow-y: auto;
-      margin-top: 5px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    
     .dropdownItem {
       display: flex;
       align-items: center;
       padding: 10px;
       cursor: pointer;
+      transition: background 0.3s ease;
+      
       &:hover {
         background: #f5f5f5;
       }
+      
+      input {
+        margin-right: 10px;
+        cursor: pointer;
+        width: auto;
+        padding: 0;
+      }
+      
+      span {
+        font-size: 0.95rem;
+        color: #333;
+      }
     }
   }
+}
+
+.infoSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.5rem;
+  
+  input {
+    width: 16px;
+    height: 16px;
+    accent-color: #006633;
+  }
+  
+  label {
+    font-size: 0.9rem;
+    color: #555;
+    flex: 1;
+  }
+  
+  .infoIcon {
+    cursor: pointer;
+    color: #006633;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: #005528;
+    }
+  }
+}
+
+.infoBox {
+  padding: 12px;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #555;
+  animation: slideDown 0.3s ease-in-out;
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  p {
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+  }
+  
+  .closeInfo {
+    padding: 6px 12px;
+    background: #006633;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+    
+    &:hover {
+      background: #005528;
+    }
+  }
+}

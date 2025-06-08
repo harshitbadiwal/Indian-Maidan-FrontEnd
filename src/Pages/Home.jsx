@@ -98,10 +98,9 @@ const Home = () => {
         <span className={styles.discover}>Book Sports Turf</span>
       </button>
       
-      <button onClick={()=>StartAcedemyPage()} className={styles.button2}>
-        {/* <Users className="" /> */}
+      {/* <button onClick={()=>StartAcedemyPage()} className={styles.button2}>
         <span className="">Join Sports Academy</span>
-      </button>
+      </button> */}
     </div>
           {/* <AlertDialog/> */}
         </div>
