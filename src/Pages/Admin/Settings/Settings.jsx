@@ -17,12 +17,16 @@ const ProfileSettings = () => {
     setTabValue(newValue);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    window.location.href = '/admin/login';
+  };
+
   const TabPanel = ({ children, value, index }) => {
     return (
       <div
         role="tabpanel"
         hidden={value !== index}
-        // id={tabpanel-${index}}
       >
         {value === index && (
           <Box className={styles.tabPanelContent}>
@@ -127,23 +131,30 @@ const ProfileSettings = () => {
         </TabPanel>
 
         <TabPanel value={tabValue} index={1}>
-          {/* Password tab content would go here */}
           <div className={styles.passwordSection}>
             <Typography variant="h6">Password</Typography>
             <Typography variant="body2">Change your password here.</Typography>
-            {/* Password fields would go here */}
           </div>
         </TabPanel>
 
         <TabPanel value={tabValue} index={2}>
-          {/* Notifications tab content would go here */}
           <div className={styles.notificationsSection}>
             <Typography variant="h6">Notifications</Typography>
             <Typography variant="body2">Manage your notification preferences.</Typography>
-            {/* Notification settings would go here */}
           </div>
         </TabPanel>
       </Paper>
+
+      <div className={styles.logoutContainer}>
+        <Button 
+          variant="contained" 
+          color="secondary" 
+          onClick={handleLogout}
+          className={styles.logoutButton}
+        >
+          Logout
+        </Button>
+      </div>
     </div>
   );
 };

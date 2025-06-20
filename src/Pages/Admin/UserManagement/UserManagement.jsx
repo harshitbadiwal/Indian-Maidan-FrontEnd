@@ -1,5 +1,5 @@
 // UserManagement.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box,
   Button,
@@ -28,45 +28,59 @@ import AddIcon from '@mui/icons-material/Add';
 import styles from './UserManagement.module.scss';
 
 function UserManagement() {
-  // Mock user data
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: 'John Smith',
-      username: 'user1',
-      email: 'john@example.com',
-      phone: '123-456-7890',
-      joined: 'May 2, 2025',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      username: 'user2',
-      email: 'jane@example.com',
-      phone: '987-654-3210',
-      joined: 'May 2, 2025',
-    },
-  ]);
-
-  // Search state
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Handle search input change
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('https://indianmadianbackend.onrender.com/api/admin/getAllUsers', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      
+      // Transform the data to match the table structure
+      const formattedUsers = data.map(user => ({
+        id: user._id,
+        name: user.name,
+        username: user.email.split('@')[0],
+        email: user.email,
+        phone: user.phoneNumber,
+        joined: new Date(user.createdAt).toLocaleDateString()
+      }));
+      setUsers(formattedUsers);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
   };
-
   // Filter users based on search query
+// Filter users based on search query
   const filteredUsers = users.filter((user) => {
     const query = searchQuery.toLowerCase();
     return (
-      user.name.toLowerCase().includes(query) ||
-      user.username.toLowerCase().includes(query) ||
-      user.email.toLowerCase().includes(query) ||
-      user.phone.toLowerCase().includes(query)
+      user.name?.toLowerCase().includes(query) ||
+      user.email?.toLowerCase().includes(query) ||
+      user.phoneNumber?.toLowerCase().includes(query)
     );
   });
+const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
+// Handle edit user
   // Handle edit user
   const handleEditUser = (id) => {
     console.log(`Edit user with ID: ${id}`);

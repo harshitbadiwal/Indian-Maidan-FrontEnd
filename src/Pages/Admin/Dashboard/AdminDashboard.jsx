@@ -1,5 +1,5 @@
 // App.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box,
   Card,
@@ -73,12 +73,30 @@ const theme = createTheme({
 
 function AdminDashboard() {
   const [filterValue, setFilterValue] = useState('All');
-  
-  // Stats cards data
+  const [dashboardStats, setDashboardStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchDashboardStats = async () => {
+      try {
+        const response = await fetch('https://indianmadianbackend.onrender.com/api/admin/dashboard', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          }
+        });
+        const data = await response.json();
+        setDashboardStats(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching dashboard stats:', error);
+        setLoading(false);
+      }
+    };
+    fetchDashboardStats();
+  }, []);
   const statsCards = [
     {
       title: 'Total Users',
-      value: '2',
+      value: dashboardStats?.totalUsers || '0',
       icon: <PeopleIcon />,
       color: '#6366f1',
       link: 'View all',
@@ -86,7 +104,7 @@ function AdminDashboard() {
     },
     {
       title: 'Active Bookings',
-      value: '1',
+      value: dashboardStats?.totalBookings || '0',
       icon: <CalendarTodayIcon />,
       color: '#22c55e',
       link: 'View all',
@@ -94,7 +112,7 @@ function AdminDashboard() {
     },
     {
       title: 'Registered Turfs',
-      value: '6',
+      value: dashboardStats?.totalTurfs || '0',
       icon: <DnsIcon />,
       color: '#f59e0b',
       link: 'View all',
@@ -102,7 +120,7 @@ function AdminDashboard() {
     },
     {
       title: 'Total Revenue',
-      value: '$330',
+      value: `₹${dashboardStats?.totalRevenue || '0'}`,
       icon: <AttachMoneyIcon />,
       color: '#3b82f6',
       link: 'View all',

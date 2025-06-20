@@ -377,6 +377,15 @@ $cancelled-color: #ef4444  ;
   margin-bottom: 4px !important;
 }
 
-.activityTime {
-  color: #9ca3af !important;
+.activityTime {}
+.loadingState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.2rem;
+  color: #666;
+  background: #f8f9fb;
+  border-radius: 8px;
+  margin: 24px;
 }

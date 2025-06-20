@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
@@ -26,15 +26,27 @@ import styles from './BookingsInterface.module.scss';
 
 const BookingsInterface = () => {
   const [statusFilter, setStatusFilter] = useState('All Statuses');
-  
-  // Sample booking data
-  const bookings = [
-    { id: 1, dateTime: 'May 2, 2025 9:30 PM - 11:30 PM', status: 'Confirmed', price: 150.00 },
-    { id: 2, dateTime: 'May 3, 2025 10:30 PM - 12:30 AM', status: 'Pending', price: 140.00 },
-    { id: 3, dateTime: 'May 2, 2025 12:30 AM - 2:30 AM', status: 'Cancelled', price: 120.00 },
-    { id: 4, dateTime: 'May 2, 2025 3:30 PM - 5:30 PM', status: 'Confirmed', price: 180.00 },
-  ];
-  
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    fetchBookings();
+  }, []);
+  const fetchBookings = async () => {
+    try {
+      const response = await fetch('https://indianmadianbackend.onrender.com/api/admin/booking/all',{
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+        }
+      });
+      const data = await response.json();
+      setBookings(data);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
   // Function to render status badge with appropriate color
   const renderStatusBadge = (status) => {
     let badgeClass = '';
@@ -124,16 +136,31 @@ const BookingsInterface = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {bookings.map((booking) => (
-                <TableRow key={booking.id} className={styles.tableRow}>
-                  <TableCell className={styles.tableCell}>{booking.id}</TableCell>
-                  <TableCell className={styles.tableCell}></TableCell>
-                  <TableCell className={styles.tableCell}></TableCell>
-                  <TableCell className={styles.tableCell}>{booking.dateTime}</TableCell>
+{loading ? (
+                <TableRow>
+                  <TableCell colSpan={7} align="center">Loading bookings...</TableCell>
+                </TableRow>
+              ) : error ? (
+                <TableRow>
+                  <TableCell colSpan={7} align="center">Error: {error}</TableCell>
+                </TableRow>
+              ) : bookings.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={7} align="center">No bookings found</TableCell>
+                </TableRow>
+              ) : (
+                bookings.map((booking) => (
+                  <TableRow key={booking._id} className={styles.tableRow}>
+                    <TableCell className={styles.tableCell}>{booking._id}</TableCell>
+                    <TableCell className={styles.tableCell}>{booking.userId?.name || 'N/A'}</TableCell>
+                    <TableCell className={styles.tableCell}>{booking.turfId?.turfName || 'N/A'}</TableCell>
+                    <TableCell className={styles.tableCell}>
+                      {new Date(booking.startTime).toLocaleString()} - {new Date(booking.endTime).toLocaleString()}
+                    </TableCell>
                   <TableCell className={styles.tableCell}>
                     {renderStatusBadge(booking.status)}
                   </TableCell>
-                  <TableCell className={styles.tableCell}>${booking.price.toFixed(2)}</TableCell>
+                    <TableCell className={styles.tableCell}>₹{booking.totalPrice}</TableCell>
                   <TableCell className={styles.tableCell}>
                     <IconButton 
                       className={styles.viewButton}
@@ -146,10 +173,11 @@ const BookingsInterface = () => {
                     </IconButton>
                   </TableCell>
                 </TableRow>
-              ))}
+                ))
+              )}
             </TableBody>
-          </Table>
-        </TableContainer>
+            </Table>
+            </TableContainer>
       </Paper>
     </Container>
   );

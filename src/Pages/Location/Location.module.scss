@@ -1,282 +1,646 @@
-.card {
-    width: 70%;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 2px 2px 2px 1px rgb(175, 227, 255);
-    transition: transform 0.3s ease;
-    display: flex;
-    margin-bottom: 2vw;
-    color: white;
-  }
-  .images{
-    width: 20%;
-  }
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .image {
-    width: 100%;
-    height: 180px;
-    padding:1vw;
-    object-fit: cover;
-  }
-  
-  .content {
-    padding: 16px;
-    text-align: left;
-    margin-left: 2vw;
-  }
-  
-  .name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  .location,
-  .sports {
-    font-size: 0.9rem;
-    color: #f5f3f3;
-    margin-bottom: 8px;
-  }
-  
-  .bookNow {
-    background-color: #0077cc;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-  }
-  
-  .bookNow:hover {
-    background-color: #005fa3;
-  }
-
-
-  .background {
-    position: fixed; /* Keeps the background fixed during scrolling */
-    top: 0;
-    left: 0;
-    width: 100%; /* Ensures the background spans the full viewport width */
-    height: 100%; /* Ensures the background spans the full viewport height */
-    z-index: -1; 
-    // background: rgb(0, 0, 0);/* Sends the background behind other elements */
-    background: linear-gradient(135deg, #26262b 0%, #08060b 100%);
-
-  }
-  
-  .background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image covers the entire background */
-    opacity: .50;
-  }
-  .container{
-    position: relative;
-  }
-  .cards{
-    position: absolute;
-    z-index: 111;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    // height: 100%;
-    // overflow-y: scroll;
-  }
-
-
-  .dropdown {
-    position: fixed;
-    width: 200px;
-}
-
-select {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #70d8f2;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #333;
-    font-size: 16px;
-    cursor: pointer;
-    appearance: none;
-    outline: none;
-}
-
-select:hover {
-    border-color: #888888;
-}
-
-select:focus {
-    box-shadow: 5px 5px 10px rgba(30, 193, 242, 0.5);
-}
-
-.dropdown::after {
-    content: '▼';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    font-size: 14px;
-    // color: #007BFF;
-}
-.dropdownConatiner{
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    margin-right: 15vw;
-    margin-bottom: 3vw;
-    background: black;
-    z-index: 111111;
-
-}
-.icon{
-    height: 4vw;
-    width: 4vw;
-    position:absolute;
-    top: 0;
-
-}
-.icon img{
-    height: 100%;
-    width: 100%;
-}
-
+// Enhanced Filter Bar Styles
 .filterBar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background-color: #eae7e3;
-  padding: 10px 20px;
-  border-radius: 10px;
+  gap: 20px;
+  background: linear-gradient(135deg, #1a1a1f 0%, #2d2d35 100%);
+  padding: 20px;
+  border-radius: 15px;
   width: 90%;
   margin: 20px auto;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid #404040;
+  flex-wrap: wrap;
 
   .filterItem {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
-    background-color: #f5f5f5;
+    gap: 10px;
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    backdrop-filter: blur(10px);
 
     &:hover {
-      background-color: #ddd;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #70d8f2;
+      transform: translateY(-2px);
     }
 
     .filterIcon {
-      margin-right: 8px;
       font-size: 18px;
+      color: #70d8f2;
     }
 
-    .filterText {
-      font-size: 16px;
+    .filterSelect {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 14px;
       font-weight: 500;
+      cursor: pointer;
+      outline: none;
+      min-width: 120px;
+      
+      option {
+        background: #2d2d35;
+        color: white;
+        padding: 8px;
+      }
+
+      &:focus {
+        color: #70d8f2;
+      }
+    }
+
+    .clearButton {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+        transform: scale(1.05);
+      }
     }
   }
 }
 
-.sportsCard {
-  display: flex;
-  background-color: #eae7e3;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  width: 70%;
-  // max-width: 800px;
+// Results Count Styles
+.resultsCount {
+  text-align: center;
+  margin: 10px 0;
+  
+  p {
+    color: #70d8f2;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
 
-  .sportsCardImage {
-    position: relative;
-    width: 20%;
-    flex: 1;
-    .image {
-      // width: 90%;
-      // height: 90%;
-      object-fit: cover;
-      width: 80%;
-    height: 180px;
-    padding:1vw;
-    object-fit: cover
-    }
+// No Results Styles
+.noResults {
+  text-align: center;
+  color: white;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid #404040;
+  
+  h3 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: #70d8f2;
+  }
+  
+  p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+  
+  .clearButton {
+    background: linear-gradient(45deg, #70d8f2, #26a0da);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
 
-    .rating {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: #333;
-      color: #fff;
-      font-size: 14px;
-      font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 5px;
+    &:hover {
+      background: linear-gradient(45deg, #26a0da, #70d8f2);
+      transform: scale(1.05);
     }
   }
+}
 
-  .sportsCardContent {
-    flex: 2;
-    padding: 15px;
+// Existing Card Styles (Enhanced)
+.card {
+  width: 70%;
+  border: 1px solid #404040;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(112, 216, 242, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  margin-bottom: 2vw;
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
 
-    .title {
-      font-size: 18px;
-      font-weight: bold;
-      margin: 0;
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(112, 216, 242, 0.2);
+    border-color: #70d8f2;
+  }
+}
+
+.images {
+  width: 20%;
+}
+
+.image {
+  width: 100%;
+  height: 180px;
+  padding: 1vw;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.content {
+  padding: 16px;
+  text-align: left;
+  margin-left: 2vw;
+  flex: 1;
+}
+
+.name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #70d8f2;
+}
+
+.location,
+.sports {
+  font-size: 0.9rem;
+  color: #f5f3f3;
+  margin-bottom: 8px;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #4ade80;
+  margin-bottom: 12px;
+}
+
+.bookNow {
+  background: linear-gradient(45deg, #70d8f2, #26a0da);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(45deg, #26a0da, #70d8f2);
+    transform: scale(1.05);
+  }
+}
+
+// Background Styles
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(135deg, #26262b 0%, #08060b 100%);
+}
+
+.background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+.container {
+  position: relative;
+}
+
+.cards {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+// ============================
+// COMPREHENSIVE RESPONSIVE DESIGN
+// ============================
+
+// Large Desktop (1200px and above)
+@media (min-width: 1200px) {
+  .filterBar {
+    width: 80%;
+    max-width: 1200px;
+  }
+  
+  .card {
+    width: 60%;
+    max-width: 1000px;
+  }
+}
+
+// Desktop/Laptop (992px to 1199px)
+@media (min-width: 992px) and (max-width: 1199px) {
+  .filterBar {
+    width: 85%;
+    gap: 15px;
+  }
+  
+  .card {
+    width: 75%;
+  }
+  
+  .name {
+    font-size: 1.3rem;
+  }
+}
+
+// Tablet Landscape (768px to 991px)
+@media (min-width: 768px) and (max-width: 991px) {
+  .filterBar {
+    width: 95%;
+    gap: 12px;
+    padding: 18px;
+    
+    .filterItem {
+      padding: 10px 14px;
+      
+      .filterSelect {
+        min-width: 100px;
+        font-size: 13px;
+      }
+      
+      .filterIcon {
+        font-size: 16px;
+      }
     }
+  }
+  
+  .card {
+    width: 85%;
+    margin-bottom: 1.5rem;
+    
+    .images {
+      width: 25%;
+    }
+    
+    .image {
+      height: 160px;
+      padding: 0.8vw;
+    }
+    
+    .content {
+      padding: 14px;
+      margin-left: 1.5vw;
+    }
+    
+    .name {
+      font-size: 1.2rem;
+    }
+    
+    .location,
+    .sports {
+      font-size: 0.85rem;
+    }
+    
+    .price {
+      font-size: 1rem;
+    }
+  }
+  
+  .resultsCount p {
+    font-size: 15px;
+  }
+}
 
-    .location {
-      color: #666;
-      margin: 5px 0;
+// Mobile Landscape/Tablet Portrait (576px to 767px)
+@media (min-width: 576px) and (max-width: 767px) {
+  .filterBar {
+    width: 95%;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    
+    .filterItem {
+      width: 100%;
+      justify-content: center;
+      padding: 12px 16px;
+      
+      .filterSelect {
+        min-width: 140px;
+        font-size: 14px;
+      }
+      
+      .clearButton {
+        padding: 10px 20px;
+        font-size: 15px;
+      }
+    }
+  }
+  
+  .card {
+    width: 90%;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    
+    .images {
+      width: 100%;
+    }
+    
+    .image {
+      height: 200px;
+      padding: 8px;
+      border-radius: 8px;
+    }
+    
+    .content {
+      margin-left: 0;
+      padding: 16px;
+      text-align: center;
+    }
+    
+    .name {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    
+    .location,
+    .sports {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    
+    .price {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+  }
+  
+  .noResults {
+    padding: 30px 20px;
+    margin: 0 10px;
+    
+    h3 {
+      font-size: 22px;
+    }
+    
+    p {
+      font-size: 15px;
+    }
+  }
+}
+
+// Mobile Portrait (320px to 575px)
+@media (max-width: 575px) {
+  .filterBar {
+    width: 95%;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    margin: 15px auto;
+    border-radius: 12px;
+    
+    .filterItem {
+      width: 100%;
+      justify-content: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      
+      .filterIcon {
+        font-size: 16px;
+      }
+      
+      .filterSelect {
+        min-width: 120px;
+        font-size: 13px;
+      }
+      
+      .clearButton {
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 5px;
+      }
+    }
+  }
+  
+  .resultsCount {
+    margin: 8px 0;
+    
+    p {
       font-size: 14px;
     }
+  }
+  
+  .card {
+    width: 95%;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    
+    &:hover {
+      transform: translateY(-4px);
+    }
+    
+    .images {
+      width: 100%;
+    }
+    
+    .image {
+      height: 180px;
+      padding: 6px;
+      border-radius: 6px;
+    }
+    
+    .content {
+      margin-left: 0;
+      padding: 12px;
+      text-align: center;
+    }
+    
+    .name {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    
+    .location,
+    .sports {
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+    }
+    
+    .price {
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+    
+    .bookNow {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .noResults {
+    padding: 25px 15px;
+    margin: 0 8px;
+    border-radius: 12px;
+    
+    h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    
+    p {
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+    
+    .clearButton {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+  
+  .cards {
+    padding-top: 15px;
+  }
+}
 
-    .tags {
-      display: flex;
-      gap: 10px;
-      margin: 10px 0;
-
-      .tag {
-        background-color: #f5f5f5;
-        border-radius: 5px;
-        padding: 5px 10px;
+// Extra Small Mobile (320px and below)
+@media (max-width: 320px) {
+  .filterBar {
+    width: 98%;
+    padding: 10px;
+    margin: 12px auto;
+    
+    .filterItem {
+      padding: 8px 10px;
+      
+      .filterSelect {
+        min-width: 100px;
+        font-size: 12px;
+      }
+      
+      .filterIcon {
         font-size: 14px;
-        font-weight: 500;
+      }
+      
+      .clearButton {
+        padding: 6px 12px;
+        font-size: 12px;
       }
     }
-
-    .sportsCardFooter {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-
-      .price {
-        font-size: 16px;
-        font-weight: bold;
-      }
-
-      .detailsButton {
-        background-color: #004d40;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
-        font-size: 14px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-
-        &:hover {
-          backgroundColor: #00332e;
-        }
-      }
+  }
+  
+  .card {
+    width: 98%;
+    
+    .image {
+      height: 160px;
+      padding: 4px;
     }
+    
+    .content {
+      padding: 10px;
+    }
+    
+    .name {
+      font-size: 1rem;
+    }
+    
+    .location,
+    .sports {
+      font-size: 0.75rem;
+    }
+    
+    .price {
+      font-size: 0.9rem;
+    }
+    
+    .bookNow {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+    }
+  }
+  
+  .noResults {
+    padding: 20px 12px;
+    
+    h3 {
+      font-size: 18px;
+    }
+    
+    p {
+      font-size: 13px;
+    }
+    
+    .clearButton {
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+  }
+}
+
+// Landscape orientation specific adjustments
+@media (max-height: 500px) and (orientation: landscape) {
+  .filterBar {
+    padding: 10px;
+    margin: 10px auto;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+    
+    .image {
+      height: 120px;
+    }
+  }
+  
+  .noResults {
+    padding: 20px;
+  }
+}
+
+// High DPI/Retina Display optimizations
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .card {
+    border-width: 0.5px;
+  }
+  
+  .filterBar {
+    border-width: 0.5px;
+    
+    .filterItem {
+      border-width: 0.5px;
+    }
+  }
+}
+
+// Dark mode adjustments (if system prefers dark)
+@media (prefers-color-scheme: dark) {
+  .filterBar {
+    background: linear-gradient(135deg, #0f0f14 0%, #1a1a20 100%);
+    border-color: #333333;
+  }
+  
+  .card {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: #333333;
   }
 }

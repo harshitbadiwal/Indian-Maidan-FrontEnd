@@ -187,3 +187,105 @@
       background-color: darken(#fef2f2, 5%);
     }
   }
+
+  .viewModal {
+  background-color: #ffffff;
+  padding: 32px;
+  max-width: 720px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #1f2937;
+  margin: auto;
+
+  .modalHeader {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #111827;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 12px;
+  }
+
+  .detailItem {
+    margin-bottom: 12px;
+    font-size: 15px;
+
+    span {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .highlight {
+      color: #3b82f6;
+    }
+  }
+
+  .address {
+    margin-top: 8px;
+    font-style: italic;
+    color: #6b7280;
+  }
+
+  .status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    background-color: #d1fae5;
+    color: #065f46;
+    margin-bottom: 10px;
+  }
+
+  .timing {
+    margin-top: 8px;
+
+    span {
+      display: block;
+    }
+  }
+
+  .amenities, .sports {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style-type: disc;
+    color: #4b5563;
+  }
+
+  .imageGallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+
+    img {
+      width: 100px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 24px;
+
+    .modalHeader {
+      font-size: 20px;
+    }
+
+    .detailItem {
+      font-size: 14px;
+    }
+
+    .imageGallery {
+      img {
+        width: 90px;
+        height: 60px;
+      }
+    }
+  }
+}
