@@ -1,59 +1,62 @@
 // "use client"
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import styles from "./Location.module.scss";
 import Header from "../../Components/Header/Header";
 import { Input } from "@mui/material";
 import { SideBar2, SideBar3 } from "../../Components/Sidebar/Sidebar";
+import { RequestTrufbyCity } from "../../services/User/Trufs";
+import { useParams } from "react-router-dom";
 
 const Location = () => {
-  // Sample venues data - expanded for filtering demonstration
-  const allVenues = [
-    {
-      id: 1,
-      image: "/images/mob.jpg",
-      name: "Elite Sports Arena",
-      location: "New York, USA",
-      sports: ["Football", "Basketball"],
-      price: 800,
-      city: "New York"
-    },
-    {
-      id: 2,
-      image: "/images/football.webp",
-      name: "Prime Sports Center",
-      location: "Los Angeles, USA",
-      sports: ["Tennis", "Swimming"],
-      price: 1200,
-      city: "Los Angeles"
-    },
-    {
-      id: 3,
-      image: "/images/badminton.webp",
-      name: "Champion Badminton Club",
-      location: "Chicago, USA",
-      sports: ["Badminton", "Table Tennis"],
-      price: 600,
-      city: "Chicago"
-    },
-    {
-      id: 4,
-      image: "/images/swimming.jpg",
-      name: "Aqua Sports Complex",
-      location: "Miami, USA",
-      sports: ["Swimming", "Water Polo"],
-      price: 1000,
-      city: "Miami"
-    },
-    {
-      id: 5,
-      image: "/images/mob.jpg",
-      name: "Multi-Sport Arena",
-      location: "Boston, USA",
-      sports: ["Football", "Basketball", "Cricket"],
-      price: 900,
-      city: "Boston"
+  const params = useParams();
+  console.log("params", params);
+  const { id } = params;
+  
+  const [allVenues, setAllVenues] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const getTurfByCity = async () => {
+    try {
+      const payload = {
+        city: id,
+      };
+      const response = await RequestTrufbyCity(payload);
+      
+      if (response.error) {
+        throw new Error(response.error);
+      }
+      if (response.success) {
+        // Transform the API data to match your component's expected structure
+        const transformedData = response.data.map(venue => ({
+          id: venue._id,
+          name: venue.turfName,
+          location: `${venue.location.city}, ${venue.location.state}`,
+          city: venue.location.city,
+          state: venue.location.state,
+          sports: venue.availableSports,
+          price: venue.hourlyRate,
+          image: venue.facilityImages[0] || '/default-turf-image.jpg', // Fallback image
+          amenities: venue.amenities,
+          cancellationPolicy: venue.cancellationPolicy,
+          fullAddress:venue.fullAddress,
+          turfSize: venue.turfSize,
+          weekendHours: venue.weekendHours,
+          advancePayment:venue.advancePayment,
+          surfaceType: venue.surfaceType,
+          weekdayHours: venue.weekdayHours,
+        }));  
+        setAllVenues(transformedData);
+      }
+    } catch(error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  useEffect(() => {
+    getTurfByCity();
+  }, [id]); // Add id as dependency to refetch when URL changes
 
   // Filter states
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -68,17 +71,14 @@ const Location = () => {
   const filteredVenues = useMemo(() => {
     let filtered = allVenues;
 
-    // Filter by location
     if (selectedLocation) {
       filtered = filtered.filter(venue => venue.city === selectedLocation);
     }
 
-    // Filter by sport
     if (selectedSport) {
       filtered = filtered.filter(venue => venue.sports.includes(selectedSport));
     }
 
-    // Sort by price
     if (priceSort === "low-to-high") {
       filtered = [...filtered].sort((a, b) => a.price - b.price);
     } else if (priceSort === "high-to-low") {
@@ -86,13 +86,15 @@ const Location = () => {
     }
 
     return filtered;
-  }, [selectedLocation, selectedSport, priceSort]);
+  }, [allVenues, selectedLocation, selectedSport, priceSort]);
 
   const clearFilters = () => {
     setSelectedLocation("");
     setSelectedSport("");
     setPriceSort("");
   };
+
+ 
 
   return (
     <>
@@ -123,7 +125,7 @@ const Location = () => {
             onChange={(e) => setSelectedSport(e.target.value)}
             className={styles.filterSelect}
           >
-            <option value="">Choose Sports</option>
+            <option value="">All Sports</option>
             {uniqueSports.map(sport => (
               <option key={sport} value={sport}>{sport}</option>
             ))}
@@ -143,11 +145,9 @@ const Location = () => {
           </select>
         </div>
 
-        <div className={styles.filterItem}>
-          <button onClick={clearFilters} className={styles.clearButton}>
-            Clear Filters
-          </button>
-        </div>
+        <button onClick={clearFilters} className={styles.clearButton}>
+          Clear Filters
+        </button>
       </div>
 
       {/* Results Count */}
@@ -155,23 +155,29 @@ const Location = () => {
         <p>Showing {filteredVenues.length} venue{filteredVenues.length !== 1 ? 's' : ''}</p>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
+      <div className={styles.container}>
         <div className={styles.background}>
-          {/* <img src="/images/sports2.png" /> */}
+          {/* Optional background image */}
         </div>
-        
-        <div className={styles.cards}>
+        {
+          loading ? (
+            <div className={styles.noResults}>
+              <p>Loading venues...</p>
+            </div>
+          ) : (
+             <div className={styles.cards}>
           {filteredVenues.length > 0 ? (
             filteredVenues.map((venue) => (
               <div key={venue.id} className={styles.card}>
                 <div className={styles.images}>
-                  <img src={venue.image} className={styles.image} alt={venue.name} />
+                  <img 
+                    src={venue?.image} 
+                    className={styles.image} 
+                    alt={venue.name} 
+                    onError={(e) => {
+                      // e.target.src = '/default-turf-image.jpg';
+                    }}
+                  />
                 </div>
                 <div className={styles.content}>
                   <h3 className={styles.name}>{venue.name}</h3>
@@ -179,8 +185,13 @@ const Location = () => {
                   <p className={styles.sports}>
                     {venue.sports.join(", ")}
                   </p>
-                  <p className={styles.price}>Rs {venue.price} / month</p>
-                  <SideBar2 />
+                  <p className={styles.price}>₹{venue.price} / hour</p>
+                  <div className={styles.amenities}>
+                    {venue.amenities.slice(0, 3).map(amenity => (
+                      <span key={amenity} className={styles.amenity}>{amenity}, </span>
+                    ))}
+                  </div>
+                  <SideBar2 data={venue} />
                 </div>
               </div>
             ))
@@ -194,6 +205,9 @@ const Location = () => {
             </div>
           )}
         </div>
+          )
+        }
+       
       </div>
     </>
   );
