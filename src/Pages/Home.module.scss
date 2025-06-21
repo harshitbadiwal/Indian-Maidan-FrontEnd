@@ -1,322 +1,451 @@
-.mainContainer{
+.mainContainer {
   background: linear-gradient(to bottom right, #1b1b1c, #121212);
 }
+
 .background {
-    // background-image: url("../../public/images/background.jpg");
-    background-size: cover;
-    width: 100%;
-    // background-position: center;
-    height: 42vw;
+  background-size: cover;
+  width: 100%;
+  height: 42vw;
   overflow: hidden;
   
-  // opacity: .63;
+  @media (max-width: 768px) {
+    height: 60vh; /* Better mobile height */
+  }
   
-
-    @media (max-width: 768px) {
-        height: 50vh; /* Adjust height for mobile */
-    }
+  @media (max-width: 480px) {
+    height: 50vh;
+  }
 }
 
 .hero {
-    text-align: center;
-    padding: 200px 0;
-    color: white;
-    align-items: center;
-    justify-content: center;
+  text-align: center;
+  padding: 200px 0;
+  color: white;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   margin-top: 5vw;
   z-index: 11;
   top: 0;
   width: 100%;
-  
   overflow: hidden;
-    .heroTitle {
-        font-size: 45px;
-        font-weight: bold;
-        margin-bottom: -5px;
-        color: white;
-        animation: fadeInUp 1s ease-out;
-        font-family: "Poppins";
-        @media (max-width: 768px) {
-            font-size: 14px; /* Smaller font size for mobile */
-        }
-    }
+  
+  @media (max-width: 768px) {
+    padding: 100px 20px;
+    margin-top: 10vw;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 80px 15px;
+    margin-top: 15vw;
+  }
+  
+  .heroTitle {
+    font-size: 45px;
+    font-weight: bold;
+    margin-bottom: -5px;
+    color: white;
+    animation: fadeInUp 1s ease-out;
+    font-family: "Poppins";
+    
     @media (max-width: 768px) {
-        font-size: 14px; /* Adjust subtitle size */
-        padding: 0px 20px;
+      font-size: 28px;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .heroSubtitle {
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-family: "Poppins";
+    color: white;
+    animation: fadeInUp 2s ease-out;
+    overflow: hidden;
+    
+    @media (max-width: 768px) {
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .heroButton {
+    background-color: black;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    animation: fadeInUp 3s ease-out;
+
+    &:hover {
+      background-color: white;
+      color: #000000;
     }
 
-    .heroSubtitle {
-        font-size: 14px;
-        margin-bottom: 20px;
-        font-weight: 500;
-        font-family: "Poppins";
-        color: white;
-        animation: fadeInUp 2s ease-out;
-overflow: hidden;
-        @media (max-width: 768px) {
-            font-size: 14px; /* Adjust subtitle size */
-        }
+    @media (max-width: 768px) {
+      padding: 12px 24px;
+      font-size: 16px;
     }
-
-    .heroButton {
-        background-color: black;
-        color: white;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        font-weight: 600;
-        animation: fadeInUp 3s ease-out;
-
-        &:hover {
-            background-color: white;
-            color: #000000;
-        }
-
-        @media (max-width: 768px) {
-            padding: 10px 20px; /* Adjust padding */
-            font-size: 14px; /* Adjust button font size */
-        }
+    
+    @media (max-width: 480px) {
+      padding: 10px 20px;
+      font-size: 14px;
     }
+  }
 }
 
 /* Features Section Styling */
 .features {
-    padding: 20px 20px;
+  padding: 20px 20px;
+  text-align: center;
+  background-color: #000000;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 30px 15px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 20px 10px;
+  }
+
+  .container {
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .sectionTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: white;
+    font-family: "Poppins";
+    background-color: #111;
+    padding: 2vw;
+    letter-spacing: 2px;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+      padding: 4vw;
+      margin-bottom: 30px;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 1.5rem;
+      padding: 5vw;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+  }
+
+  .featureGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 20px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 25px;
+      margin-top: 15px;
+    }
+    
+    @media (max-width: 480px) {
+      gap: 20px;
+    }
+  }
+
+  .featureCard {
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    background-color: #000000;
     background-size: cover;
     background-position: center;
+    height: 200px;
     position: relative;
-    overflow: hidden;
+    z-index: 1;
 
-    .container {
-        // max-width: 1200px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 
-    .sectionTitle {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 40px;
-        color: white;
-        font-family: "Poppins";
-        background-color:  #111;
-        padding: 2vw;
-        // text-transform: uppercase;
-        letter-spacing: 2px;
-
-        @media (max-width: 768px) {
-            font-size: 1.8rem; /* Adjust title size */
-        }
+    @media (max-width: 768px) {
+      padding: 30px;
+      height: 180px;
+    }
+    
+    @media (max-width: 480px) {
+      padding: 25px;
+      height: 160px;
     }
 
-    .featureGrid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 40px;
-        margin-top: 20px;
+    h4 {
+      font-size: 1.6rem;
+      color: #fff;
+      margin: 20px 0;
+      font-weight: 600;
 
-        @media (max-width: 768px) {
-            grid-template-columns: 1fr; /* Stacked layout for mobile */
-            gap: 20px;
-        }
+      @media (max-width: 768px) {
+        font-size: 1.4rem;
+        margin: 15px 0;
+      }
+      
+      @media (max-width: 480px) {
+        font-size: 1.2rem;
+        margin: 10px 0;
+      }
     }
 
-    .featureCard {
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        background-size: cover;
-        background-position: center;
-        height: 200px; /* Set height for each card */
-        position: relative;
-        z-index: 1;
+    p {
+      font-size: 12px;
+      color: #fff;
 
-        &:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        h4 {
-            font-size: 1.6rem;
-            color: #fff;
-            margin: 20px 0;
-            font-weight: 600;
-
-            @media (max-width: 768px) {
-                font-size: 1.4rem; /* Adjust heading size */
-            }
-        }
-
-        p {
-            font-size: 12px;
-            color: #fff;
-
-            @media (max-width: 768px) {
-                font-size: 0.9rem; /* Adjust paragraph size */
-            }
-        }
+      @media (max-width: 768px) {
+        font-size: 14px;
+      }
+      
+      @media (max-width: 480px) {
+        font-size: 12px;
+      }
     }
+  }
 }
 
 /* Animation Keyframes */
 @keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-  /* Background images for each feature card */
-  .search {
-    box-shadow: 4px 4px 4px 1px rgb(187, 186, 186);
-    background-image: url('../../public/images/booking-icon.webp');
+
+/* Background images for each feature card */
+.search {
+  box-shadow: 4px 4px 4px 1px rgb(187, 186, 186);
+  background-image: url('../../public/images/booking-icon.webp');
+}
+
+.booking {
+  box-shadow: 4px 4px 4px 1px rgb(187, 186, 186);
+  background-image: url('../../public/images/booking-icon.webp');
+}
+
+.membership {
+  box-shadow: 4px 4px 4px 1px rgb(187, 186, 186);
+  background-image: url('../../public/images/booking-icon.webp');
+}
+
+.turfData {
+  border: 2px solid rgb(175, 227, 255);
+  border-radius: 10px;
+  padding: 1vw 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  transition: all .20s ease-in-out;
+  height: 8vw;
+  width: 8vw;
+  
+  @media (max-width: 768px) {
+    height: 12vw;
+    width: 12vw;
+    padding: 2vw 3vw;
+    margin: 0 2vw;
   }
-
-  .booking {
-    box-shadow: 4px 4px 4px 1px rgb(187, 186, 186);
-    background-image: url('../../public/images/booking-icon.webp');
+  
+  @media (max-width: 480px) {
+    height: 15vw;
+    width: 15vw;
+    padding: 3vw 4vw;
+    margin: 0 1vw;
   }
+}
 
-  .membership {
-    box-shadow: 4px 4px 4px 1px rgb(187, 186, 186);
-    background-image: url('../../public/images/booking-icon.webp');
+.turfData:hover {
+  cursor: pointer;
+  scale: 1.05;
+}
+
+.navButtons {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
   }
-
-
-  .turfData{
-    border: 2px solid  rgb(175, 227, 255);
-    border-radius: 10px;
-    padding: 1vw 2vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  
+  @media (max-width: 480px) {
     flex-direction: column;
-    margin-left: 1vw;
-    margin-right: 1vw;
-    transition: all .20s ease-in-out;
-    height: 8vw;
-    width: 8vw;
+    align-items: center;
+    gap: 0.75rem;
   }
-  .turfData:hover{
-    cursor: pointer;
-    scale:1.05
-  }
-
-  .navButtons {
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    justify-content: center;
-    .button {
-      display: flex;
-      align-items: center;
-      // text-align: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 1rem 1.5rem;
-      border-radius: 0.2rem;
-      border: none;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      background-color: white;
-    // background: linear-gradient(-135deg, #2b2b2b 0%, #32e6e2 10%);
-
-      color: black;
-      font-size: 15px;
-      font-weight: 500;
-      width: 12vw;
-      .icon {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
-      
-    
-        
-        &:hover {
-          background-color: #f4f8f8;
-        }
-
-      
-    }
-  }
-  .button:hover{
-    scale: 1.05;
-
-  }
-  .button2 {
+  
+  .button {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
+    padding: 1rem 1.5rem;
     border-radius: 0.2rem;
     border: none;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: black;
-    color: white;
-    font-size: 14px;
+    background-color: white;
+    color: black;
+    font-size: 15px;
     font-weight: 500;
     width: 12vw;
+    min-width: 120px;
+    
+    @media (max-width: 768px) {
+      width: 20vw;
+      min-width: 140px;
+      padding: 0.875rem 1.25rem;
+      font-size: 14px;
+    }
+    
+    @media (max-width: 480px) {
+      width: 80vw;
+      max-width: 280px;
+      padding: 0.75rem 1rem;
+      font-size: 14px;
+    }
     
     .icon {
       width: 1.25rem;
       height: 1.25rem;
-    }
-    
-  
       
-      &:hover {
-        scale: 1.05;
+      @media (max-width: 480px) {
+        width: 1rem;
+        height: 1rem;
       }
-    
+    }
+        
+    &:hover {
+      background-color: #f4f8f8;
+      scale: 1.05;
+    }
   }
-.headerSection{
+}
+
+.button2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.2rem;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: black;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  width: 12vw;
+  min-width: 120px;
+  
+  @media (max-width: 768px) {
+    width: 20vw;
+    min-width: 140px;
+    padding: 0.75rem 1.25rem;
+  }
+  
+  @media (max-width: 480px) {
+    width: 80vw;
+    max-width: 280px;
+    padding: 0.65rem 1rem;
+    font-size: 13px;
+  }
+  
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    
+    @media (max-width: 480px) {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+  
+  &:hover {
+    scale: 1.05;
+  }
+}
+
+.headerSection {
   position: absolute;
   top: 0;
- z-index: 111;
+  z-index: 111;
   width: 100%;
 }
 
-
 .containers {
   display: flex;
-  gap: 25px; // Add gap between cards
-  justify-content: flex-start; // Align cards to the start
+  gap: 25px;
+  justify-content: flex-start;
   background-color: black;
-  padding: 40px 20px; // Add padding for better spacing
-  overflow-x: auto; // Enable horizontal scrolling
+  padding: 40px 20px;
+  overflow-x: auto;
   width: 100%;
-   // Custom scrollbar color
 
-  /* Custom scrollbar for WebKit browsers (Chrome, Safari) */
+  @media (max-width: 768px) {
+    gap: 20px;
+    padding: 30px 15px;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 15px;
+    padding: 20px 10px;
+  }
+
+  /* Custom scrollbar for WebKit browsers */
   &::-webkit-scrollbar {
     display: none;
   }
@@ -339,12 +468,21 @@ overflow: hidden;
   background-color: #111;
   border-radius: 10px;
   overflow: hidden;
-  width: 380px; // Fixed width for each card
-  flex-shrink: 0; // Prevent cards from shrinking
+  width: 380px;
+  flex-shrink: 0;
   text-align: center;
   color: white;
   transition: transform 0.3s;
   box-shadow: 2px 4px 4px 4px rgba(255, 255, 255, 0.1);
+  
+  @media (max-width: 768px) {
+    width: 320px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 280px;
+  }
+  
   &:hover {
     transform: scale(1.05);
   }
@@ -358,6 +496,14 @@ overflow: hidden;
   width: 100%;
   height: 220px;
   object-fit: cover;
+  
+  @media (max-width: 768px) {
+    height: 200px;
+  }
+  
+  @media (max-width: 480px) {
+    height: 180px;
+  }
 }
 
 .cardbutton {
@@ -374,6 +520,11 @@ overflow: hidden;
   font-size: 14px;
   transition: background-color 0.3s;
 
+  @media (max-width: 480px) {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
   }
@@ -381,6 +532,10 @@ overflow: hidden;
 
 .content {
   padding: 15px;
+  
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 }
 
 .title {
@@ -388,31 +543,64 @@ overflow: hidden;
   font-weight: bold;
   margin-bottom: 8px;
   font-family: "Poppins";
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
 }
 
 .description {
   font-size: 12px;
   color: #ccc;
   font-family: "Poppins";
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 }
-
 
 .heroSection {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url('../assests/curlyhairBoy.jpg'); // Add your background image
+  background-image: url('../assests/curlyhairBoy.jpg');
   background-size: cover;
   background-position: center;
   color: white;
   text-align: center;
   width: 95%;
-  background-color  : white;
-opacity:.95;
+  background-color: white;
+  opacity: .95;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 80vh;
+  }
+  
+  @media (max-width: 480px) {
+    height: 70vh;
+  }
+  
   .heroContainer {
-    // max-width: 800px;
     padding: 20px;
+    
+    @media (max-width: 768px) {
+      padding: 15px;
+    }
+    
+    @media (max-width: 480px) {
+      padding: 10px;
+    }
   }
 
   .heroTitle {
@@ -420,9 +608,15 @@ opacity:.95;
     font-weight: bold;
     margin-bottom: 10px;
     animation: fadeInUp 1s ease-out;
-color: #000000;
+    color: #000000;
+    
     @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+    
+    @media (max-width: 480px) {
       font-size: 2rem;
+      margin-bottom: 8px;
     }
   }
 
@@ -433,7 +627,13 @@ color: #000000;
     color: #000000;
 
     @media (max-width: 768px) {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
+      margin-bottom: 18px;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 1.25rem;
+      margin-bottom: 15px;
     }
   }
 
@@ -452,20 +652,13 @@ color: #000000;
     }
 
     @media (max-width: 768px) {
+      padding: 12px 25px;
+      font-size: 1.1rem;
+    }
+    
+    @media (max-width: 480px) {
       padding: 10px 20px;
       font-size: 1rem;
     }
   }
 }
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-

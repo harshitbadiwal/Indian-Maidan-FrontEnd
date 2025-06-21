@@ -104,24 +104,94 @@ export default function SideBar() {
     </div>
   );
 }
-export  function SideBar2() {
+export  function SideBar2({data}) {
+  console.log("data in sidebar",data)
   const [open, setOpen] = useState(false);
   const [selectedSport, setSelectedSport] = useState('football');
   const [selectedDate, setSelectedDate] = useState('');
 const [valueChange,setValueChange] = useState(true)
-  const timeSlots = [
-    { id: 1, time: '06:00 AM' },
-    { id: 2, time: '07:00 AM' },
-    { id: 3, time: '08:00 AM' },
-    { id: 4, time: '09:00 AM' },
-    { id: 5, time: '04:00 PM' },
-    { id: 6, time: '05:00 PM' },
-    { id: 7, time: '06:00 PM' },
-    { id: 8, time: '07:00 PM' },
-  ];
+
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
+  function generateTimeSlots(openingTime, closingTime) {
+  // Convert time strings to Date objects for easier manipulation
+  const parseTime = (timeStr) => {
+    const [time, period] = timeStr.split(/(?=[AP]M)/);
+    let [hours, minutes] = time.split(':').map(Number);
+    
+    if (period === 'PM' && hours !== 12) hours += 12;
+    if (period === 'AM' && hours === 12) hours = 0;
+    
+    const date = new Date();
+    date.setHours(hours, minutes || 0, 0, 0);
+    return date;
+  };
+
+  const start = parseTime(openingTime);
+  const end = parseTime(closingTime);
+  
+  // Handle cases where closing time is next day (e.g., 2 AM)
+  if (end <= start) end.setDate(end.getDate() + 1);
+
+  const timeSlots = [];
+  let current = new Date(start);
+
+  while (current < end) {
+    const slotStart = new Date(current);
+    current.setHours(current.getHours() + 1); // Add 1 hour
+    const slotEnd = new Date(current);
+    
+    // Format back to AM/PM
+    const formatTime = (date) => {
+      let hours = date.getHours();
+      const minutes = date.getMinutes();
+      const period = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // Convert 0 to 12
+      return `${hours}:${minutes.toString().padStart(2, '0')} ${period}`;
+    };
+
+    timeSlots.push({
+      start: formatTime(slotStart),
+      end: formatTime(slotEnd)
+    });
+  }
+
+  return timeSlots;
+}
+
+  const [selectedSlots, setSelectedSlots] = useState([]);
+
+  // Toggle time slot selection
+  const toggleTimeSlot = (slot) => {
+    setSelectedSlots(prev => {
+      // Check if slot is already selected
+      const isSelected = prev.some(
+        s => s.start === slot.start && s.end === slot.end
+      );
+      
+      if (isSelected) {
+        // Remove from selection
+        return prev.filter(
+          s => !(s.start === slot.start && s.end === slot.end)
+        );
+      } else {
+        // Add to selection
+        return [...prev, slot];
+      }
+    });
+  };
+
+  // Check if a slot is selected
+  const isSlotSelected = (slot) => {
+    return selectedSlots.some(
+      s => s.start === slot.start && s.end === slot.end
+    );
+  };
+
+
+const timeSlots = generateTimeSlots(data.weekdayHours.openingTime, data.weekdayHours.closingTime);
 
     const [selectedPayment, setSelectedPayment] = useState('');
     const [selectedServices, setSelectedServices] = useState([]);
@@ -137,14 +207,31 @@ const [valueChange,setValueChange] = useState(true)
       sum + services.find(s => s.id === service).price, 0
     );
   
+
+     const isSlotInRange = (slot) => {
+    if (selectedSlots.length < 2) return false;
+    
+    const sortedSlots = [...selectedSlots].sort((a, b) => 
+      timeSlots.findIndex(s => s.start === a.start) - 
+      timeSlots.findIndex(s => s.start === b.start)
+    );
+    
+    const firstIndex = timeSlots.findIndex(s => s.start === sortedSlots[0].start);
+    const lastIndex = timeSlots.findIndex(s => s.start === sortedSlots[sortedSlots.length - 1].start);
+    const currentIndex = timeSlots.findIndex(s => s.start === slot.start);
+    
+    return currentIndex >= firstIndex && currentIndex <= lastIndex;
+  };
+
+
   const DrawerList = (
     <Box  className={styles.drawerList} role="presentation"  onClick={toggleDrawer("right", false)}>
     {valueChange? <div className={styles.sportsArena}>
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
-          <h2>Elite Sports Arena</h2>
+          <h2>{data?.name}</h2>
           <p className={styles.location}>
-            <i className={styles.locationIcon}/> Kothri, Udaipur, Rajasthan
+            <i className={styles.locationIcon}/> {data?.fullAddress}, {data?.city}, {data?.state}
           </p>
           <div className={styles.statusBar}>
             <span className={styles.openNow}>Open Now</span>
@@ -155,20 +242,17 @@ const [valueChange,setValueChange] = useState(true)
         <div className={styles.sportSelection}>
           <h3>Choose Your Sport</h3>
           <div className={styles.sportButtons}>
+          {
+            data?.sports.map((sport, index) => (
             <button
-              className={styles.sportBtn}
-                // ` ${selectedSport === 'football' ? 'active' : ''}`}
-              onClick={() => setSelectedSport('football')}
+            className={`${styles.sportBtn} ${selectedSport === sport ? styles.active : ''}`}
+              // className={styles.sportBtn}
+              onClick={() => setSelectedSport(sport)}
             >
-              Football
-            </button>
-            <button
-              // className={`sport-btn ${selectedSport === 'basketball' ? 'active' : ''}`}
-              className={styles.sportBtn}
-              onClick={() => setSelectedSport('basketball')}
-            >
-              Basketball
-            </button>
+              {sport}
+            </button>))
+          }
+           
           </div>
         </div>
 
@@ -192,13 +276,44 @@ const [valueChange,setValueChange] = useState(true)
 
           <div className={styles.timeSlots}>
             <h4>Available Time Slots</h4>
-            <div className={styles.slotsGrid}>
-              {timeSlots.map((slot) => (
-                <button key={slot.id} className={styles.timeSlot}>
-                  {slot.time}
-                </button>
-              ))}
-            </div>
+            {/* <div className={styles.slotsGrid}> */}
+              {/* {timeSlots.map((slot) => ( */}
+                {/* <button  className={styles.timeSlot}>
+                  {generateTimeSlots(data?.weekdayHours?.openingTime, data?.weekdayHours?.closingTime)}
+                </button> */}
+              {/* ))} */}
+               <div className={styles.slotsGrid}>
+        {timeSlots.map((slot, index) => {
+          const isSelected = selectedSlots.some(s => s.start === slot.start && s.end === slot.end);
+          const isInRange = isSlotInRange(slot);
+          
+          return (<button
+            key={index}
+           className={`${styles.timeSlot} ${
+                isSelected ? styles.selected : ''
+              } ${
+                isInRange ? styles.inRange : ''
+              }`}
+            onClick={() => toggleTimeSlot(slot)}
+          >
+            {slot.start} - {slot.end}
+          </button>
+        )})}
+      </div>
+      
+      {/* Display selected slots */}
+      {selectedSlots.length > 0 && (
+        <div className={styles.selectedSlots}>
+          <h4>Selected Time Slots:</h4>
+          <ul>
+            {selectedSlots.map((slot, index) => (
+              <li key={index}>
+                {slot.start} - {slot.end}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
           </div>
 
           <div className={styles.facilityPreview}>
@@ -209,7 +324,7 @@ const [valueChange,setValueChange] = useState(true)
             </div>
           </div>
           {/* <button onClick={()=>{}} className={styles.bookNowBtn} style={{marginBottom:"1vw"}}>Find Co-Partner</button> */}
-              <SideBar3/>
+              <SideBar3 />
           <button onClick={()=>{setValueChange(false)}} className={styles.bookNowBtn}>Book Now • ₹500/Hr</button>
         </div>
       </div>

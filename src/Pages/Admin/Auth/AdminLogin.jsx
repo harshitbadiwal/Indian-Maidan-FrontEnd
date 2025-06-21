@@ -1,6 +1,7 @@
 // src/Pages/Admin/Auth/AdminLogin.jsx
 import React, { useState } from 'react';
 import './AdminLogin.scss';
+import { RequestAdminLogin } from '../../../services/Admin/Auth';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -13,22 +14,16 @@ const AdminLogin = () => {
     setIsLoading(true);
     setErrorMsg('');
     try {
-     const response = await fetch('https://indianmadianbackend.onrender.com/api/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password
-        }),
-      });
-      const data = await response.json();
+      const payload = {
+        email: email,  
+        password: password,
+      };
+     const response = await RequestAdminLogin(payload)
       if (response.ok) {
-        localStorage.setItem('adminToken', data.token);
+        localStorage.setItem('adminToken', response.token);
         window.location.href = '/admin/dashboard';
       } else {
-        setErrorMsg(data.error || 'Invalid credentials');
+        setErrorMsg(response.error || 'Invalid credentials');
         setIsLoading(false);
       }
     } catch (error) {
