@@ -1,20 +1,29 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Eye, EyeOff, ChevronDown, Info } from "lucide-react";
-import styles from "./Authpage.module.scss"; // Import SCSS module
+import styles from "./Authpage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRequest } from "../../redux/actions/loginAction";
+import axios from "axios";
 
 const sportsOptions = [
-  "Cricket",
-  "Badminton",
-  "Volleyball",
   "Football",
-  "Tennis",
   "Basketball",
+  "Cricket",
+  "Tennis",
   "Hockey",
-  "Table Tennis",
-  "Golf",
+  "Badminton"
 ];
+
+const API_BASE_URL = "https://indianmadianbackend.onrender.com/api/user/auth";
+
+const parseJwt = (token) => {
+  try {
+    const base64Payload = token.split('.')[1];
+    return JSON.parse(atob(base64Payload));
+  } catch (e) {
+    return null;
+  }
+};
 
 const AuthPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,10 +32,19 @@ const AuthPage = () => {
   const [showInfo, setShowInfo] = useState(false);
   const [activeTab, setActiveTab] = useState("login");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [error, setError] = useState(null);
   const dropdownRef = useRef(null);
   const dispatch = useDispatch();
-  const { user, loading, error, isAuthenticated } = useSelector((state) => state.auth);
-  const [loginCreads, setLoginCreads] = useState({});
+  const { user, loading, isAuthenticated } = useSelector((state) => state.auth);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    name: "",
+    phoneNumber: "",
+    city: "",
+    state: "",
+    confirmPassword: ""
+  });
 
   const toggleSportSelection = (sport) => {
     setSelectedSports((prev) =>
@@ -34,7 +52,6 @@ const AuthPage = () => {
     );
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -49,28 +66,89 @@ const AuthPage = () => {
   }, []);
 
   const handleChange = (e) => {
-    setLoginCreads({ ...loginCreads, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
     if (isAuthenticated) {
-      // Redirect if already authenticated
       window.location.href = "/";
     }
   }, [isAuthenticated]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (activeTab === "login") {
-      dispatch(loginRequest(loginCreads));
-    } else {
-      // Handle signup logic
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      if (activeTab === "login") {
+        const response = await axios.post(`${API_BASE_URL}/login`, {
+          email: formData.email,
+          password: formData.password
+        });
+        
+        const token = response.data.token;
+        const decoded = parseJwt(token);
+        
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify({ 
+          _id: decoded.id,
+          email: formData.email,
+          name: decoded.name || ""
+        }));
+
+        dispatch({ 
+          type: "LOGIN_SUCCESS", 
+          payload: { 
+            token,
+            user: {
+              _id: decoded.id,
+              email: formData.email
+            }
+          }
+        });
+      } else {
+        if (formData.password !== formData.confirmPassword) {
+          throw new Error("Passwords don't match!");
+        }
+
+        const userData = {
+          email: formData.email,
+          password: formData.password,
+          name: formData.name,
+          phoneNumber: formData.phoneNumber,
+          location: {
+            city: formData.city,
+            state: formData.state,
+          },
+          sportsPreferences: selectedSports,
+        };
+
+        const response = await axios.post(`${API_BASE_URL}/register`, userData);
+        const token = response.data.token;
+        const decoded = parseJwt(token);
+        
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify({
+          _id: decoded.id,
+          email: formData.email,
+          name: formData.name
+        }));
+
+        dispatch(loginRequest({
+          email: formData.email,
+          password: formData.password
+        }));
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className={styles.authContainer}>
-      {/* Left side - Features */}
       <div className={styles.featureSection}>
         <div className={styles.logoWrapper}>
           <div className={styles.logoCircle}>
@@ -121,7 +199,6 @@ const AuthPage = () => {
         </div>
       </div>
 
-      {/* Right side - Auth Form */}
       <div className={styles.formSection}>
         <div className={styles.authCard}>
           <div className={styles.cardHeader}>
@@ -144,7 +221,12 @@ const AuthPage = () => {
             </button>
           </div>
 
-          {/* Login Form */}
+          {error && (
+            <div className={styles.errorMessage}>
+              {error}
+            </div>
+          )}
+
           {activeTab === "login" && (
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.formGroup2}>
@@ -159,6 +241,7 @@ const AuthPage = () => {
                     type="email"
                     name="email"
                     placeholder="you@example.com"
+                    value={formData.email}
                     onChange={handleChange}
                     required
                   />
@@ -180,6 +263,7 @@ const AuthPage = () => {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder="••••••••"
+                    value={formData.password}
                     onChange={handleChange}
                     required
                   />
@@ -198,8 +282,12 @@ const AuthPage = () => {
                 <label htmlFor="remember">Remember me</label>
               </div>
 
-              <button type="submit" className={styles.submitButton}>
-                {isLoading ? "Signing In..." : "Sign In"}
+              <button 
+                type="submit" 
+                className={styles.submitButton}
+                disabled={loading || isLoading}
+              >
+                {loading || isLoading ? "Signing In..." : "Sign In"}
               </button>
 
               <div className={styles.signUpPrompt}>
@@ -208,28 +296,99 @@ const AuthPage = () => {
             </form>
           )}
 
-          {/* Sign Up Form */}
           {activeTab === "signup" && (
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.formGroup}>
                 <label>Full Name</label>
-                <input type="text" placeholder="Enter your full name" required />
+                <input 
+                  type="text" 
+                  name="name" 
+                  placeholder="Enter your full name" 
+                  value={formData.name}
+                  onChange={handleChange}
+                  required 
+                />
               </div>
 
               <div className={styles.formGroup}>
                 <label>Email</label>
-                <input type="email" placeholder="Enter your email" required />
+                <input 
+                  type="email" 
+                  name="email" 
+                  placeholder="Enter your email" 
+                  value={formData.email}
+                  onChange={handleChange}
+                  required 
+                />
               </div>
 
               <div className={styles.inputGroup}>
                 <div className={styles.formGroup}>
                   <label>Phone</label>
-                  <input type="tel" placeholder="Phone number" required />
+                  <input 
+                    type="tel" 
+                    name="phoneNumber" 
+                    placeholder="Phone number (10 digits)" 
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    required 
+                  />
                 </div>
                 <div className={styles.formGroup}>
-                  <label>Location</label>
-                  <input type="text" placeholder="Your city" required />
+                  <label>City</label>
+                  <input 
+                    type="text" 
+                    name="city" 
+                    placeholder="Your city" 
+                    value={formData.city}
+                    onChange={handleChange}
+                    required 
+                  />
                 </div>
+                <div className={styles.formGroup}>
+                  <label>State</label>
+                  <input 
+                    type="text" 
+                    name="state" 
+                    placeholder="Your state" 
+                    value={formData.state}
+                    onChange={handleChange}
+                    required 
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formGroup}>
+                <label>Password</label>
+                <div className={styles.inputWrapper}>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="••••••••"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className={styles.togglePassword}
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              <div className={styles.formGroup}>
+                <label>Confirm Password</label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="••••••••"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
               </div>
 
               <div className={styles.formGroup} ref={dropdownRef}>
@@ -269,35 +428,11 @@ const AuthPage = () => {
                 </div>
               </div>
 
-              <div className={styles.infoSection}>
-                <input type="checkbox" id="co-partner" />
-                <label htmlFor="co-partner">
-                  Add my profile to the Co-Partner section
-                </label>
-                <Info
-                  className={styles.infoIcon}
-                  onClick={() => setShowInfo(!showInfo)}
-                />
-              </div>
-
-              {showInfo && (
-                <div className={styles.infoBox}>
-                  <p>
-                    The Co-Partner section allows your profile to be visible when
-                    someone books a turf. If a user selects 'Find Co-Partner' while
-                    booking, they can invite you to play. Currently, this feature
-                    is only available for turf bookings.
-                  </p>
-                  <button
-                    className={styles.closeInfo}
-                    onClick={() => setShowInfo(false)}
-                  >
-                    Close
-                  </button>
-                </div>
-              )}
-
-              <button type="submit" className={styles.submitButton}>
+              <button 
+                type="submit" 
+                className={styles.submitButton}
+                disabled={isLoading}
+              >
                 {isLoading ? "Creating Account..." : "Create Account"}
               </button>
             </form>

@@ -13,6 +13,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+        @media (max-width: 768px) {
+          padding: 0 10px; // Reduce padding for smaller screens
+        }
     }
 
     .logo {
@@ -55,6 +58,16 @@
         }
         }
     }
+        @media (max-width: 768px) {
+          display: none; // Hide nav on small screens.
+                          // A hamburger icon (HTML) and JavaScript would be needed
+                          // to toggle the visibility of this .nav element.
+                          // When visible, .navList might need styles like:
+                          // flex-direction: column; align-items: center;
+                          // background-color: #16213e; /* Or your header background */
+                          // position: absolute; top: 100%; left: 0; width: 100%;
+                          // padding: 10px 0;
+        }
     }
 
     /* Background Animation */

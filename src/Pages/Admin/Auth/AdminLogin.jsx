@@ -18,14 +18,16 @@ const AdminLogin = () => {
         email: email,  
         password: password,
       };
-     const response = await RequestAdminLogin(payload)
-      if (response.ok) {
-        localStorage.setItem('adminToken', response.token);
-        window.location.href = '/admin/dashboard';
-      } else {
-        setErrorMsg(response.error || 'Invalid credentials');
-        setIsLoading(false);
-      }
+   const response = await RequestAdminLogin(payload);
+
+if (response && response.token) {
+  localStorage.setItem('adminToken', response.token);
+  window.location.href = '/admin/dashboard';
+} else {
+  setErrorMsg(response.error || response.message || 'Invalid credentials');
+  setIsLoading(false);
+}
+
     } catch (error) {
       setErrorMsg('Server error. Please try again later.');
       setIsLoading(false);
