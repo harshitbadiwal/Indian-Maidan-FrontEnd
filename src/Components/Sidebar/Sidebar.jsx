@@ -262,26 +262,31 @@
     return;
   }
 
-  // Convert bookingDate to ISO string (date only)
-  const bookingDate = new Date(selectedDate);
-  bookingDate.setHours(0,0,0,0);
-
-  // Enrich slots with ISO strings for rawStart/rawEnd
   const enrichedSlots = selectedSlots.map(slot => {
-    const rawStart = new Date(slot.rawStart);
+    const slotDate = new Date(slot.rawStart);
+    const hours = slotDate.getHours();
+    const minutes = slotDate.getMinutes();
+
+    const rawStart = new Date(selectedDate);
+    rawStart.setHours(hours, minutes, 0, 0);
+
     const rawEnd = new Date(rawStart.getTime() + 60 * 60 * 1000);
+
     return {
       ...slot,
-      rawStart: rawStart.toISOString(),
-      rawEnd: rawEnd.toISOString(),
+      rawStart: toISTISOString(rawStart),
+      rawEnd: toISTISOString(rawEnd),
     };
   });
+
+  const bookingDate = new Date(selectedDate);
+  bookingDate.setHours(0,0,0,0);
 
   const payload = {
     userId: currentUser._id,
     turfId,
     sport: selectedSport,
-    bookingDate: bookingDate.toISOString(),
+    bookingDate: toISTISOString(bookingDate),
     startTime: enrichedSlots[0]?.rawStart,
     endTime: enrichedSlots[enrichedSlots.length - 1]?.rawEnd,
     selectedSlots: enrichedSlots,
@@ -825,3 +830,11 @@
         </div>
       );
     } */
+
+function toISTISOString(date) {
+  // IST offset = +5:30 = 330 minutes
+  const offsetMs = 5.5 * 60 * 60 * 1000;
+  const istDate = new Date(date.getTime() + offsetMs);
+  // Remove 'Z' and add '+05:30'
+  return istDate.toISOString().replace('Z', '+05:30');
+}

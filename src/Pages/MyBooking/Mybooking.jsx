@@ -7,7 +7,7 @@ import Footer from '../../Components/Footer/Footer';
 
 const BookingCard = ({
   venue, venueAddress, venueImage, surfaceType,
-  status, date, time, sport, price, bookingId,
+  status, date, endTime, time, sport, price, bookingId,
   advancePaid, amountDueAtVenue, selectedSlots, createdAt,
   onCancel, onReschedule
 }) => {
@@ -63,7 +63,11 @@ const BookingCard = ({
         </div>
         <div className={styles.infoGroup}>
           <Clock size={16} />
-          <span>{time}</span>
+          <span>
+            {new Date(date).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}
+            {" - "}
+            {new Date(endTime).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}
+          </span>
         </div>
         <div className={styles.infoGroup}>
           <span>Sport: {sport}</span>
@@ -121,6 +125,7 @@ const MyBooking = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('all');
+  const [dateFilter, setDateFilter] = useState('');
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -156,8 +161,9 @@ const MyBooking = () => {
           venueImage: b.turfId?.image?.[0] || '',
           surfaceType: b.turfId?.surfaceType || '',
           status: b.status || 'confirmed',
-          date: b.startTime,
-          time: `${b.startTime.split('T')[1].substring(0,5)} - ${b.endTime.split('T')[1].substring(0,5)}`,
+          date: b.startTime, // startTime as date
+          endTime: b.endTime, // endTime as date
+          time: '', // ab iski zarurat nahi, UI me format karo
           sport: b.sport || 'Football',
           price: b.totalPrice || 0,
           advancePaid: b.advancePaid,
@@ -204,14 +210,20 @@ const MyBooking = () => {
   };
 
   const filtered = bookings
-    .filter(b =>
-      b.venue.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      b.bookingId.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    .filter(b => {
+      const search = searchTerm.toLowerCase();
+      return (
+        b.venue.toLowerCase().includes(search) ||
+        b.bookingId.toLowerCase().includes(search) ||
+        b.sport.toLowerCase().includes(search) ||
+        new Date(b.date).toLocaleDateString('en-IN', {
+          day: 'numeric', month: 'short', year: 'numeric'
+        }).toLowerCase().includes(search)
+      );
+    })
     .filter(b => {
       if (filter === 'all') return true;
       if (filter === 'upcoming') {
-        // Only future bookings with confirmed status
         return (
           b.status.toLowerCase() === 'confirmed' &&
           new Date(b.date) >= new Date()
@@ -219,6 +231,17 @@ const MyBooking = () => {
       }
       if (filter === 'cancelled') return b.status.toLowerCase() === 'cancelled';
       return true;
+    })
+    .filter(b => {
+      if (!dateFilter) return true;
+      // Compare only date part
+      const bookingDate = new Date(b.date);
+      const filterDate = new Date(dateFilter);
+      return (
+        bookingDate.getFullYear() === filterDate.getFullYear() &&
+        bookingDate.getMonth() === filterDate.getMonth() &&
+        bookingDate.getDate() === filterDate.getDate()
+      );
     });
 
   return (
@@ -227,14 +250,69 @@ const MyBooking = () => {
       <div className={styles.container}>
         <div className={styles.header}>
           <h1 className={styles.title}>My Bookings</h1>
-          <div className={styles.searchBox}>
-            <Search size={18} className={styles.searchIcon} />
+          <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap" }}>
+            <div className={styles.searchBox} style={{
+              display: "flex",
+              alignItems: "center",
+              background: "#f1f5f9",
+              borderRadius: "8px",
+              padding: "6px 14px",
+              boxShadow: "0 1px 4px 0 rgba(0,0,0,0.04)",
+              margin: "12px 0",
+              border: "1.5px solid #e2e8f0",
+              maxWidth: 350,
+              width: "100%"
+            }}>
+              <Search size={18} className={styles.searchIcon} style={{ color: "#64748b", marginRight: 8 }} />
+              <input
+                type="text"
+                placeholder="Search by venue, ID, date, sport..."
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                style={{
+                  border: "none",
+                  outline: "none",
+                  background: "transparent",
+                  fontSize: "1rem",
+                  color: "#1e293b",
+                  width: "100%"
+                }}
+              />
+            </div>
+            {/* Date Filter */}
             <input
-              type="text"
-              placeholder="Search bookings..."
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
+              type="date"
+              value={dateFilter}
+              onChange={e => setDateFilter(e.target.value)}
+              style={{
+                padding: "6px 12px",
+                borderRadius: "8px",
+                border: "1.5px solid #e2e8f0",
+                background: "#f1f5f9",
+                fontSize: "1rem",
+                color: "#1e293b",
+                margin: "12px 0"
+              }}
+              max={new Date(2100, 0, 1).toISOString().split("T")[0]}
+              min="2020-01-01"
+              placeholder="Filter by date"
             />
+            {dateFilter && (
+              <button
+                onClick={() => setDateFilter('')}
+                style={{
+                  background: "#e2e8f0",
+                  border: "none",
+                  borderRadius: "6px",
+                  padding: "6px 10px",
+                  marginLeft: "4px",
+                  cursor: "pointer",
+                  color: "#334155"
+                }}
+              >
+                Clear
+              </button>
+            )}
           </div>
         </div>
 
