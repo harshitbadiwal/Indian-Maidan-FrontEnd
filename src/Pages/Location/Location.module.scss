@@ -882,3 +882,10 @@
     border-color: #333333;
   }
 }
+
+.disabledCard {
+  opacity: 0.5;
+  pointer-events: none;
+  background-color: #2b2b2b;
+  border: 1px solid #ff4d4f;
+}

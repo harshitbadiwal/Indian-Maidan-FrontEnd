@@ -90,6 +90,7 @@ const AuthPage = () => {
         const token = response.data.token;
         const decoded = parseJwt(token);
         
+console.log("✅ Decoded JWT:", decoded); // debug
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify({ 
           _id: decoded.id,

@@ -42,6 +42,7 @@ const Location = () => {
         const transformedData = response.data.map((venue) => ({
           id: venue._id,
           name: venue.turfName,
+          isAvailable: venue.isAvailable, //show turf is on or off
           location: `${venue.location.city}, ${venue.location.state}`,
           city: venue.location.city,
           state: venue.location.state,
@@ -176,7 +177,10 @@ const Location = () => {
           <div className={styles.cards}>
             {filteredVenues.length > 0 ? (
               filteredVenues.map((venue) => (
-                <div key={venue.id} className={styles.card}>
+                <div
+                  key={venue.id}
+                  className={`${styles.card} ${venue.isAvailable === false ? styles.disabledCard : ''}`}
+                >
                   <div className={styles.images}>
                     <img
                       src={venue?.image[0]}
@@ -192,7 +196,7 @@ const Location = () => {
                     <p className={styles.location}>{venue.location}</p>
                     <p className={styles.sports}>{venue.sports.join(", ")}</p>
                     <p className={styles.price}>
-                       <span className={styles.priceTag}></span>
+                      <span className={styles.priceTag}></span>
                       ₹{venue.price} / hour&nbsp;
                       <span style={{ fontSize: "0.85em", color: "#aaa" }}>
                         ({new Date().getDay() === 0 || new Date().getDay() === 6
@@ -200,6 +204,11 @@ const Location = () => {
                           : "Weekday Rate"})
                       </span>
                     </p>
+                    {venue.isAvailable === false && (
+                      <p style={{ color: "#ff4d4f", fontWeight: "bold", marginBottom: "10px" }}>
+                        ⚠️ This turf is not accepting bookings currently
+                      </p>
+                    )}
                     <div className={styles.amenities}>
                       {venue.amenities.slice(0, 3).map((amenity) => (
                         <span key={amenity} className={styles.amenity}>
@@ -207,7 +216,7 @@ const Location = () => {
                         </span>
                       ))}
                     </div>
-                    <SideBar2 data={venue} />
+                    <SideBar2 data={venue} disabled={!venue.isAvailable} />
                   </div>
                 </div>
               ))

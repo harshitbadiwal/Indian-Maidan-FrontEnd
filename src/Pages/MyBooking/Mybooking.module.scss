@@ -201,3 +201,16 @@
 .pending {
   background-color: #ffc107; // yellow
 }
+
+.completed {
+  background-color: #2563eb; // blue, ya koi bhi color jo aapko pasand ho
+}
+
+.venueAddress, .surfaceType {
+  display: block;
+  color: #64748b;
+  font-size: 1rem;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  word-break: break-word;
+}
