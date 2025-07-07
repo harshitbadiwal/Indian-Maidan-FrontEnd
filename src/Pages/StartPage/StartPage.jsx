@@ -14,6 +14,7 @@ import { styled } from '@mui/material/styles';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 // import { useRouter } from 'next/navigation';
 // import { useRouter } from 'next/router'  
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
@@ -50,8 +51,21 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 const StartPage = () => {
+  const [cities, setCities] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);  const open = Boolean(anchorEl);
   const navigate = useNavigate()
+
+  useEffect(() => {
+  const fetchCities = async () => {
+    try {
+      const res = await axios.get("https://indianmadianbackend.onrender.com/api/turf/approved-cities");
+      setCities(res.data.cities);
+    } catch (err) {
+      console.error("City load error:", err);
+    }
+  };
+  fetchCities();
+}, []);
   // const router = useRouter()
   // useEffect(() => {
   //   if (typeof window !== 'undefined') {
@@ -144,8 +158,13 @@ const StartPage = () => {
         onChange={(e)=>handleNavigate(e)}
       >
        
-        <MenuItem value="Udaipur">Udaipur</MenuItem>
-        <MenuItem value="Bhilwara">Bhilwara</MenuItem>
+        {cities.length === 0 ? (
+  <MenuItem disabled>Loading...</MenuItem>
+) : (
+  cities.map((city, index) => (
+    <MenuItem key={index} value={city}>{city}</MenuItem>
+  ))
+)}
       </Select>
     </FormControl>
           </div>

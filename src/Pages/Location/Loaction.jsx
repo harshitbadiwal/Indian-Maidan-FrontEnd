@@ -6,6 +6,9 @@ import { Input } from "@mui/material";
 import { SideBar2 } from "../../Components/Sidebar/Sidebar";
 import { RequestTrufbyCity } from "../../services/User/Trufs";
 import { useParams } from "react-router-dom";
+import { IconButton, Tooltip } from "@mui/material";
+import { GoLocation } from "react-icons/go";  // or MdLocationOn, FaMapMarkerAlt, etc.
+
 
 const Location = () => {
   const params = useParams();
@@ -59,6 +62,8 @@ const Location = () => {
           advancePayment: venue.advancePayment,
           surfaceType: venue.surfaceType,
           weekdayHours: venue.weekdayHours,
+          lat: venue.location.lat,
+          lng: venue.location.lng,
         }));
 
         console.log("✅ Transformed Data:", transformedData);
@@ -194,6 +199,29 @@ const Location = () => {
                   <div className={styles.content}>
                     <h3 className={styles.name}>{venue.name}</h3>
                     <p className={styles.location}>{venue.location}</p>
+                    <div
+  className={styles.locationRow}
+  onClick={() => {
+    const url = `https://www.google.com/maps?q=${venue.lat},${venue.lng}`;
+    window.open(url, "_blank");
+  }}
+  role="button"
+  tabIndex={0}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      const url = `https://www.google.com/maps?q=${venue.lat},${venue.lng}`;
+      window.open(url, "_blank");
+    }
+  }}
+>
+  <IconButton className={styles.mapButton}>
+    <GoLocation className={styles.mapIcon} />
+  </IconButton>
+  <span className={styles.mapLabel}>See on Map</span>
+</div>
+
+
+
                     <p className={styles.sports}>{venue.sports.join(", ")}</p>
                     <p className={styles.price}>
                       <span className={styles.priceTag}></span>
@@ -233,6 +261,7 @@ const Location = () => {
         )}
       </div>
     </>
+    
   );
 };
 

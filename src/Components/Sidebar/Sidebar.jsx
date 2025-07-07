@@ -1,6 +1,4 @@
-// components/TemporaryDrawer.js
-
-    import * as React from 'react';
+import * as React from 'react';
     import Box from '@mui/material/Box';
     import Drawer from '@mui/material/Drawer';
     import Button from '@mui/material/Button';
@@ -23,6 +21,8 @@
     import { IoIosArrowDown } from "react-icons/io";
     import { useNavigate } from 'react-router-dom';
     import ChatIcon from '@mui/icons-material/Chat';
+    import { useMemo } from 'react';
+    import { GoLocation } from 'react-icons/go';
 
     export default function SideBar() {
       const [open, setOpen] = useState(false);
@@ -215,7 +215,21 @@
         };
 
 
-      const timeSlots = generateTimeSlots(data.weekdayHours.openingTime, data.weekdayHours.closingTime);
+    
+
+// …
+
+const timeSlots = useMemo(() => {
+  const day = selectedDate.getDay();              // 0 = Sunday, 6 = Saturday
+  const isWeekend = (day === 0 || day === 6);
+
+  const { openingTime, closingTime } = isWeekend
+    ? data.weekendHours
+    : data.weekdayHours;
+
+  return generateTimeSlots(openingTime, closingTime);
+}, [selectedDate, data.weekdayHours, data.weekendHours]);
+
 
           const [selectedPayment, setSelectedPayment] = useState('');
           const [selectedServices, setSelectedServices] = useState([]);
@@ -328,6 +342,27 @@
       <i className={styles.locationIcon} />
       {data?.fullAddress}, {data?.city}, {data?.state} - {data?.pincode}
     </p>
+    <div
+  className={styles.mapPreviewBox}
+  onClick={() => {
+    const url = `https://www.google.com/maps?q=${data?.location?.coordinates?.[1]},${data?.location?.coordinates?.[0]}`;
+    window.open(url, "_blank");
+  }}
+  role="button"
+  tabIndex={0}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      const url = `https://www.google.com/maps?q=${data?.location?.coordinates?.[1]},${data?.location?.coordinates?.[0]}`;
+      window.open(url, "_blank");
+    }
+  }}
+>
+  <div className={styles.mapThumbnail}>
+    <GoLocation className={styles.mapMarker} />
+    <div className={styles.mapOverlayText}>Open in Google Maps</div>
+  </div>
+</div>
+
       </div>
     {/* Turf Images */}
     <div className={styles.turfImagesContainer}>
@@ -357,6 +392,7 @@
         <p><strong>Contact:</strong> {data?.contactNumber ? data.contactNumber : "N/A"}</p>
         <p><strong>Email:</strong> {data?.email ? data.email : "N/A"}</p>
       </div>
+        
 
       {/* Rest of the original code (sports, booking, date picker, slots, etc.) remains as-is */}
 
