@@ -1,212 +1,277 @@
 import React, { useState } from "react";
 import styles from "./Profile.module.scss";
-import {Award , Bell, Settings, BarChart2, Clock, Users, Mail, Phone, MapPin, Calendar, Activity  } from 'lucide-react';
+import { Clock, Mail, Phone, MapPin, Calendar, Activity, XCircle, Hourglass, TrendingUp, Trophy, Star } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { getTokenData } from "../../services/tokenUtiles";
+import { useUserBookings } from "../../hooks/useUserBookings";
 
-const StatCard = ({ icon: Icon, title, value }) => (
-    <div className={styles.statCard}>
-      <Icon className={styles.icon} size={20} />
-      <div className={styles.content}>
-        <p className={styles.title}>{title}</p>
-        <h3 className={styles.value}>{value}</h3>
-      </div>
-    </div>
-  );
-
-  const InfoItem = ({ icon: Icon, text }) => (
-    <div className={styles.infoItem}>
-      <Icon className={styles.infoIcon} size={18} />
-      <span className={styles.infoText}>{text}</span>
-    </div>
-  );
-  
-  const ActivityItem = ({ type, venue, status, date }) => (
-    <div className={styles.activityItem}>
-      <Activity className={styles.activityIcon} size={18} />
-      <div className={styles.activityContent}>
-        <div className={styles.activityMain}>
-          <h4 className={styles.activityType}>{type}</h4>
-          <span className={`${styles.activityStatus} ${styles[status.toLowerCase()]}`}>
-            {status}
-          </span>
-        </div>
-        <p className={styles.activityVenue}>{venue}</p>
-      </div>
-      <span className={styles.activityDate}>{date}</span>
-    </div>
-  );
-
-  const ProgressBar = ({ sport, count, maxValue = 15 }) => {
-    const progress = (count / maxValue) * 100;
-    
-    return (
-      <div className={styles.progressWrap}>
-        <div className={styles.progressHeader}>
-          <span className={styles.sportName}>{sport}</span>
-          <span className={styles.sportCount}>
-            {count} {count === 1 ? 'game' : 'games'}
-          </span>
-        </div>
-        <div className={styles.progressTrack}>
-          <div 
-            className={styles.progressBar} 
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </div>
-    );
+const formatTimeToNow = (date) => {
+  const seconds = Math.floor((new Date(date) - new Date()) / 1000);
+  const intervals = {
+    year: 31536000,
+    month: 2592000,
+    week: 604800,
+    day: 86400,
+    hour: 3600,
+    minute: 60
   };
   
-  const StatItem = ({ label, value }) => (
-    <div className={styles.statRow}>
-      <span className={styles.label}>{label}</span>
-      <span className={styles.value}>{value}</span>
-    </div>
-  );
+  if (seconds < 60) return "in less than a minute";
   
-  const Badge = ({ title, description, color }) => (
-    <div className={`${styles.badgeCard} ${styles[color]}`}>
-      <Award className={styles.badgeIcon} size={20} />
-      <div className={styles.badgeInfo}>
-        <h4 className={styles.badgeTitle}>{title}</h4>
-        <p className={styles.badgeDesc}>{description}</p>
+  for (const [unit, secondsInUnit] of Object.entries(intervals)) {
+    const interval = Math.floor(seconds / secondsInUnit);
+    if (interval >= 1) {
+      return `in ${interval} ${unit}${interval === 1 ? '' : 's'}`;
+    }
+  }
+  return "soon";
+};
+
+const StatCard = ({ icon: Icon, title, value, isCancelled = false, totalBookings = 0, children, gradient = false }) => (
+  <div className={`${styles.statCard} ${isCancelled ? styles.cancelledCard : ''} ${gradient ? styles.gradientCard : ''}`}>
+    <div className={styles.statCardHeader}>
+      <div className={styles.iconWrapper}>
+        <Icon className={styles.icon} size={20} color={isCancelled ? '#ef4444' : gradient ? '#fff' : '#6366f1'} />
+      </div>
+      <div className={styles.content}>
+        <p className={styles.title}>{title}</p>
+        <h3 className={styles.value} style={isCancelled ? { color: '#ef4444' } : gradient ? { color: '#fff' } : {}}>
+          {value}
+        </h3>
+        {isCancelled && totalBookings > 0 && (
+          <p className={styles.cancellationRate}>
+            {Math.round((value / totalBookings) * 100)}% cancellation rate
+          </p>
+        )}
+        {children}
       </div>
     </div>
-  );
-const Profile = () => {
-  const user = getTokenData()
-  console.log(user)
-  const initial = user?.name?.charAt(0).toUpperCase() || "?";
-    const [nav,setNav] = useState("overview")
+  </div>
+);
 
-    const activities = [
-        { type: 'Booking', venue: 'Sports Arena', status: 'Confirmed', date: '2025-02-01' },
-        { type: 'Payment', venue: 'Green Valley', status: 'Success', date: '2025-01-28' },
-        { type: 'Cancellation', venue: 'City Sports', status: 'Refunded', date: '2025-01-25' }
-      ];
-    const stats = [
-        { icon: Activity, title: 'Total Bookings', value: '24' },
-        { icon: Calendar, title: 'Upcoming', value: '2' },
-        { icon: Clock, title: 'Hours Played', value: '48' },
-        { icon: Users, title: 'Avg. Players', value: '12' }
-      ];
-      const sports = [
-        { name: 'Football', count: 15 },
-        { name: 'Cricket', count: 8 },
-        { name: 'Badminton', count: 1 }
-      ];
-      const stats2 = [
-        { label: 'Total Hours Played', value: '48 hours' },
-        { label: 'Favorite Time Slot', value: 'Evening' },
-        { label: 'Average Players', value: '12' },
-        { label: 'Favorite Venue', value: 'Green Valley Turf' }
-      ];
+const InfoItem = ({ icon: Icon, text, label }) => (
+  <div className={styles.infoItem}>
+    <div className={styles.infoIconWrapper}>
+      <Icon className={styles.infoIcon} size={18} />
+    </div>
+    <div className={styles.infoContent}>
+      <span className={styles.infoLabel}>{label}</span>
+      <span className={styles.infoText}>{text}</span>
+    </div>
+  </div>
+);
+
+const Profile = () => {
+  const user = getTokenData();
+  const initial = user?.name?.charAt(0).toUpperCase() || "?";
+  const [nav, setNav] = useState("overview");
+
+  const { bookings, loading } = useUserBookings();
+
+  // Calculate stats from bookings
+  const getBookingStats = () => {
+    const now = new Date();
     
-      const achievements = [
-        { title: 'Regular Player', description: 'Completed 20+ bookings', color: 'blue' },
-        { title: 'Team Captain', description: 'Led 5+ team matches', color: 'green' },
-        { title: 'Multi-Sport Player', description: 'Played 3+ different sports', color: 'purple' }
-      ];
+    const totalBookings = bookings.length;
+    const totalCancelled = bookings.filter(
+      b => b.status.toLowerCase() === 'cancelled'
+    ).length;
+    const upcomingBookings = bookings.filter(
+      b => new Date(b.startTime) > now && b.status === 'Confirmed'
+    ).length;
+    const hoursPlayed = bookings
+      .filter(b => new Date(b.endTime) < now && b.status !== 'Cancelled')
+      .reduce((sum, b) => {
+        const durationHours = (new Date(b.endTime) - new Date(b.startTime)) / (1000 * 60 * 60);
+        return sum + durationHours;
+      }, 0);
+
+    return [
+      { icon: Activity, title: 'Total Bookings', value: totalBookings, gradient: true },
+      { icon: Calendar, title: 'Upcoming', value: upcomingBookings },
+      { icon: Clock, title: 'Hours Played', value: `${Math.round(hoursPlayed)} hrs` },
+      { icon: XCircle, title: 'Cancelled', value: totalCancelled, isCancelled: true }
+    ];
+  };
+
+  // Next booking calculation
+  const nextBooking = bookings
+    .filter(b => new Date(b.startTime) > new Date())
+    .sort((a,b) => new Date(a.startTime) - new Date(b.startTime))[0];
+
+  // Monthly booking data for chart
+  const monthlyData = Array(12).fill(0).map((_, i) => ({
+    name: new Date(2023, i).toLocaleString('default', { month: 'short' }),
+    bookings: bookings.filter(b => new Date(b.startTime).getMonth() === i).length
+  }));
+
+  // Favorite sport calculation with fallback
+  const favoriteSport = bookings.reduce((acc, booking) => {
+    if (booking.sport) {
+      acc[booking.sport] = (acc[booking.sport] || 0) + 1;
+    }
+    return acc;
+  }, {});
+
+  const favoriteSportName = Object.keys(favoriteSport).length > 0 
+    ? Object.entries(favoriteSport).sort((a,b) => b[1]-a[1])[0][0] 
+    : "No bookings yet";
+
+  const stats = loading ? [
+    { icon: Activity, title: 'Total Bookings', value: 'Loading...', gradient: true },
+    { icon: Calendar, title: 'Upcoming', value: 'Loading...' },
+    { icon: Clock, title: 'Hours Played', value: 'Loading...' },
+    { icon: XCircle, title: 'Cancelled', value: 'Loading...', isCancelled: true }
+  ] : getBookingStats();
+
   return (
     <div className={styles.mainContainer}>
-    <div style={{borderBottom:"2px solid white"}}>
-    <Header/>
+      <div className={styles.headerWrapper}>
+        <Header />
+      </div>
+      
+      <div className={styles.container}>
+        <div className={styles.profileSection}>
+          <div className={styles.profileCard}>
+            <div className={styles.profileHeader}>
+              <div className={styles.avatarSection}>
+                <div className={styles.avatar}>
+                  <span className={styles.firstName}>{initial}</span>
+                </div>
+                <div className={styles.statusBadge}>
+                  <Star size={12} />
+                  <span>Active</span>
+                </div>
+              </div>
+              
+              <div className={styles.profileInfo}>
+                <h1 className={styles.userName}>{user?.name}</h1>
+                <p className={styles.userRole}>Sports Enthusiast</p>
+                
+                <div className={styles.contactInfo}>
+                  <InfoItem 
+                    icon={Mail} 
+                    text={user?.email || "Not provided"} 
+                    label="Email"
+                  />
+                  <InfoItem 
+                    icon={Phone} 
+                    text={user?.phoneNumber ? `+91 ${user.phoneNumber}` : "Not provided"} 
+                    label="Phone"
+                  />
+                  <InfoItem 
+                    icon={MapPin} 
+                    text={
+                      user?.location?.city && user?.location?.state 
+                        ? `${user.location.city}, ${user.location.state}` 
+                        : "Location not set"
+                    }
+                    label="Location"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <nav className={styles.nav}>
+            <button 
+              className={nav === "overview" ? styles.active : ""} 
+              onClick={() => setNav("overview")}
+            >
+              <TrendingUp size={16} />
+              Overview
+            </button>
+          </nav>
+        </div>
+
+        {nav === "overview" && (
+          <div className={styles.overviewContent}>
+            <div className={styles.statsGrid}>
+              {stats.map((stat, index) => (
+                <StatCard 
+                  key={index} 
+                  {...stat} 
+                  totalBookings={stats.find(s => s.title === 'Total Bookings')?.value || 0}
+                />
+              ))}
+            </div>
+            
+            <div className={styles.additionalStats}>
+              <StatCard
+                icon={Hourglass}
+                title="Next Booking"
+                value={loading ? 'Loading...' : nextBooking ? formatTimeToNow(nextBooking.startTime) : "None"}
+              >
+                <p className={styles.subtext}>
+                  {loading ? '' : nextBooking ? `at ${nextBooking.turfId?.turfName || 'Unknown Venue'}` : "Book a session!"}
+                </p>
+              </StatCard>
+
+              <StatCard
+                icon={Trophy}
+                title="Favorite Sport"
+                value={loading ? 'Loading...' : favoriteSportName}
+              >
+                {!loading && favoriteSportName !== "No bookings yet" && (
+                  <p className={styles.subtext}>
+                    {Object.entries(favoriteSport).sort((a,b) => b[1]-a[1])[0][1]} bookings
+                  </p>
+                )}
+              </StatCard>
+            </div>
+
+            <div className={styles.chartSection}>
+              <div className={styles.chartContainer}>
+                <div className={styles.chartHeader}>
+                  <h3 className={styles.chartTitle}>Monthly Booking Trends</h3>
+                  <div className={styles.chartBadge}>
+                    <TrendingUp size={14} />
+                    <span>Analytics</span>
+                  </div>
+                </div>
+                {monthlyData.some(month => month.bookings > 0) ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={monthlyData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                      <XAxis 
+                        dataKey="name" 
+                        tick={{ fill: '#64748b', fontSize: 12 }}
+                        axisLine={{ stroke: '#e2e8f0' }}
+                      />
+                      <YAxis 
+                        tick={{ fill: '#64748b', fontSize: 12 }}
+                        axisLine={{ stroke: '#e2e8f0' }}
+                      />
+                      <Bar 
+                        dataKey="bookings" 
+                        fill="url(#colorGradient)"
+                        radius={[4, 4, 0, 0]}
+                      />
+                      <defs>
+                        <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#6366f1" />
+                          <stop offset="100%" stopColor="#8b5cf6" />
+                        </linearGradient>
+                      </defs>
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className={styles.noDataContainer}>
+                    <Activity size={48} className={styles.noDataIcon} />
+                    <p className={styles.noDataText}>No booking data available</p>
+                    <p className={styles.noDataSubtext}>Start booking to see your trends</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      
+      <Footer />
     </div>
-    <div className={styles.container}>
-    <header className={styles.header}>
-      <div className={styles.profile}>
-        <div className={styles.avatar}><p className={styles.firstName}>{initial}</p></div>
-        <div className={styles.info}>
-          <h1>{user?.name}</h1>
-          <span>Premium Member</span>
-        </div>
-      </div>
-      {/* <div className={styles.actions}>
-        <button className={styles.iconButton}>
-          <Bell size={20} />
-          Notifications
-        </button>
-        <button className={styles.iconButton}>
-          <Settings size={20} />
-          Settings
-        </button>
-      </div> */}
-    </header>
-
-    <nav className={styles.nav}>
-      <button className={ nav=="overview"?styles.active:""} onClick={()=>setNav("overview")}>Overview</button>
-      <button className={nav=="activity"?styles.active:""} onClick={()=>setNav("activity")}>Activity</button>
-      <button className={nav=="statics"?styles.active:""} onClick={()=>setNav("statics")}>Statistics</button>
-    </nav>
-
-  </div>
-  {
-    nav=="overview"?( <div> <div className={styles.stats}>
-      {stats.map((stat, index) => (
-        <StatCard key={index} {...stat} />
-      ))}
-    </div> <div className={styles.wrapper}>
-      <section className={styles.profileInfo}>
-        <h3 className={styles.sectionTitle}>Profile Information</h3>
-        <div className={styles.infoContent}>
-          <InfoItem icon={Mail} text={user?.email} />
-          <InfoItem icon={Phone} text={`+91 ` +user?.phoneNumber}  />
-          <InfoItem icon={MapPin} text={user?.location?.city +` , ` +user?.location?.state}/>
-          <InfoItem icon={Calendar} text="Member since January 2024" />
-        </div>
-      </section>
-
-      <section className={styles.activitySection}>
-        <h3 className={styles.sectionTitle}>Recent Activity</h3>
-        <div className={styles.activityList}>
-          {activities.map((activity, index) => (
-            <ActivityItem key={index} {...activity} />
-          ))}
-        </div>
-      </section>
-    </div>
-    </div>):""
-  }
-  {
-    nav=="activity"?
-    <div className={styles.mainProgressContainer}><div className={styles.progressContainer}>
-      <h3 className={styles.title}>Sports Activity</h3>
-      <div className={styles.progressList}>
-        {sports.map(sport => (
-          <ProgressBar 
-            key={sport.name}
-            sport={sport.name}
-            count={sport.count}
-          />
-        ))}
-      </div>
-    </div>
-    </div>:""}
-    {
-        nav=="statics"?(  <div className={styles.root}>
-      <div className={styles.statsBox}>
-        <h3 className={styles.boxTitle}>Playing Statistics</h3>
-        <div className={styles.statsGrid}>
-          {stats2.map((stat, index) => (
-            <StatItem key={index} {...stat} />
-          ))}
-        </div>
-      </div>
-
-      <div className={styles.achieveBox}>
-        <h3 className={styles.boxTitle}>Achievements</h3>
-        <div className={styles.badgeGrid}>
-          {achievements.map((badge, index) => (
-            <Badge key={index} {...badge} />
-          ))}
-        </div>
-      </div>
-    </div>):""
-    }
-    <Footer/>
-</div>
   );
 };
 

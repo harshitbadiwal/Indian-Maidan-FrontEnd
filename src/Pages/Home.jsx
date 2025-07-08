@@ -111,7 +111,7 @@ const Home = () => {
       {/* Features Section */}
       <section id="features" className={styles.features}>
   <div className={styles.container}>
-    <h3 className={styles.sectionTitle}>Our Offerings</h3>
+    <h3 className={styles.sectionTitle}>Upcoming Offerings</h3>
     <div className={styles.containers}>
       {features.map((feature) => (
         <div key={feature.id} className={styles.card}>

@@ -14,6 +14,7 @@ import Profile from "../Pages/Profile/Profile";
 import MyBooking from "../Pages/MyBooking/Mybooking";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import Messages from "../Pages/Messages/Messages";
+import ContactUs from "../Pages/ContactUs/ContactUs";
 
 // Turf Owner Pages
 import OwnerAuthPage from "../Pages/TrufOwner/Auth/OwnerAuth";
@@ -47,6 +48,7 @@ const Routers = () => {
         <Route path="/myBooking" element={<MyBooking />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/message" element={<Messages />} />
+        <Route path="/contact" element={<ContactUs />} />
 
         {/* Turf Owner Routes */}
         <Route path="/owner/auth" element={<OwnerAuthPage />} />

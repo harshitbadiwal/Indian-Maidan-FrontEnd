@@ -1,152 +1,451 @@
+// Variables
+$primary-black: #000000;
+$secondary-black: #1a1a1a;
+$primary-white: #ffffff;
+$secondary-white: #f8f9fa;
+$accent-gray: #666666;
+$light-gray: #e5e5e5;
+$hover-gray: #f0f0f0;
+
+// Container
 .container {
-    width: 100%;
-    min-height: 100vh;
-    background-color: #ffffff;
-    color: #333333;
+  width: 100%;
+  min-height: 100vh;
+  background-color: $primary-white;
+  color: $secondary-black;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  overflow-x: hidden;
+}
+
+// Hero Section
+.heroSection {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  background: linear-gradient(135deg, $primary-black 0%, $secondary-black 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.heroBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 255, 255, 0.03) 10px,
+    rgba(255, 255, 255, 0.03) 20px
+  );
+}
+
+.heroContent {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  color: $primary-white;
+  z-index: 2;
+}
+
+.logoContainer {
+  margin-bottom: 3rem;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  background: $primary-white;
+  color: $primary-black;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   }
+}
+
+.heroText {
+  animation: fadeInUp 1s ease-out;
+}
+
+.mainTitle {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: $primary-white;
+  letter-spacing: -2px;
   
-  .heroSection {
+  .highlight {
+    color: $primary-white;
     position: relative;
-    height: 70vh;
-    min-height: 600px;
-    background: linear-gradient(180deg, #87CEEB 0%, #4682B4 100%);
-    overflow: hidden;
-  
-    &::before {
+    
+    &::after {
       content: '';
       position: absolute;
+      bottom: -5px;
+      left: 0;
       width: 100%;
-      height: 100%;
-      background-image: url('../../assests/AboutUs.jpg');
-      background-size: cover;
-      opacity: 0.1;
+      height: 3px;
+      background: $primary-white;
     }
   }
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+}
+
+.heroStats {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 3rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   
-  .heroContent {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-    color: white;
-  }
-  
-  .logoPlaceholder {
-    width: 120px;
-    height: 120px;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 50%;
-    margin: 0 auto 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.875rem;
-  }
-  
-  .mainTitle {
-    font-size: 3.5rem;
+  .statNumber {
+    font-size: 2.5rem;
     font-weight: 700;
+    color: $primary-white;
+    margin-bottom: 0.5rem;
+  }
+  
+  .statLabel {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+// Main Content
+.mainContent {
+  background: $primary-white;
+}
+
+.section {
+  padding: 5rem 0;
+  
+  &:nth-child(even) {
+    background: $secondary-white;
+  }
+}
+
+.sectionContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+  
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $primary-black;
     margin-bottom: 1rem;
-    color: white;
+    letter-spacing: -1px;
+  }
+}
+
+.sectionLine {
+  width: 80px;
+  height: 3px;
+  background: $primary-black;
+  margin: 0 auto;
+}
+
+// Mission Section
+.missionGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.missionText {
+  p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: $accent-gray;
+  }
+}
+
+.missionHighlight {
+  background: $primary-black;
+  color: $primary-white;
+  padding: 2rem;
+  border-radius: 10px;
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: $primary-white;
   }
   
-  .subtitle {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
+  p {
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
   }
+}
+
+.visionList {
+  list-style: none;
+  padding: 0;
   
-  .content {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-  
-  .missionSection,
-  .offeringsSection,
-  .whyChooseSection,
-  .futureSection {
-    margin-bottom: 3rem;
-  
-    h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      color: #1a1a1a;
+  li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    
+    &::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: $primary-white;
+      font-weight: 700;
     }
+  }
+}
+
+// Offerings Section
+.offeringsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.offeringCard {
+  background: $primary-white;
+  border: 2px solid $light-gray;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
   
+  &:hover {
+    border-color: $primary-black;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cardIcon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: $primary-black;
+  }
+  
+  p {
+    color: $accent-gray;
+    line-height: 1.6;
+  }
+}
+
+// Benefits Section
+.benefitsGrid {
+  display: grid;
+  gap: 2rem;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: $primary-white;
+  border-radius: 15px;
+  border: 2px solid $light-gray;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: $primary-black;
+    transform: translateX(10px);
+  }
+  
+  .benefitIcon {
+    font-size: 3rem;
+    min-width: 60px;
+  }
+  
+  .benefitContent {
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: $primary-black;
+    }
+    
     p {
-      margin-bottom: 1.5rem;
+      color: $accent-gray;
       line-height: 1.6;
     }
   }
+}
+
+// Future Vision Section
+.futureVision {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
   
-  .offeringsList,
-  .benefitsList {
-    list-style: none;
-    padding: 0;
-  
-    li {
-      position: relative;
-      padding-left: 1.5rem;
-      margin-bottom: 1rem;
-      line-height: 1.5;
-  
-      &::before {
-        content: '•';
-        position: absolute;
-        left: 0;
-        color: #4682B4;
-      }
-    }
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: $primary-black;
   }
   
-  .cta {
+  p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: $accent-gray;
+  }
+}
+
+// CTA Section
+.ctaSection {
+  background: $primary-black;
+  color: $primary-white;
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.ctaContent {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: $primary-white;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+.ctaButton {
+  background: $primary-white;
+  color: $primary-black;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  
+  &:hover {
+    background: $secondary-white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .heroSection {
+    min-height: 600px;
+  }
+  
+  .mainTitle {
+    font-size: 2.5rem;
+  }
+  
+  .heroStats {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .missionGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .offeringsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .benefitItem {
+    flex-direction: column;
     text-align: center;
-    margin: 4rem 0;
-  
-    .ctaButton {
-      background: #4682B4;
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-size: 1.125rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-  
-      &:hover {
-        background: #357abd;
-      }
-    }
-  
-    p {
-      margin-top: 1rem;
-      font-size: 0.875rem;
-      color: #666;
-    }
+    gap: 1rem;
   }
   
-  @media (max-width: 768px) {
-    .heroSection {
-      min-height: 400px;
-    }
-  
-    .mainTitle {
-      font-size: 2.5rem;
-    }
-  
-    .content {
-      padding: 1rem;
-    }
-  
-    .missionSection,
-    .offeringsSection,
-    .whyChooseSection,
-    .futureSection {
-      h2 {
-        font-size: 1.5rem;
-      }
-    }
+  .sectionContent {
+    padding: 0 1rem;
   }
+  
+  .section {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainTitle {
+    font-size: 2rem;
+  }
+  
+  .sectionHeader h2 {
+    font-size: 2rem;
+  }
+  
+  .offeringCard,
+  .benefitItem {
+    padding: 1.5rem;
+  }
+  
+  .ctaContent h2 {
+    font-size: 2rem;
+  }
+}

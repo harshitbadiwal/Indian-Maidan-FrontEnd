@@ -1006,8 +1006,8 @@ background: linear-gradient(145deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 15px rgba(74, 77, 255, 0.3);
-
-        
+       
+      
         
         &:hover {
           background: linear-gradient(135deg, #5a5dff 0%, #7c6ce7 100%);
@@ -1018,4 +1018,25 @@ background: linear-gradient(145deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
     }
   }
 }
-      
+.subMenu {
+  list-style: none;
+  padding-left: 2.5rem;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-left: 2px solid #555;
+  margin-left: 1.5rem;
+}
+
+.subMenuItem {
+  color: #000000;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: all 0.2s ease;
+
+ 
+}
+
+  

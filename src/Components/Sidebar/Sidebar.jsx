@@ -1,4 +1,4 @@
-import * as React from 'react';
+    import React, { useState } from 'react';
     import Box from '@mui/material/Box';
     import Drawer from '@mui/material/Drawer';
     import Button from '@mui/material/Button';
@@ -11,7 +11,6 @@ import * as React from 'react';
     import InboxIcon from '@mui/icons-material/MoveToInbox';
     import MailIcon from '@mui/icons-material/Mail';
     import MenuIcon from '@mui/icons-material/Menu';
-    import { useState, useEffect } from 'react';
     import axios from "axios";
     import styles from "./SideBar.module.scss"
     import { Calendar, Clock, Users, CreditCard, Wallet } from 'lucide-react';
@@ -24,11 +23,13 @@ import * as React from 'react';
     import { useMemo } from 'react';
     import { GoLocation } from 'react-icons/go';
     import mapPinImg from '../../assests/mappreview.png';
+  
 
 
     export default function SideBar() {
       const [open, setOpen] = useState(false);
       const navigate = useNavigate()
+      const [showServices, setShowServices] = useState(false);
 
       const navigations=(path)=>{
         console.log(path)
@@ -40,7 +41,10 @@ import * as React from 'react';
       };
 
       const DrawerList = (
-        <Box sx={{ width: 350 }} role="presentation" onClick={toggleDrawer(false)} style={{height:"100%",color:"white"}}>
+        <Box sx={{ width: 350 }} 
+        role="presentation"
+        
+         style={{height:"100%",color:"white"}}>
           
     <div className={styles.sidebar}>
           {/* Logo and Title */}
@@ -56,15 +60,24 @@ import * as React from 'react';
               <FaHome className={styles.icon} />
               <span>Home</span>
             </li>
-            <li className={styles.navItem}>
-              <FaUsers className={styles.icon} />
-              <span>About</span>
-            </li>
-            <li className={styles.navItem}>
-              <MdOutlineMiscellaneousServices className={styles.icon} />
-              <span>Services</span>
-              <IoIosArrowDown className={styles.arrow} />
-            </li>
+         <li onClick={() => navigations("aboutUs")} className={styles.navItem}>
+  <FaUsers className={styles.icon} />
+  <span>About</span>
+</li>
+            <li onClick={() => setShowServices(!showServices)} className={styles.navItem}>
+  <MdOutlineMiscellaneousServices className={styles.icon} />
+  <span>Services</span>
+  <IoIosArrowDown className={styles.arrow} />
+</li>
+
+{showServices && (
+  <ul className={styles.subMenu}>
+    <li onClick={() => navigations("start")} className={styles.subMenuItem}>
+      <span>Book Sports Turf</span>
+    </li>
+  </ul>
+)}
+
             <li onClick={()=>navigations("myBooking")} className={styles.navItem}>
               <BsJournalBookmark className={styles.icon} />
               <span>My Booking</span>
@@ -77,10 +90,10 @@ import * as React from 'react';
               <FaBell className={styles.icon} />
               <span>Notification</span>
             </li>
-            <li className={styles.navItem}>
-              <MdOutlineContactSupport className={styles.icon} />
-              <span>Contact Us</span>
-            </li>
+          <li onClick={() => navigations("contact")} className={styles.navItem}>
+  <MdOutlineContactSupport className={styles.icon} />
+  <span>Contact Us</span>
+</li>
           </ul>
     </div>
           {/* Profile Section */}
