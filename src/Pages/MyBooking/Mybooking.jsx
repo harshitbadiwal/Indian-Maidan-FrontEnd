@@ -5,12 +5,14 @@ import styles from './Mybooking.module.scss';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 
+
 const BookingCard = ({
   venue, venueAddress, venueImage, surfaceType,
   status, date, endTime, time, sport, price, bookingId,
   advancePaid, amountDueAtVenue, selectedSlots, createdAt,
   onCancel, onReschedule
 }) => {
+ 
   // Calculate if booking is past
   const isPastBooking = new Date(date) < new Date();
 
@@ -93,6 +95,7 @@ const BookingCard = ({
       <div style={{ color: "#64748b", fontSize: "0.85rem", marginTop: "0.5rem" }}>
         Created: {new Date(createdAt).toLocaleString()}
       </div>
+
       <div className={styles.cardFooter}>
         <span className={styles.price}>₹{price}</span>
         <div className={styles.actions}>
@@ -170,7 +173,9 @@ const MyBooking = () => {
           amountDueAtVenue: b.amountDueAtVenue,
           selectedSlots: b.selectedSlots || [],
           createdAt: b.createdAt,
+         
         }));
+
 
         setBookings(formatted);
         setError(null);
@@ -181,6 +186,7 @@ const MyBooking = () => {
         setLoading(false);
       }
     };
+    
 
     fetchBookings();
   }, []);

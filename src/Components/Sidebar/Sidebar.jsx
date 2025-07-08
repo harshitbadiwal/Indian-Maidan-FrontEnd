@@ -23,6 +23,8 @@ import * as React from 'react';
     import ChatIcon from '@mui/icons-material/Chat';
     import { useMemo } from 'react';
     import { GoLocation } from 'react-icons/go';
+    import mapPinImg from '../../assests/mappreview.png';
+
 
     export default function SideBar() {
       const [open, setOpen] = useState(false);
@@ -112,8 +114,10 @@ import * as React from 'react';
       const [valueChange,setValueChange] = useState(true)
       const [agreedToAdvance, setAgreedToAdvance] = useState(false);
       const currentUser = JSON.parse(localStorage.getItem("user")); // User login data
+      const latitude = data?.lat;
+const longitude = data?.lng;
 
-
+ 
 
       const getSlotPrice = () => {
     const day = new Date(selectedDate).getDay();
@@ -342,26 +346,8 @@ const timeSlots = useMemo(() => {
       <i className={styles.locationIcon} />
       {data?.fullAddress}, {data?.city}, {data?.state} - {data?.pincode}
     </p>
-    <div
-  className={styles.mapPreviewBox}
-  onClick={() => {
-    const url = `https://www.google.com/maps?q=${data?.location?.coordinates?.[1]},${data?.location?.coordinates?.[0]}`;
-    window.open(url, "_blank");
-  }}
-  role="button"
-  tabIndex={0}
-  onKeyDown={(e) => {
-    if (e.key === "Enter") {
-      const url = `https://www.google.com/maps?q=${data?.location?.coordinates?.[1]},${data?.location?.coordinates?.[0]}`;
-      window.open(url, "_blank");
-    }
-  }}
->
-  <div className={styles.mapThumbnail}>
-    <GoLocation className={styles.mapMarker} />
-    <div className={styles.mapOverlayText}>Open in Google Maps</div>
-  </div>
-</div>
+ 
+
 
       </div>
     {/* Turf Images */}
@@ -655,6 +641,63 @@ const timeSlots = useMemo(() => {
 >
   Book Now • ₹{getSlotPrice()}/Hr
 </button>
+
+{/* Divider and spacing before Google Map */}
+<div style={{ marginTop: '24px', marginBottom: '16px' }}>
+  <hr style={{
+    border: 'none',
+    borderTop: '1px solid #ccc',
+    margin: '0 auto',
+    width: '90%',
+    opacity: 0.6
+  }} />
+</div>
+
+
+   <div
+  className={styles.mapPreviewBox}
+  onClick={() => {
+    const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    window.open(url, "_blank");
+  }}
+  role="button"
+  tabIndex={0}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+      window.open(url, "_blank");
+    }
+  }}
+  style={{ position: 'relative', width: 'fit-content', cursor: 'pointer' }}
+>
+  <img
+    src={mapPinImg}
+    alt="Map Icon"
+    style={{
+      width: '520px',
+      height: '190px',
+      display: 'block',
+      borderRadius: '12px'
+    }}
+  />
+  <div
+    style={{
+      position: 'absolute',
+      bottom: '12px',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      backgroundColor: 'rgba(0, 0, 0, 0.6)',
+      padding: '6px 14px',
+      color: 'white',
+      borderRadius: '20px',
+      fontWeight: '600',
+      fontSize: '0.85rem'
+    }}
+  >
+    Open in Google Maps
+  </div>
+</div>
+
               {/*  <button onClick={()=>{setValueChange(false)}} className={styles.bookNowBtn}>Book Now • ₹500/Hr</button> */}
               </div>
             </div>
@@ -689,6 +732,8 @@ const timeSlots = useMemo(() => {
                   <span>2 players</span>
                 </div>
               </div>
+
+              
 
               <div className={styles.card}>
                 <h2>Additional Services</h2>
