@@ -1,212 +1,212 @@
-@keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
+  @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
-  }
-  
-  @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-100px);
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(100px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  .container {
-    display: flex;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-  
-    .leftSection {
-      flex: 1;
-      // background: black;
-    background: linear-gradient(-135deg, #26262b 20%, #08060b 80%);
-
+    
+    .container {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      animation: slideInLeft 2s ease-out;
-      // background-image: url(../../../../public/images/earthBackground-removebg-preview.png);
-      // background-repeat:no-repeat;
-      // opacity:.9;
-       .img{
-        // height: 100%;
-       
-       zoom: 1.4;
-      opacity: 0.25;;
-       }
-      
-  
-      .locationPicker {
-        height: 95vh;
-        position: absolute;
-        text-align: center;
-        animation: fadeIn 2.2s ease-in;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    
+      .leftSection {
+        flex: 1;
+        // background: black;
+      background: linear-gradient(-135deg, #26262b 20%, #08060b 80%);
+
         display: flex;
         justify-content: center;
-        flex-direction: column;
-  
-        .icon img {
-          width: 150px;
-          // height: 180px;
-          margin-bottom: 1rem;
-          animation: fadeIn 2.5s ease-in;
+        align-items: center;
+        position: relative;
+        animation: slideInLeft 2s ease-out;
+        // background-image: url(../../../../public/images/earthBackground-removebg-preview.png);
+        // background-repeat:no-repeat;
+        // opacity:.9;
+        .img{
+          // height: 100%;
+        
+        zoom: 1.4;
+        opacity: 0.25;;
         }
-  
-        h2 {
-          font-size: 1.5rem;
-          color: white;
-          margin-bottom: 0.5rem;
-          animation: fadeIn 2.4s ease-in;
-        }
-  
-        p {
-          font-size: 1rem;
-          color: white;
-          margin-bottom: 1rem;
-          animation: fadeIn 2.6s ease-in;
-        }
-  
-        .pickLocationButton {
-          background: #00b74a;
-          color: white;
-          padding: 0.8rem 1.5rem;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          font-size: 1rem;
-          animation: fadeIn 2.8s ease-in;
-  
-          &:hover {
-            background: #008c3a;
-          }
-        }
-      }
-    }
-  
-    .rightSection {
-      flex: 1;
-      // background: black;
-    // background: linear-gradient(45deg, #1f1f23 20%, #08060b 80%);
-    // background: linear-gradient(135deg, #303038 0%, #08060b 100%);
-    background: linear-gradient(135deg, #26262b 20%, #08060b 80%);
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      animation: slideInRight 2s ease-out;
-  
-      .logo img {
-        width: 150px;
-        margin-bottom: 1rem;
-        animation: fadeIn 2.2s ease-in;
-      }
-  
-      h2 {
-        font-size: 1.8rem;
-        color: #0077cc;
-        margin-bottom: 1rem;
-        animation: fadeIn 2.3s ease-in;
-      }
-  
-      .features {
-        list-style: none;
-        padding: 0;
-        margin: 1rem 0;
-  
-        li {
-          display: flex;
-          align-items: center;
-          margin: 0.5rem 0;
-          animation: fadeIn 2.5s ease-in;
-  
-          img {
-            width: 30px;
-            margin-right: 1rem;
-          }
-  
-          font-size: 1rem;
-          color: #828282;
-        }
-      }
-  
-      .qrSection {
-        margin-top: 2rem;
-  
-        img {
-          width: 150px;
-          margin-bottom: 1rem;
-          animation: fadeIn 2.8s ease-in;
-        }
-  
-        p {
-          font-size: 1rem;
-          color: #333;
-          margin-bottom: 1rem;
-          animation: fadeIn 2s ease-in;
-        }
-  
-        .appButtons {
-          display: flex;
-          gap: 1rem;
+        
+    
+        .locationPicker {
+          height: 95vh;
+          position: absolute;
+          text-align: center;
           animation: fadeIn 2.2s ease-in;
-  
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+    
+          .icon img {
+            width: 150px;
+            // height: 180px;
+            margin-bottom: 1rem;
+            animation: fadeIn 2.5s ease-in;
+          }
+    
+          h2 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            animation: fadeIn 2.4s ease-in;
+          }
+    
+          p {
+            font-size: 1rem;
+            color: white;
+            margin-bottom: 1rem;
+            animation: fadeIn 2.6s ease-in;
+          }
+    
+          .pickLocationButton {
+            background: #00b74a;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            animation: fadeIn 2.8s ease-in;
+    
+            &:hover {
+              background: #008c3a;
+            }
+          }
+        }
+      }
+    
+      .rightSection {
+        flex: 1;
+        // background: black;
+      // background: linear-gradient(45deg, #1f1f23 20%, #08060b 80%);
+      // background: linear-gradient(135deg, #303038 0%, #08060b 100%);
+      background: linear-gradient(135deg, #26262b 20%, #08060b 80%);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        animation: slideInRight 2s ease-out;
+    
+        .logo img {
+          width: 150px;
+          margin-bottom: 1rem;
+          animation: fadeIn 2.2s ease-in;
+        }
+    
+        h2 {
+          font-size: 1.8rem;
+          color: #0077cc;
+          margin-bottom: 1rem;
+          animation: fadeIn 2.3s ease-in;
+        }
+    
+        .features {
+          list-style: none;
+          padding: 0;
+          margin: 1rem 0;
+    
+          li {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            animation: fadeIn 2.5s ease-in;
+    
+            img {
+              width: 30px;
+              margin-right: 1rem;
+            }
+    
+            font-size: 1rem;
+            color: #828282;
+          }
+        }
+    
+        .qrSection {
+          margin-top: 2rem;
+    
           img {
-            width: 120px;
+            width: 150px;
+            margin-bottom: 1rem;
+            animation: fadeIn 2.8s ease-in;
+          }
+    
+          p {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 1rem;
+            animation: fadeIn 2s ease-in;
+          }
+    
+          .appButtons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeIn 2.2s ease-in;
+    
+            img {
+              width: 120px;
+            }
           }
         }
       }
     }
-  }
 
-  .qrSection img {
-    transition: transform 0.3s ease;
-    &:hover {
-      transform: scale(1.1);
+    .qrSection img {
+      transition: transform 0.3s ease;
+      &:hover {
+        transform: scale(1.1);
+      }
     }
-  }
-  .logo {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #00d4ff;
-    // animation: glow 2s infinite alternate;
-    position: relative;
-    @keyframes glow {
-        from {
-            text-shadow: 0 0 5px #00d4ff, 0 0 10px #00d4ff, 0 0 20px #00d4ff;
-        }
-        to {
-            text-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #00d4ff;
-        }
-        }
-    } 
-    .leftSection2{
-      flex: 1;
-      background: black;
-      display: flex;
-      justify-content: center;
-      // align-items: center;
-      animation: slideInLeft 2s ease-out;
-    }
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #00d4ff;
+      // animation: glow 2s infinite alternate;
+      position: relative;
+      @keyframes glow {
+          from {
+              text-shadow: 0 0 5px #00d4ff, 0 0 10px #00d4ff, 0 0 20px #00d4ff;
+          }
+          to {
+              text-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #00d4ff;
+          }
+          }
+      } 
+      .leftSection2{
+        flex: 1;
+        background: black;
+        display: flex;
+        justify-content: center;
+        // align-items: center;
+        animation: slideInLeft 2s ease-out;
+      }

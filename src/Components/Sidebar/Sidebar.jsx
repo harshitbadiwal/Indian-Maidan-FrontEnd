@@ -23,66 +23,76 @@
     import { useMemo } from 'react';
     import { GoLocation } from 'react-icons/go';
     import mapPinImg from '../../assests/mappreview.png';
+    import { FaSignOutAlt } from "react-icons/fa"; //logout functionality
+    import { useDispatch } from "react-redux";
+  import { getTokenData } from "../../services/tokenUtiles";
+
+
+  export default function SideBar() {
+  const [open, setOpen] = useState(false);
+  const [showServices, setShowServices] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const user = getTokenData();
+const userInitial = user?.name?.charAt(0).toUpperCase() || "?";
   
 
+  const navigations = (path) => {
+    navigate(`/${path}`);
+  };
 
-    export default function SideBar() {
-      const [open, setOpen] = useState(false);
-      const navigate = useNavigate()
-      const [showServices, setShowServices] = useState(false);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    dispatch({ type: "LOGOUT" });
+    navigate("/auth");
+  };
 
-      const navigations=(path)=>{
-        console.log(path)
-        navigate(`/${path}`)
-      }
-      
-      const toggleDrawer = (newOpen) => () => {
-        setOpen(newOpen);
-      };
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+ 
 
-      const DrawerList = (
-        <Box sx={{ width: 350 }} 
-        role="presentation"
-        
-         style={{height:"100%",color:"white"}}>
-          
-    <div className={styles.sidebar}>
-          {/* Logo and Title */}
-          <div>
+  const DrawerList = (
+    <Box sx={{ width: 350 }} role="presentation" style={{ height: "100%", color: "white" }}>
+      <div className={styles.sidebar}>
+        {/* Logo and Title */}
+        <div>
           <div className={styles.logoSection}>
             <FaUserCircle className={styles.logo} />
             <h2 className={styles.title}>INDIAN MAIDAN</h2>
           </div>
 
           {/* Navigation Links */}
-          <ul  className={styles.navList}>
-            <li onClick={()=>navigations(" ")} className={styles.navItem}>
+          <ul className={styles.navList}>
+            <li onClick={() => navigations(" ")} className={styles.navItem}>
               <FaHome className={styles.icon} />
               <span>Home</span>
             </li>
-         <li onClick={() => navigations("aboutUs")} className={styles.navItem}>
-  <FaUsers className={styles.icon} />
-  <span>About</span>
-</li>
+            <li onClick={() => navigations("aboutUs")} className={styles.navItem}>
+              <FaUsers className={styles.icon} />
+              <span>About</span>
+            </li>
             <li onClick={() => setShowServices(!showServices)} className={styles.navItem}>
-  <MdOutlineMiscellaneousServices className={styles.icon} />
-  <span>Services</span>
-  <IoIosArrowDown className={styles.arrow} />
-</li>
+              <MdOutlineMiscellaneousServices className={styles.icon} />
+              <span>Services</span>
+              <IoIosArrowDown className={styles.arrow} />
+            </li>
 
-{showServices && (
-  <ul className={styles.subMenu}>
-    <li onClick={() => navigations("start")} className={styles.subMenuItem}>
-      <span>Book Sports Turf</span>
-    </li>
-  </ul>
-)}
+            {showServices && (
+              <ul className={styles.subMenu}>
+                <li onClick={() => navigations("start")} className={styles.subMenuItem}>
+                  <span>Book Sports Turf</span>
+                </li>
+              </ul>
+            )}
 
-            <li onClick={()=>navigations("myBooking")} className={styles.navItem}>
+            <li onClick={() => navigations("myBooking")} className={styles.navItem}>
               <BsJournalBookmark className={styles.icon} />
               <span>My Booking</span>
             </li>
-            <li onClick={()=>navigations("message")} className={styles.navItem}>
+            <li onClick={() => navigations("message")} className={styles.navItem}>
               <ChatIcon className={styles.icon} />
               <span>Messages</span>
             </li>
@@ -90,37 +100,47 @@
               <FaBell className={styles.icon} />
               <span>Notification</span>
             </li>
-          <li onClick={() => navigations("contact")} className={styles.navItem}>
-  <MdOutlineContactSupport className={styles.icon} />
-  <span>Contact Us</span>
-</li>
+            <li onClick={() => navigations("contact")} className={styles.navItem}>
+              <MdOutlineContactSupport className={styles.icon} />
+              <span>Contact Us</span>
+            </li>
           </ul>
-    </div>
-          {/* Profile Section */}
-          <div className={styles.profileSection}>
-            <div onClick={()=>navigations("profile")}  on className={styles.profileInfo}>
-              <FaUserCircle className={styles.profilePic} />
-              <div className={styles.profileText}>
-                <span className={styles.name}>Happy Badiwal</span>
-                <span className={styles.viewProfile}>View Profile</span>
-              </div>
+        </div>
+ 
+        {/* Profile Section + Logout */}
+        <div className={styles.profileSection}>
+          <div onClick={() => navigations("profile")} className={styles.profileInfo}>
+            <FaUserCircle className={styles.profilePic} />
+            <div className={styles.profileText}>
+              <span className={styles.name}>{user?.name || "Guest User"}</span>
+              <span className={styles.viewProfile}>View Profile</span>
             </div>
-            <FaCog className={styles.settingsIcon} />
           </div>
-        </div>
-        </Box>
-      );
+          
 
-      return (
-        <div>
-          <Button onClick={toggleDrawer(true) }><MenuIcon style={{color:"white"}}  fontSize="large" /></Button>
-          <Drawer open={open} onClose={toggleDrawer(false)} >
-            {DrawerList}
-          </Drawer>
+          {/* 🚪 Logout Button */}
+          <li onClick={handleLogout} className={`${styles.navItem} ${styles.logout}`}>
+            <FaSignOutAlt className={styles.icon} />
+            <span>Logout</span>
+          </li>
         </div>
-      );
-    }
+      </div>
+    </Box>
+  );
+
+  return (
+    <div>
+      <Button onClick={toggleDrawer(true)}>
+        <MenuIcon style={{ color: "white" }} fontSize="large" />
+      </Button>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
+        {DrawerList}
+      </Drawer>
+    </div>
+  );
+}
       export function SideBar2({ data, disabled }) {
+         console.log("SideBar2 Data:", data);
         const [open, setOpen] = useState(false);
         const [selectedSport, setSelectedSport] = useState('football');
         const [selectedDate, setSelectedDate] = useState(new Date()); // default today
@@ -128,7 +148,9 @@
       const [agreedToAdvance, setAgreedToAdvance] = useState(false);
       const currentUser = JSON.parse(localStorage.getItem("user")); // User login data
       const latitude = data?.lat;
-const longitude = data?.lng;
+      const longitude = data?.lng;
+
+      
 
  
 
@@ -388,8 +410,8 @@ const timeSlots = useMemo(() => {
         <p><strong>Turf Size:</strong> {data?.turfSize}</p>
         <p><strong>Available Sports:</strong> {data?.availableSports?.join(', ')}</p>
         <p><strong>Amenities:</strong> {data?.amenities?.join(', ')}</p>
-        <p><strong>Contact:</strong> {data?.contactNumber ? data.contactNumber : "N/A"}</p>
-        <p><strong>Email:</strong> {data?.email ? data.email : "N/A"}</p>
+       <p><strong>Contact:</strong> {data?.contactNumber || "Not available"}</p>
+       <p><strong>Email:</strong> {data?.email || "Not available"}</p>
       </div>
         
 

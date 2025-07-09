@@ -1035,8 +1035,31 @@ background: linear-gradient(145deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
   cursor: pointer;
   padding: 4px 0;
   transition: all 0.2s ease;
+}
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.2rem;
+  cursor: pointer;
+  color: white;
+  transition: background 0.2s ease;
 
- 
+  &:hover {
+    background-color: #282828;
+  }
+
+  & span {
+    font-size: 1rem;
+  }
+}
+
+.logout {
+  color: #ff4d4f;
+
+  &:hover {
+    background-color: #440000;
+  }
 }
 
   

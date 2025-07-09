@@ -1,453 +1,317 @@
-// AuthPage.module.scss - Mobile Responsive Version
+// AuthPage.module.scss - Modern Black-Themed Design
+
+// Variables
+$primary-black: #000000;
+$secondary-black: #1a1a1a;
+$tertiary-black: #2d2d2d;
+$dark-gray: #1e1e1e;
+$medium-gray: #3a3a3a;
+$light-gray: #4a4a4a;
+$text-light: #e0e0e0;
+$text-medium: #b0b0b0;
+$text-dark: #ffffff;
+$accent-color: #3b82f6;
+$error-color: #ef4444;
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$border-color: #404040;
+$hover-bg: #2a2a2a;
+$card-bg: #1f1f1f;
+$input-bg: #2a2a2a;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+$shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.6);
+
+// Mixins
+@mixin transition($properties: all, $duration: 0.2s, $timing: ease-in-out) {
+  transition: $properties $duration $timing;
+}
+
+@mixin focus-ring($color: rgba(59, 130, 246, 0.5)) {
+  outline: none;
+  box-shadow: 0 0 0 2px $color;
+}
+
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Base styles
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: $primary-black;
+  color: $text-light;
+  line-height: 1.6;
+}
 
 .authContainer {
-  display: flex;
   min-height: 100vh;
-  width: 100%;
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-}
-
-// Left side - Feature section
-.featureSection {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 3rem;
-  background: linear-gradient(to bottom right, #242424, #000000);
-  color: white;
-  justify-content: center;
-  
-  @media (max-width: 1024px) {
-    padding: 2rem;
-  }
-  
-  @media (max-width: 768px) {
-    display: flex; // Changed from 'none' to show on mobile
-    padding: 2rem 1.5rem;
-    min-height: auto;
-    text-align: center;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 1.5rem 1rem;
-  }
-}
-
-.logoWrapper {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-  
-  @media (max-width: 768px) {
-    justify-content: center;
-    margin-bottom: 1.5rem;
-  }
-  
-  @media (max-width: 480px) {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-}
-
-.logoCircle {
-  width: 60px;
-  height: 60px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1rem;
-  
-  @media (max-width: 768px) {
-    width: 50px;
-    height: 50px;
-  }
-  
-  @media (max-width: 480px) {
-    margin-right: 0;
-    margin-bottom: 0.5rem;
-  }
-}
-
-.globeIcon {
-  width: 40px;
-  height: 40px;
-  border: 2px solid white;
-  border-radius: 50%;
+  @include flex-center;
+  padding: 2rem;
+  background: linear-gradient(135deg, $primary-black 0%, $secondary-black 100%);
   position: relative;
   
-  @media (max-width: 768px) {
-    width: 30px;
-    height: 30px;
-  }
-  
-  &:before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: white;
-  }
-  
-  &:after {
+  &::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 50%;
-    height: 100%;
-    width: 2px;
-    background-color: white;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+    pointer-events: none;
   }
-}
-
-.brandText {
-  @media (max-width: 480px) {
-    text-align: center;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.2;
-    
-    @media (max-width: 768px) {
-      font-size: 1.5rem;
-    }
-    
-    @media (max-width: 480px) {
-      font-size: 1.25rem;
-    }
-  }
-  
-  p {
-    font-size: 0.9rem;
-    margin: 0;
-    opacity: 0.9;
-    
-    @media (max-width: 768px) {
-      font-size: 0.8rem;
-    }
-  }
-}
-
-.featureList {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
   
   @media (max-width: 768px) {
-    margin-top: 2rem;
-    gap: 1.5rem;
-    display: none; // Hide feature list on mobile to save space
-  }
-}
-
-.featureItem {
-  display: flex;
-  align-items: flex-start;
-  
-  @media (max-width: 768px) {
-    align-items: center;
-    text-align: left;
-  }
-}
-
-.featureIcon {
-  width: 40px;
-  height: 40px;
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1rem;
-  flex-shrink: 0;
-  
-  @media (max-width: 768px) {
-    width: 35px;
-    height: 35px;
-    margin-right: 0.75rem;
-  }
-  
-  svg {
-    width: 22px;
-    height: 22px;
-    stroke: white;
-    fill: none;
-    
-    @media (max-width: 768px) {
-      width: 18px;
-      height: 18px;
-    }
-  }
-}
-
-.featureContent {
-  h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0 0 0.5rem 0;
-    
-    @media (max-width: 768px) {
-      font-size: 1.1rem;
-    }
-  }
-  
-  p {
-    font-size: 0.95rem;
-    margin: 0;
-    opacity: 0.9;
-    line-height: 1.5;
-    
-    @media (max-width: 768px) {
-      font-size: 0.85rem;
-    }
-  }
-}
-
-// Right side - Form section
-.formSection {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background-color: #f0f2f5;
-  
-  @media (max-width: 768px) {
-    min-height: auto;
-    padding: 1.5rem 1rem;
-    align-items: flex-start;
-    padding-top: 2rem;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 1rem 0.75rem;
+    padding: 1rem;
   }
 }
 
 .authCard {
   width: 100%;
-  max-width: 450px;
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 2.5rem;
+  max-width: 480px;
+  background: $card-bg;
+  border-radius: 20px;
+  box-shadow: $shadow-xl;
+  overflow: hidden;
+  border: 1px solid $border-color;
+  position: relative;
+  z-index: 1;
   
   @media (max-width: 768px) {
     max-width: 100%;
-    border-radius: 12px;
-    padding: 2rem 1.5rem;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 1.5rem 1rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
   }
 }
 
 .cardHeader {
+  background: linear-gradient(135deg, $primary-black 0%, $secondary-black 100%);
+  padding: 3rem 2rem 2rem;
   text-align: center;
-  margin-bottom: 2rem;
+  border-bottom: 1px solid $border-color;
   
-  @media (max-width: 480px) {
-    margin-bottom: 1.5rem;
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem 1.5rem;
   }
-  
-  .logoIcon {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 1rem;
-    border-radius: 50%;
-    background-color: #f0f8f0;
-    padding: 12px;
-    
-    @media (max-width: 480px) {
-      width: 50px;
-      height: 50px;
-      padding: 10px;
-      margin-bottom: 0.75rem;
-    }
+}
+
+.logoWrapper {
+  @include flex-center;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  @media (min-width: 769px) {
+    flex-direction: row;
+    gap: 1.5rem;
   }
-  
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #333;
-    margin: 0;
-    
+}
+
+/* 🆕 Use this instead of .logoIcon */
+.companyLogo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: contain;
+  /*   background: rgba(255, 255, 255, 0.1);  
+ /*  border: 2px solid rgba(243, 237, 237, 0.3);  */
+ 
+  @include flex-center;
+  @include transition();
+
+/*   &:hover {
+    transform: scale(1.05);
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.5);
+  } */
+
+  @media (max-width: 800px) {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+.brandText {
+  text-align: center;
+
+  @media (min-width: 769px) {
+    text-align: left;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem 0;
+    color: $text-dark;
+    letter-spacing: -0.02em;
+
     @media (max-width: 768px) {
       font-size: 1.5rem;
     }
-    
-    @media (max-width: 480px) {
-      font-size: 1.25rem;
+  }
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+    color: $text-medium;
+    font-weight: 400;
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
     }
   }
+}
+
+
+.tabsContainer {
+  background: $dark-gray;
+  border-bottom: 1px solid $border-color;
 }
 
 .tabs {
   display: flex;
-  border-bottom: 1px solid #eaeaea;
-  margin-bottom: 2rem;
-  
-  @media (max-width: 480px) {
-    margin-bottom: 1.5rem;
-  }
 }
 
 .tabButton {
+  @include button-reset;
   flex: 1;
-  background: none;
-  border: none;
-  padding: 1rem 0;
+  padding: 1.25rem 2rem;
   font-size: 1rem;
-  color: #777;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  
-  @media (max-width: 480px) {
-    padding: 0.75rem 0;
-    font-size: 0.9rem;
-  }
+  font-weight: 600;
+  color: $text-medium;
+  background: transparent;
+  border-bottom: 3px solid transparent;
+  @include transition();
   
   &:hover {
-    color: #333;
+    color: $text-light;
+    background: rgba(255, 255, 255, 0.05);
   }
   
-  &.activeTab {
-    color: #020302;
-    font-weight: 600;
-    
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background-color: #000000;
-    }
+  &:focus {
+    @include focus-ring();
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+.activeTab {
+  color: $text-dark !important;
+  background: rgba(59, 130, 246, 0.1) !important;
+  border-bottom-color: $accent-color !important;
+}
+
+.formContainer {
+  padding: 2.5rem 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
   }
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  
-  @media (max-width: 480px) {
-    gap: 1rem;
+  .formHeader {
+    text-align: center;
+    margin-bottom: 2rem;
+    
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0 0 0.5rem 0;
+      
+      @media (max-width: 768px) {
+        font-size: 1.3rem;
+      }
+    }
+    
+    p {
+      font-size: 1rem;
+      color: $text-medium;
+      margin: 0;
+      
+      @media (max-width: 768px) {
+        font-size: 0.9rem;
+      }
+    }
   }
 }
 
 .formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  margin-bottom: 1.5rem;
   
   label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #333;
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $text-light;
+    margin-bottom: 0.5rem;
     
-    @media (max-width: 480px) {
-      font-size: 0.85rem;
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
     }
   }
   
   input {
-    padding: 0.75rem 1rem 0.75rem 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    transition: border-color 0.3s ease;
     width: 100%;
-    box-sizing: border-box;
+    padding: 1rem;
+    background: $input-bg;
+    border: 2px solid $border-color;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: $text-dark;
+    @include transition();
     
-    @media (max-width: 480px) {
-      padding: 0.7rem 0.75rem 0.7rem 0.5rem;
-      font-size: 0.9rem;
+    &::placeholder {
+      color: $text-medium;
     }
     
     &:focus {
-      border-color: #000000;
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(0, 102, 51, 0.1);
-    }
-  }
-}
-
-.formGroup2 {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  
-  label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #333;
-    
-    @media (max-width: 480px) {
-      font-size: 0.85rem;
-    }
-  }
-  
-  input {
-    padding: 0.75rem 2.5rem 0.75rem 2.5rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    transition: border-color 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
-    
-    @media (max-width: 480px) {
-      padding: 0.7rem 2.25rem 0.7rem 2.25rem;
-      font-size: 0.9rem;
-    }
-    
-    &:focus {
-      border-color: #000000;
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(0, 102, 51, 0.1);
-    }
-  }
-}
-
-.passwordLabel {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-  @media (max-width: 480px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-  
-  .forgotLink {
-    font-size: 0.85rem;
-    color: #000000;
-    text-decoration: none;
-    
-    @media (max-width: 480px) {
-      font-size: 0.8rem;
-      align-self: flex-end;
+      @include focus-ring();
+      border-color: $accent-color;
+      background: lighten($input-bg, 5%);
     }
     
     &:hover {
-      text-decoration: underline;
+      border-color: lighten($border-color, 10%);
     }
+    
+    @media (max-width: 768px) {
+      padding: 0.875rem;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.inputGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 }
 
@@ -456,46 +320,68 @@
   
   .inputIcon {
     position: absolute;
-    left: 12px;
+    left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 1;
-    
-    @media (max-width: 480px) {
-      left: 10px;
-    }
+    color: $text-medium;
+    pointer-events: none;
     
     svg {
       width: 18px;
       height: 18px;
-      stroke: #777;
-      fill: none;
-      
-      @media (max-width: 480px) {
-        width: 16px;
-        height: 16px;
-      }
+    }
+  }
+  
+  input {
+    padding-left: 3rem;
+  }
+  
+  .togglePassword {
+    @include button-reset;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-medium;
+    @include transition();
+    
+    &:hover {
+      color: $text-light;
+    }
+    
+    &:focus {
+      @include focus-ring();
+      border-radius: 4px;
     }
   }
 }
 
-.togglePassword {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #777;
-  z-index: 1;
+.passwordLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
   
-  @media (max-width: 480px) {
-    right: 10px;
+  label {
+    margin-bottom: 0;
   }
+}
+
+.forgotLink {
+  @include button-reset;
+  color: $accent-color;
+  font-size: 0.9rem;
+  font-weight: 500;
+  @include transition();
   
   &:hover {
-    color: #000000;
+    color: lighten($accent-color, 10%);
+    text-decoration: underline;
+  }
+  
+  &:focus {
+    @include focus-ring();
+    border-radius: 4px;
   }
 }
 
@@ -503,320 +389,256 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
   
-  input {
-    width: 16px;
-    height: 16px;
-    accent-color: #000000;
-    flex-shrink: 0;
-    
-    @media (max-width: 480px) {
-      width: 14px;
-      height: 14px;
-    }
+  input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    accent-color: $accent-color;
   }
   
   label {
     font-size: 0.9rem;
-    color: #555;
+    color: $text-medium;
+    margin-bottom: 0;
     cursor: pointer;
-    
-    @media (max-width: 480px) {
-      font-size: 0.85rem;
-    }
   }
 }
 
 .submitButton {
-  background-color: #000000;
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, $accent-color 0%, lighten($accent-color, 10%) 100%);
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 0.9rem;
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 0.5rem;
+  @include transition();
   
-  @media (max-width: 480px) {
-    padding: 0.8rem;
-    font-size: 0.95rem;
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, lighten($accent-color, 5%) 0%, lighten($accent-color, 15%) 100%);
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
   }
   
-  &:hover {
-    background-color: #000000;
+  &:focus {
+    @include focus-ring();
   }
   
   &:disabled {
-    background-color: #ccc;
+    opacity: 0.6;
     cursor: not-allowed;
+    transform: none;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.875rem;
+    font-size: 0.95rem;
   }
 }
 
 .signUpPrompt {
-  margin-top: 1.5rem;
   text-align: center;
+  margin-top: 1.5rem;
+  color: $text-medium;
   font-size: 0.9rem;
-  color: #555;
   
-  @media (max-width: 480px) {
-    margin-top: 1rem;
-    font-size: 0.85rem;
-  }
-  
-  span {
-    color: #000000;
-    font-weight: 500;
-    cursor: pointer;
+  button {
+    @include button-reset;
+    color: $accent-color;
+    font-weight: 600;
+    @include transition();
     
     &:hover {
+      color: lighten($accent-color, 10%);
       text-decoration: underline;
+    }
+    
+    &:focus {
+      @include focus-ring();
+      border-radius: 4px;
     }
   }
 }
 
-.inputGroup {
+.errorMessage {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba($error-color, 0.1);
+  border: 1px solid rgba($error-color, 0.3);
+  border-radius: 8px;
+  color: lighten($error-color, 20%);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
   
-  .formGroup {
-    flex: 1;
-  }
-  
-  @media (max-width: 600px) {
-    flex-direction: column;
-    gap: 1rem;
+  svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    flex-shrink: 0;
   }
 }
 
-// Dropdown
 .dropdown {
   position: relative;
   
   .dropdownBtn {
+    @include button-reset;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: white;
-    cursor: pointer;
-    font-size: 0.95rem;
-    color: #333;
+    padding: 1rem;
+    background: $input-bg;
+    border: 2px solid $border-color;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: $text-dark;
     text-align: left;
-    transition: border-color 0.3s ease;
-    box-sizing: border-box;
-    
-    @media (max-width: 480px) {
-      padding: 0.7rem 0.75rem;
-      font-size: 0.9rem;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @include transition();
     
     &:hover {
-      border-color: #000000;
+      border-color: lighten($border-color, 10%);
+    }
+    
+    &:focus {
+      @include focus-ring();
+      border-color: $accent-color;
+    }
+    
+    svg {
+      @include transition();
+      color: $text-medium;
+    }
+    
+    &[aria-expanded="true"] svg {
+      transform: rotate(180deg);
     }
   }
   
   .dropdownMenu {
     position: absolute;
-    width: 100%;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: $input-bg;
+    border: 2px solid $border-color;
+    border-radius: 10px;
+    box-shadow: $shadow-lg;
+    z-index: 10;
     max-height: 200px;
     overflow-y: auto;
-    margin-top: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+    margin-top: 0.25rem;
     
-    @media (max-width: 480px) {
-      max-height: 150px;
+    &::-webkit-scrollbar {
+      width: 6px;
     }
     
-    .dropdownItem {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      
-      @media (max-width: 480px) {
-        padding: 8px;
-      }
-      
-      &:hover {
-        background: #f5f5f5;
-      }
-      
-      input {
-        margin-right: 10px;
-        cursor: pointer;
-        width: auto;
-        padding: 0;
-        flex-shrink: 0;
-        
-        @media (max-width: 480px) {
-          margin-right: 8px;
-        }
-      }
-      
-      span {
-        font-size: 0.95rem;
-        color: #333;
-        
-        @media (max-width: 480px) {
-          font-size: 0.9rem;
-        }
-      }
+    &::-webkit-scrollbar-track {
+      background: $medium-gray;
     }
-  }
-}
-
-.infoSection {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-top: 0.5rem;
-  
-  @media (max-width: 480px) {
-    align-items: flex-start;
-    gap: 6px;
-  }
-  
-  input {
-    width: 16px;
-    height: 16px;
-    accent-color: #000000;
-    margin-top: 2px;
-    flex-shrink: 0;
     
-    @media (max-width: 480px) {
-      width: 14px;
-      height: 14px;
+    &::-webkit-scrollbar-thumb {
+      background: $light-gray;
+      border-radius: 3px;
     }
   }
   
-  label {
-    font-size: 0.9rem;
-    color: #555;
-    flex: 1;
-    line-height: 1.4;
-    
-    @media (max-width: 480px) {
-      font-size: 0.85rem;
-    }
-  }
-  
-  .infoIcon {
+  .dropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
     cursor: pointer;
-    color: #000000;
-    transition: color 0.3s ease;
-    margin-top: 2px;
-    flex-shrink: 0;
-    
-    @media (max-width: 480px) {
-      width: 18px;
-      height: 18px;
-    }
+    @include transition();
     
     &:hover {
-      color: #000000;
+      background: $hover-bg;
+    }
+    
+    &:first-child {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    
+    &:last-child {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+    
+    input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+      accent-color: $accent-color;
+    }
+    
+    span {
+      color: $text-light;
+      font-size: 0.95rem;
     }
   }
 }
 
-.infoBox {
-  padding: 12px;
-  background: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #555;
-  animation: slideDown 0.3s ease-in-out;
-  
-  @media (max-width: 480px) {
-    padding: 10px;
-    font-size: 0.85rem;
+// Responsive adjustments
+@media (max-width: 480px) {
+  .authContainer {
+    padding: 0.5rem;
   }
   
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  p {
-    margin: 0 0 10px 0;
-    line-height: 1.5;
-    
-    @media (max-width: 480px) {
-      margin: 0 0 8px 0;
-    }
-  }
-  
-  .closeInfo {
-    padding: 6px 12px;
-    background: #000000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.3s ease;
-    
-    @media (max-width: 480px) {
-      padding: 5px 10px;
-      font-size: 0.85rem;
-    }
-    
-    &:hover {
-      background: #000000;
-    }
-  }
-}
-
-// Additional mobile improvements
-@media (max-width: 320px) {
   .authCard {
-    padding: 1rem 0.75rem;
+    border-radius: 12px;
   }
   
-  .cardHeader h2 {
-    font-size: 1.1rem;
+  .cardHeader {
+    padding: 1.5rem 1rem 1rem;
+  }
+  
+  .formContainer {
+    padding: 1.5rem 1rem;
   }
   
   .brandText h1 {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+  }
+  
+  .brandText p {
+    font-size: 0.8rem;
+  }
+  
+  .tabButton {
+    padding: 0.875rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .formGroup {
+    margin-bottom: 1.25rem;
+  }
+  
+  .inputGroup {
+    gap: 0;
   }
 }
 
-// Landscape mobile orientation
-@media (max-width: 768px) and (orientation: landscape) {
-  .authContainer {
-    flex-direction: row;
+// Animation for smooth transitions
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  .featureSection {
-    display: flex;
-    max-width: 40%;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .featureList {
-    display: none;
-  }
-  
-  .formSection {
-    flex: 1;
-    min-height: 100vh;
-  }
+}
+
+.form {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.dropdownMenu {
+  animation: fadeIn 0.2s ease-out;
 }
