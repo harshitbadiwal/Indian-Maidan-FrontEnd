@@ -1,64 +1,72 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Eye, EyeOff, ChevronDown, Info } from "lucide-react";
+import { Eye, EyeOff, ChevronDown } from "lucide-react";
 import styles from "./Authpage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { loginRequest } from "../../redux/actions/loginAction";
 import axios from "axios";
 import indianMaidanLogo from "../../assests/INDIANMAIDANLOGO.png";
 
-
-const sportsOptions = [
-  "Football",
-  "Basketball",
-  "Cricket",
-  "Tennis",
-  "Hockey",
-  "Badminton"
-];
-
+const sportsOptions = ["Football",
+    "Basketball",
+    "Cricket",
+    "Tennis",
+    "Hockey",
+    "Badminton",
+    "Volleyball",
+    "Table Tennis",
+    "Kabaddi",
+    "Kho Kho",
+    "Baseball",
+    "Rugby",
+    "Handball",
+    "Golf",
+    "Boxing",
+    "Athletics",
+    "Swimming",
+    "Skating",
+    "Archery",
+    "Shooting",
+    "Chess",    ];
 const API_BASE_URL = "https://indianmadianbackend.onrender.com/api/user/auth";
 
 const parseJwt = (token) => {
+  if (!token) return null;
   try {
     const base64Payload = token.split('.')[1];
-    return JSON.parse(atob(base64Payload));
+    const decoded = atob(base64Payload);
+    return JSON.parse(decoded);
   } catch (e) {
+    console.error("JWT Decode Error:", e);
     return null;
   }
 };
 
 const AuthPage = () => {
+  const dispatch = useDispatch();
+  const { isAuthenticated, loading } = useSelector((state) => state.auth);
+
+  const [formData, setFormData] = useState({
+    email: "", password: "", name: "", phoneNumber: "", city: "", state: "", confirmPassword: ""
+  });
+  const [selectedSports, setSelectedSports] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedSports, setSelectedSports] = useState([]);
-  const [showInfo, setShowInfo] = useState(false);
-  const [activeTab, setActiveTab] = useState("login");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("login");
   const [error, setError] = useState(null);
-  const dropdownRef = useRef(null);
-  const dispatch = useDispatch();
-  const { user, loading, isAuthenticated } = useSelector((state) => state.auth);
+  const [resetEmail, setResetEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [resetEmail, setResetEmail] = useState("");
   const [otpSent, setOtpSent] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    name: "",
-    phoneNumber: "",
-    city: "",
-    state: "",
-    confirmPassword: ""
-  });
 
-  const toggleSportSelection = (sport) => {
-    setSelectedSports((prev) =>
-      prev.includes(sport) ? prev.filter((s) => s !== sport) : [...prev, sport]
-    );
-  };
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      window.location.href = "/";
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -66,22 +74,19 @@ const AuthPage = () => {
         setDropdownOpen(false);
       }
     };
-
     document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  const toggleSportSelection = (sport) => {
+    setSelectedSports((prev) =>
+      prev.includes(sport) ? prev.filter((s) => s !== sport) : [...prev, sport]
+    );
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      window.location.href = "/";
-    }
-  }, [isAuthenticated]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,30 +97,34 @@ const AuthPage = () => {
       if (activeTab === "login") {
         const response = await axios.post(`${API_BASE_URL}/login`, {
           email: formData.email,
-          password: formData.password
+          password: formData.password,
         });
-        
+
         const token = response.data.token;
         const decoded = parseJwt(token);
-        
-        console.log("✅ Decoded JWT:", decoded);
+
         localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify({ 
+        localStorage.setItem("user", JSON.stringify({
+          
           _id: decoded.id,
           email: formData.email,
-          name: decoded.name || ""
+          name: decoded.name || "",
         }));
 
-        dispatch({ 
-          type: "LOGIN_SUCCESS", 
-          payload: { 
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: {
             token,
             user: {
               _id: decoded.id,
-              email: formData.email
-            }
-          }
+              email: formData.email,
+              name: decoded.name || "",
+            },
+          },
         });
+
+        window.location.href = "/";
+
       } else if (activeTab === "signup") {
         if (formData.password !== formData.confirmPassword) {
           throw new Error("Passwords don't match!");
@@ -126,28 +135,35 @@ const AuthPage = () => {
           password: formData.password,
           name: formData.name,
           phoneNumber: formData.phoneNumber,
-          location: {
-            city: formData.city,
-            state: formData.state,
-          },
+          location: { city: formData.city, state: formData.state },
           sportsPreferences: selectedSports,
         };
 
         const response = await axios.post(`${API_BASE_URL}/register`, userData);
-        const token = response.data.token;
+        const token = response.data.data.token;
         const decoded = parseJwt(token);
-        
+
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify({
+          
           _id: decoded.id,
           email: formData.email,
           name: formData.name
         }));
 
-        dispatch(loginRequest({
-          email: formData.email,
-          password: formData.password
-        }));
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: {
+            token,
+            user: {
+              _id: decoded.id,
+              email: formData.email,
+              name: formData.name,
+            },
+          },
+        });
+
+        window.location.href = "/";
       }
     } catch (err) {
       setError(err.response?.data?.message || err.message);
@@ -158,8 +174,8 @@ const AuthPage = () => {
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-    setError(null);
     setIsLoading(true);
+    setError(null);
     try {
       await axios.post(`${API_BASE_URL}/forgot-password`, { email: resetEmail });
       setOtpSent(true);
@@ -173,19 +189,18 @@ const AuthPage = () => {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    setError(null);
     setIsLoading(true);
+    setError(null);
     try {
       await axios.post(`${API_BASE_URL}/reset-password`, {
         email: resetEmail,
         otp,
-        newPassword
+        newPassword,
       });
       setActiveTab("login");
       setResetEmail("");
       setOtp("");
       setNewPassword("");
-      setError(null);
     } catch (err) {
       setError(err.response?.data?.message || err.message);
     } finally {
@@ -198,18 +213,7 @@ const AuthPage = () => {
       <div className={styles.authCard}>
         <div className={styles.cardHeader}>
           <div className={styles.logoWrapper}>
-            <img
-    src={indianMaidanLogo}
-    alt="Indian Maidan Logo"
-    className={styles.companyLogo}
-  />
-  
-            <div className={styles.logoIcon}>
-             {/*  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg> */}
-            </div>
+            <img src={indianMaidanLogo} alt="Indian Maidan Logo" className={styles.companyLogo} />
             <div className={styles.brandText}>
               <h1>INDIAN MAIDAN</h1>
               <p>Premium Sports Turf Booking Platform</p>

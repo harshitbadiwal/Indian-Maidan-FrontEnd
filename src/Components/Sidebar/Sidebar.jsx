@@ -92,14 +92,14 @@ const userInitial = user?.name?.charAt(0).toUpperCase() || "?";
               <BsJournalBookmark className={styles.icon} />
               <span>My Booking</span>
             </li>
-            <li onClick={() => navigations("message")} className={styles.navItem}>
+            {/* <li onClick={() => navigations("message")} className={styles.navItem}>
               <ChatIcon className={styles.icon} />
               <span>Messages</span>
-            </li>
-            <li className={styles.navItem}>
+            </li> */}
+           {/*  <li className={styles.navItem}>
               <FaBell className={styles.icon} />
               <span>Notification</span>
-            </li>
+            </li> */}
             <li onClick={() => navigations("contact")} className={styles.navItem}>
               <MdOutlineContactSupport className={styles.icon} />
               <span>Contact Us</span>
