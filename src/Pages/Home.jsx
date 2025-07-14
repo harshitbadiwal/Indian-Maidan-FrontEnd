@@ -18,6 +18,9 @@ import joinAcedemy from "../assests/joinAcedemy.png"
 import BottomImage from "../assests/curlyhairBoy.jpg"
 import NavigationMenu from '../Components/Notification/Notification';
 import { getTokenData } from '../services/tokenUtiles';
+import { Check, CreditCard, MousePointer, DollarSign, SlidersHorizontal, BadgeDollarSign, 
+  Wallet, Map } from 'lucide-react';
+
 // import slider2 from "../assests/slider2.png"
 
 const Home = () => {
@@ -79,10 +82,10 @@ const Home = () => {
   ];
 
   const aboutStats = [
-    { icon: <Trophy className={styles.statIcon} />, number: "500+", label: "Sports Venues" },
-    { icon: <Users className={styles.statIcon} />, number: "10K+", label: "Happy Players" },
-    { icon: <Target className={styles.statIcon} />, number: "50+", label: "Cities Covered" },
-    { icon: <Star className={styles.statIcon} />, number: "4.9", label: "User Rating" }
+    { icon: <Check className={styles.statIcon} />,label: "Verified Venues Only" },
+    { icon: <SlidersHorizontal className={styles.statIcon} />, label: "Smart Filters" },
+    { icon: <MapPin className={styles.statIcon} />,label: "Location-Based Suggestions" },
+    { icon: <Map  className={styles.statIcon} />, label: "View on Google Maps" }
   ];
 
   return (
@@ -102,23 +105,46 @@ const Home = () => {
         <section className={styles.hero}>
           <div className={styles.heroContainer}>
             <div className={styles.heroContent}>
-              <h1 className={styles.heroTitle}>Unleash Your Game Potential</h1>
+              <h1 className={styles.heroTitle}>Find, Book & Play </h1>
               <p className={styles.heroSubtitle}>
-                Your one-stop destination for sports venues and professional training academies
+                Book your perfect sports facilities in just few clicks - Turn Your Passion into Play 
               </p>
               
               <div className={styles.heroActions}>
                 <button onClick={StartPage} className={styles.primaryButton}>
                   <div className={styles.buttonContent}>
                     <MapPin className={styles.buttonIcon} />
-                    <span className={styles.buttonText}>Book Sports Turf</span>
+                    <span className={styles.buttonText}>Turf Booking – Go </span>
                     <ArrowRight className={styles.arrowIcon} />
                   </div>
                   <div className={styles.buttonGlow}></div>
                 </button>
               </div>
-            </div>
+              {/* Verification Badges */}
+      <div className={styles.verificationBadges}>
+        <div className={styles.badgeItem}>
+          <div className={styles.badgeIcon}>
+            <DollarSign className={styles.checkIcon} />
           </div>
+          <span className={styles.badgeText}>No Platform Charges</span>
+        </div>
+        
+        <div className={styles.badgeItem}>
+          <div className={styles.badgeIcon}>
+            <MousePointer className={styles.checkIcon} />
+          </div>
+          <span className={styles.badgeText}>Book in Three Steps</span>
+        </div>
+        
+        <div className={styles.badgeItem}>
+          <div className={styles.badgeIcon}>
+            <CreditCard className={styles.checkIcon} />
+          </div>
+          <span className={styles.badgeText}>No Full Payment on Booking</span>
+            </div>
+      </div>
+    </div>
+  </div>
         </section>
       </div>
 
@@ -130,7 +156,7 @@ const Home = () => {
               <h2 className={styles.sectionTitle}>About Indian Maidan</h2>
               <div className={styles.sectionTitleUnderline}></div>
               <p className={styles.sectionSubtitle}>
-                Revolutionizing sports booking and training across India
+               Play Bold   |   Achieve Goal   |   Get Gold
               </p>
             </div>
             
@@ -138,14 +164,13 @@ const Home = () => {
               <div className={styles.aboutText}>
                 <div className={styles.textContent}>
                   <p className={styles.aboutDescription}>
-                    Welcome to <span className={styles.brandName}>Indian Maidan</span>, your one-stop solution for all 
-                    things sports! We are dedicated to providing seamless services that cater to every sports enthusiast.
+                    Welcome to <span className={styles.brandName}>Indian Maidan</span>, We make it easy for you to find and book nearby sports turfs in just a few clicks. Whether you're planning a friendly match, regular practice, or a weekend game with friends, Indian Maidan helps you book the perfect ground hassle-free. With verified venues, instant booking, no extra charges and no full payment required while booking. We ensure a smooth and reliable turf booking experience to our enthusiastic sports lover– anytime, anywhere.
                   </p>
                   
-                  <p className={styles.aboutDescription}>
+                  {/* <p className={styles.aboutDescription}>
                     Whether you're looking to book a turf, find the perfect sports academy, connect with a reliable 
                     coach, or secure a sports ground for your game, we've got you covered.
-                  </p>
+                  </p> */}
                 </div>
                 
                 <div className={styles.aboutFeatures}>
@@ -161,21 +186,21 @@ const Home = () => {
                   
                   <div className={styles.featureItem}>
                     <div className={styles.featureIconWrapper}>
-                      <Target className={styles.featureIcon} />
+                      <BadgeDollarSign className={styles.featureIcon} />
                     </div>
                     <div className={styles.featureContent}>
-                      <h4 className={styles.featureTitle}>Perfect Match</h4>
-                      <p className={styles.featureDesc}>Find venues that match your exact requirements</p>
+                      <h4 className={styles.featureTitle}>No platform charges </h4>
+                      <p className={styles.featureDesc}>Book your turf without paying any extra fees or hidden charges on Indian Maidan.</p>
                     </div>
                   </div>
                   
                   <div className={styles.featureItem}>
                     <div className={styles.featureIconWrapper}>
-                      <Star className={styles.featureIcon} />
+                      <Wallet className={styles.featureIcon} />
                     </div>
                     <div className={styles.featureContent}>
-                      <h4 className={styles.featureTitle}>Quality Assured</h4>
-                      <p className={styles.featureDesc}>All venues are verified and quality checked</p>
+                      <h4 className={styles.featureTitle}>No full payment required </h4>
+                      <p className={styles.featureDesc}>Secure your slot by paying a small advance amount and pay the rest later.</p>
                     </div>
                   </div>
                 </div>

@@ -164,7 +164,7 @@ $blue-hover: #2563eb;
 }
 
 .heroTitle {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(1rem, 5vw, 4rem);
   font-weight: 800;
   margin-bottom: 1.5rem;
   color: $text-primary;
@@ -177,7 +177,7 @@ $blue-hover: #2563eb;
 }
 
 .heroSubtitle {
-  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  font-size: clamp(1rem, 1vw, 1.400rem);
   color: $text-secondary;
   margin-bottom: 2.5rem;
   font-weight: 400;
@@ -312,6 +312,165 @@ $blue-hover: #2563eb;
   @include transition(transform);
 }
 
+// Verification Badges Styles
+.verificationBadges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 4rem;
+  flex-wrap: wrap;
+  animation: slideUp 1s ease-out 0.6s both;
+  
+  @media (max-width: 768px) {
+    gap: 1rem;
+    margin-top: 3rem;
+    flex-direction: column;
+  }
+  
+  @media (max-width: 600px) {
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    margin-top: 2rem;
+  }
+}
+
+.badgeItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+  @include transition();
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    
+    @media (min-width: 769px) {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba($orange-accent, 0.15);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.625rem 1rem;
+    min-width: 220px;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (max-width: 600px) {
+    min-width: 200px;
+  }
+  
+  @media (max-width: 480px) {
+    min-width: 180px;
+    padding: 0.5rem 0.875rem;
+  }
+}
+
+.badgeIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  background: linear-gradient(135deg, $orange-accent, #f7931e);
+  border-radius: 50%;
+  @include flex-center;
+  flex-shrink: 0;
+  
+  @media (max-width: 480px) {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.checkIcon {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: white;
+  stroke-width: 3;
+  
+  @media (max-width: 480px) {
+    width: 0.625rem;
+    height: 0.625rem;
+  }
+}
+
+.badgeText {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
+}
+
+// Optional: Add entrance animation keyframes if not already defined
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Optional: Enhanced version with additional effects
+.verificationBadges {
+  &--enhanced {
+    .badgeItem {
+      position: relative;
+      overflow: hidden;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.6s ease;
+      }
+      
+      &:hover::before {
+        left: 100%;
+      }
+    }
+  }
+}
+
+// Alternative stacked layout for mobile
+.verificationBadges {
+  &--stacked {
+    @media (max-width: 768px) {
+      .badgeItem {
+        width: 100%;
+        max-width: 280px;
+        
+        &:not(:last-child) {
+          margin-bottom: 0.75rem;
+        }
+      }
+    }
+  }
+}
 // Section Headers (Consistent across all sections)
 .sectionHeader {
   text-align: center;
@@ -672,13 +831,23 @@ $blue-hover: #2563eb;
 .ctaSection {
   position: relative;
   height: 60vh;
-  min-height: 400px;
+  min-height: 500px;
   overflow: hidden;
   @include flex-center;
   
+  @media (max-width: 1024px) {
+    height: 60vh;
+    min-height: 550px;
+  }
+  
   @media (max-width: 768px) {
-    height: 50vh;
-    min-height: 350px;
+    height: 70vh;
+    min-height: 500px;
+  }
+  
+  @media (max-width: 480px) {
+    height: 65vh;
+    min-height: 450px;
   }
 }
 
@@ -696,6 +865,9 @@ $blue-hover: #2563eb;
   height: 100%;
   object-fit: cover;
   object-position: center;
+  // Increased image height by ensuring it covers the full expanded section
+  transform: scale(1.05); // Slight zoom for better coverage
+  transition: transform 0.3s ease;
 }
 
 .ctaOverlay {
@@ -706,9 +878,9 @@ $blue-hover: #2563eb;
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.6) 50%,
-    rgba(0, 0, 0, 0.8) 100%
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.75) 100%
   );
   z-index: 2;
 }
@@ -717,46 +889,177 @@ $blue-hover: #2563eb;
   position: relative;
   z-index: 3;
   text-align: center;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  
+  @media (max-width: 768px) {
+    max-width: 90%;
+    padding: 1.5rem 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1rem 0.75rem;
+  }
 }
 
 .ctaTitle {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   color: $text-primary;
   letter-spacing: -0.02em;
-  line-height: 1.2;
+  line-height: 1.1;
+  text-align: center;
+  width: 100%;
+  
+  @media (max-width: 768px) {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 0.75rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
 }
 
 .ctaSubtitle {
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  font-weight: 600;
-  margin-bottom: 2rem;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 500;
+  margin-bottom: 2.5rem;
   color: $accent-color;
   letter-spacing: -0.01em;
+  line-height: 1.3;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  
+  @media (max-width: 768px) {
+    font-size: clamp(1.125rem, 4vw, 1.5rem);
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: clamp(1rem, 4.5vw, 1.25rem);
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
 }
 
 .ctaButton {
   @include button-base;
   background: linear-gradient(135deg, #ff6b35, #f7931e);
   color: $text-primary;
-  padding: 1rem 2rem;
-  font-size: 1rem;
+  padding: 1.25rem 2.5rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  min-width: 200px;
+  min-width: 250px;
   border-radius: 2rem;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.2);
   
   &:hover {
     background: linear-gradient(135deg, #e55a2b, #de831a);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.35);
   }
   
   &:active {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(255, 107, 53, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    min-width: 220px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.875rem 1.75rem;
+    font-size: 0.95rem;
+    min-width: 200px;
+    border-radius: 1.5rem;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    min-width: 180px;
+  }
+}
+
+// Additional helper class for perfect centering
+.ctaContent-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0; // Remove gap, use margins instead for better control
+}
+
+// Optional: Add some animation on scroll
+.ctaSection.animate-on-scroll {
+  .ctaTitle {
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  .ctaSubtitle {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+  
+  .ctaButton {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// Improve text readability with better contrast
+.ctaTitle,
+.ctaSubtitle {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+// Ensure proper spacing and alignment on very small screens
+@media (max-width: 320px) {
+  .ctaContent {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .ctaTitle {
+    font-size: 1.5rem;
+  }
+  
+  .ctaSubtitle {
+    font-size: 1rem;
+  }
+  
+  .ctaButton {
+    min-width: 160px;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
   }
 }
 

@@ -1,76 +1,453 @@
+// Variables (matching your homepage theme)
+$primary-black: #000000;
+$secondary-black: #111111;
+$tertiary-black: #1a1a1a;
+$quaternary-black: #222222;
+$dark-surface: #0f0f0f;
+$text-primary: #ffffff;
+$text-secondary: #cccccc;
+$text-muted: #888888;
+$accent-color: #3b82f6;
+$accent-hover: #2563eb;
+$border-color: #333333;
+$border-light: #404040;
+$overlay-color: rgba(0, 0, 0, 0.7);
+$gradient-primary: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+$gradient-secondary: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+$gradient-tertiary: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
+$orange-accent: #ff6b35;
+$orange-hover: #e55a2b;
+$blue-accent: #3b82f6;
+$blue-hover: #2563eb;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $easing: ease) {
+  transition: $property $duration $easing;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// Footer Styles
 .footer {
-  background: linear-gradient(to bottom right, #1b1b1c, #121212);
-    color: #fff;
-    padding: 20px 100px;
-    // display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top: 2px solid #fff;
-    // margin-top: 2vw;
+  background: $gradient-secondary;
+  color: $text-primary;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+  
+  // Background pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+    pointer-events: none;
   }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
   
-  .container {
-    // display: flex;
-    align-items: center;
-    // max-width: 1000px;
-    width: 100%;
-    justify-content: space-between;
+  @media (max-width: 768px) {
+    padding: 0 1rem;
   }
+}
+
+.footerContent {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 3rem;
+  padding: 4rem 0 2rem;
   
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logoShape {
-    width: 40px;
-    height: 40px;
-    background: #fff;
-    clip-path: polygon(0% 0%, 50% 50%, 0% 100%, 100% 100%, 50% 50%, 100% 0%);
-  }
-  
-  .content {
-    text-align: left;
-  }
-  
-  .title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .contact {
-    margin-bottom: 15px;
-  }
-  
-  .label {
-    font-size: 1rem;
-    font-weight: bold;
-  }
-  
-  .info {
-    font-size: 1rem;
-    color: #ccc;
-  }
-  
-  .social {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .icons {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-  }
-  
-  .icon {
-    font-size: 24px;
-    color: #fff;
-    transition: 0.3s;
-  
-    &:hover {
-      color: #ff6600;
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    
+    .profileSection {
+      grid-column: 1 / -1;
     }
   }
   
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0 1.5rem;
+    text-align: left;
+  }
+}
+
+// Brand Section
+.brandSection {
+  @media (max-width: 768px) {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+ .logoImage {
+  height: 160px;
+  width: auto;
+
+  @media (max-width: 768px) {
+    height: 30px;
+  }
+}
+  
+  .logoIcon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg, $orange-accent, #f7931e);
+    @include flex-center;
+    flex-shrink: 0;
+    position: relative;
+    
+    @media (max-width: 768px) {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+      border-radius: 0.5rem;
+    }
+  }
+  
+  .logoShape {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: $text-primary;
+    clip-path: polygon(0% 0%, 50% 50%, 0% 100%, 100% 100%, 50% 50%, 100% 0%);
+    
+    @media (max-width: 768px) {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+  
+  .brandName {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0;
+    letter-spacing: -0.02em;
+    
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
+  }
+  
+  .socialLinks {
+    display: flex;
+    gap: 1rem;
+    
+    @media (max-width: 768px) {
+      justify-content: center;
+    }
+  }
+  
+  .socialLink {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    @include glass-effect;
+    @include flex-center;
+    color: $text-secondary;
+    @include transition();
+    text-decoration: none;
+    
+    @media (max-width: 768px) {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+    
+    &:hover {
+      background: linear-gradient(135deg, $orange-accent, #f7931e);
+      color: $text-primary;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 107, 53, 0.25);
+    }
+    
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+}
+
+// Links Section
+.linksSection {
+  @media (max-width: 768px) {
+    text-align: left;
+  }
+  
+  .sectionTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 1.5rem;
+    position: relative;
+    
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 2rem;
+      height: 2px;
+      background: linear-gradient(135deg, $orange-accent, #f7931e);
+      border-radius: 1px;
+      
+      @media (max-width: 768px) {
+        width: 1.5rem;
+        height: 1.5px;
+      }
+    }
+  }
+  
+  .linksList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      margin-bottom: 0.75rem;
+      
+      @media (max-width: 768px) {
+        margin-bottom: 0.5rem;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  .footerLink {
+    color: $text-secondary;
+    text-decoration: none;
+    font-size: 0.875rem;
+    @include transition();
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    
+    @media (max-width: 768px) {
+      font-size: 0.875rem;
+    }
+    
+    &:hover {
+      color: $orange-accent;
+      padding-left: 0.5rem;
+      
+      @media (max-width: 768px) {
+        padding-left: 0;
+      }
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 1px;
+      background: $orange-accent;
+      @include transition(width);
+      
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+    
+    &:hover::before {
+      width: 0.25rem;
+      
+      @media (max-width: 768px) {
+        width: 0;
+      }
+    }
+  }
+}
+
+// Profile Section (Contact Info)
+.profileSection {
+  @media (max-width: 768px) {
+    text-align: left;
+  }
+  
+  .sectionTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 1.5rem;
+    position: relative;
+    
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 2rem;
+      height: 2px;
+      background: linear-gradient(135deg, $orange-accent, #f7931e);
+      border-radius: 1px;
+      
+      @media (max-width: 768px) {
+        width: 1.5rem;
+        height: 1.5px;
+      }
+    }
+  }
+  
+  .contactInfo {
+    p {
+      display: flex;
+      align-items: center;
+      color: $text-secondary;
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+      @include transition();
+      
+      @media (max-width: 768px) {
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      &:hover {
+        color: $orange-accent;
+      }
+      
+      svg {
+        margin-right: 0.5rem;
+        flex-shrink: 0;
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+  }
+}
+
+// Footer Bottom
+.footerBottom {
+  border-top: 1px solid $border-color;
+  padding: 1.5rem 0;
+  margin-top: 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 1rem 0;
+    margin-top: 1.5rem;
+  }
+  
+  .bottomContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+  }
+  
+  .copyright {
+    color: $text-muted;
+    font-size: 0.875rem;
+    
+    @media (max-width: 768px) {
+      font-size: 0.8rem;
+    }
+    
+    p {
+      margin: 0;
+    }
+  }
+  
+  .bottomLinks {
+    display: flex;
+    gap: 2rem;
+    
+    @media (max-width: 768px) {
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    @media (max-width: 480px) {
+      gap: 1rem;
+    }
+  }
+  
+  .bottomLink {
+    color: $text-muted;
+    text-decoration: none;
+    font-size: 0.875rem;
+    @include transition();
+    
+    @media (max-width: 768px) {
+      font-size: 0.8rem;
+    }
+    
+    &:hover {
+      color: $orange-accent;
+    }
+  }
+}
+
+// Focus styles for accessibility
+*:focus {
+  outline: 2px solid $orange-accent;
+  outline-offset: 2px;
+}
+
+// Selection styles
+::selection {
+  background: $orange-accent;
+  color: $text-primary;
+}
+
+::-moz-selection {
+  background: $orange-accent;
+  color: $text-primary;
+}
