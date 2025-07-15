@@ -227,9 +227,7 @@ const Home = () => {
               <div className={styles.missionContent}>
                 <h3 className={styles.missionTitle}>Our Mission</h3>
                 <p className={styles.missionText}>
-                  Our platform is designed to help you find the right sports buddy, book facilities, and even plan 
-                  tournaments or matches whenever needed. We aim to offer top-notch services to make your sports 
-                  experience effortless and enjoyable.
+                  At Indian Maidan, our mission is to make sports a part of everyday life. We create a smart, digital, and user-friendly platform that helps people discover, book, and enjoy nearby turfs, courts, and sports facilities easily. We want to encourage individuals to step out, stay fit, and have fun with the game. Our goal is to build a vibrant sports community where anyone, from casual players to serious athletes, can connect, compete, and grow together. Whether you’re looking for a quick evening match, professional training, or just a fun game with new people, Indian Maidan brings the game to your fingertips. We work hard every day to improve and innovate by adding new features, experiences, and connections to offer our users something fresh and exciting. As we grow, we’re dedicated to making sports more accessible, affordable, and inclusive.
                 </p>
               </div>
             </div>
@@ -292,11 +290,9 @@ const Home = () => {
         
         <div className={styles.ctaContent}>
           <div className={styles.ctaTextContent}>
-            <h2 className={styles.ctaTitle}>Unleash Your Inner Power</h2>
-            <h3 className={styles.ctaSubtitle}>Conquer Every Challenge</h3>
-            <p className={styles.ctaDescription}>
-              Join thousands of athletes who trust Indian Maidan for their sports journey
-            </p>
+            <h2 className={styles.ctaTitle}>Show your passion, unleash your potential</h2>
+            
+           
             <div className={styles.ctaActions}>
               <button className={styles.ctaButton} onClick={StartPage}>
                 <Play className={styles.buttonIcon} />

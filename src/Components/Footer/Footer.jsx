@@ -17,14 +17,14 @@ const Footer = () => {
         <div className={styles.footerContent}>
           {/* Brand Section */}
           <div className={styles.brandSection}>
-            <div className={styles.logo}>
-  <img 
-    src={indianMaidanLogo} 
-    alt="Indian Maidan Logo" 
-    className={styles.logoImage}
-  />
-  <h3 className={styles.brandName}>Indian Maidan</h3>
-</div>
+            <div className={styles.logoContainer}>
+              <img 
+                src={indianMaidanLogo} 
+                alt="Indian Maidan Logo" 
+                className={styles.logoImage}
+              />
+              <h3 className={styles.brandName}>Indian Maidan</h3>
+            </div>
             <div className={styles.socialLinks}>
               <a 
                 href="https://www.instagram.com/indian_maidan/" 
@@ -56,20 +56,21 @@ const Footer = () => {
               <li><Link to="/aboutUs" className={styles.footerLink}>About</Link></li>
               <li><Link to="/start" className={styles.footerLink}>Services</Link></li>
               <li><Link to="/myBooking" className={styles.footerLink}>My Booking</Link></li>
-              <li><Link to="/profile" className={styles.footerLink}>Profile</Link></li> {/* ✅ Added */}
+              <li><Link to="/profile" className={styles.footerLink}>Profile</Link></li>
               <li><Link to="/contact" className={styles.footerLink}>Contact Us</Link></li>
             </ul>
           </div>
 
-          {/* Contact Information (Replaced Account section) */}
-          <div className={styles.profileSection}>
+          {/* Contact Information */}
+          <div className={styles.contactSection}>
             <h4 className={styles.sectionTitle}>Contact Info</h4>
             <div className={styles.contactInfo}>
-              <p><FaPhone style={{ marginRight: "8px" }} />+91 6367791580</p>
-              <p><FaEnvelope style={{ marginRight: "8px" }} />info@indianmaidan.com</p>
+              <p><FaPhone />+91 6367791580</p>
+              <p><FaEnvelope />info@indianmaidan.com</p>
             </div>
           </div>
         </div>
+
       </div>
     </footer>
   );
